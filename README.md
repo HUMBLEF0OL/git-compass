@@ -1,9 +1,5 @@
-Here’s an updated roadmap for **InsightForge** with the integration of a Node.js core logic and a VS Code extension for visualization:
-
----
-
 ### **Project Name:**  
-**InsightForge** (alternative suggestions: GitMetrics, CodePulse, CommitAnalyzer)
+**GitCompas**
 
 ---
 
