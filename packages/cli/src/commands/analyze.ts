@@ -13,7 +13,7 @@ import {
   analyzeKnowledge, 
   analyzeImpact, 
   analyzeRot, 
-  createAIClient, 
+  getAIProvider, 
   generateSummary, 
   type AnalysisResult 
 } from "@grotto/core";
@@ -82,39 +82,31 @@ export const analyzeCommand = new Command("analyze")
       const cachedResult = latestCommit ? getCachedResult(cache, repoRoot, latestCommit) : null;
 
       if (cachedResult) {
-        spinner.succeed(chalk.green(`Loaded from cache for ${latestCommit.slice(0, 7)}.`));
-        if (options.output) {
-          // Proceed to save output if requested
-          await handleReportExport(cachedResult, repoPath, repoRoot, options, spinner);
-        } else {
-          printConsoleReport(cachedResult, options.detailLevel);
+        if (!options.ai || (options.ai && cachedResult.aiSummary)) {
+          spinner.succeed(chalk.green(`Loaded from cache for ${latestCommit.slice(0, 7)}.`));
+          if (options.output) {
+            await handleReportExport(cachedResult, repoPath, repoRoot, options, spinner);
+          } else {
+            printConsoleReport(cachedResult, options.detailLevel, !!options.ai);
+          }
+          return;
         }
-        return;
+        spinner.info(chalk.blue(`Found cached analysis for ${latestCommit.slice(0, 7)}, but AI summary is missing. Generating now...`));
       }
 
-      const commits = await getCommits(git, { 
-        branch: options.branch, 
-        maxCount: parseInt(options.maxCommits, 10) 
-      });
+      const commits = cachedResult 
+        ? [] // We won't re-fetch commits if we have a cached result and just need AI
+        : await getCommits(git, { 
+            branch: options.branch, 
+            maxCount: parseInt(options.maxCommits, 10) 
+          });
 
-      if (commits.length === 0) {
+      if (!cachedResult && commits.length === 0) {
         spinner.fail(chalk.red("No commits found in the specified window/branch."));
         return;
       }
 
-      spinner.text = `Analyzing ${commits.length} commits...`;
-
-      const hotspots = analyzeHotspots(commits, options.window as any);
-      const riskScores = computeRiskScores(hotspots);
-      const churn = analyzeChurn(commits, options.window as any);
-      const contributors = analyzeContributors(commits);
-      const burnout = analyzeBurnout(commits);
-      const coupling = analyzeCoupling(commits);
-      const knowledge = analyzeKnowledge(commits);
-      const impact = analyzeImpact(commits);
-      const rot = analyzeRot(commits);
-
-      const result: AnalysisResult = {
+      const result: AnalysisResult = cachedResult || {
         meta: {
           repoPath,
           branch: options.branch,
@@ -122,27 +114,50 @@ export const analyzeCommand = new Command("analyze")
           commitCount: commits.length,
           generatedAt: new Date(),
         },
-        hotspots,
-        riskScores,
-        churn,
-        contributors,
-        burnout,
-        coupling,
-        knowledge,
-        impact,
-        rot
+        hotspots: analyzeHotspots(commits, options.window as any),
+        riskScores: computeRiskScores(analyzeHotspots(commits, options.window as any)), // Simplified for rebuild
+        churn: analyzeChurn(commits, options.window as any),
+        contributors: analyzeContributors(commits),
+        burnout: analyzeBurnout(commits),
+        coupling: analyzeCoupling(commits),
+        knowledge: analyzeKnowledge(commits),
+        impact: analyzeImpact(commits),
+        rot: analyzeRot(commits)
       };
+
+      // Re-calculate hotspots/risk if we don't have cached result (above logic is a bit messy, let's fix)
+      if (!cachedResult) {
+        spinner.text = `Analyzing ${commits.length} commits...`;
+        const h = analyzeHotspots(commits, options.window as any);
+        result.hotspots = h;
+        result.riskScores = computeRiskScores(h);
+        result.churn = analyzeChurn(commits, options.window as any);
+        result.contributors = analyzeContributors(commits);
+        result.burnout = analyzeBurnout(commits);
+        result.coupling = analyzeCoupling(commits);
+        result.knowledge = analyzeKnowledge(commits);
+        result.impact = analyzeImpact(commits);
+        result.rot = analyzeRot(commits);
+      }
 
       if (options.ai) {
         spinner.text = "Generating AI insights...";
-        const apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY] || (config.get(CONFIG_KEYS.AI_KEY) as string);
         
+        // Resolve provider and key
+        let providerType = (config.get(CONFIG_KEYS.AI_PROVIDER) as string) || "anthropic";
+        let apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY];
+        
+        if (providerType === "openai") apiKey = process.env[ENV_VARS.OPENAI_API_KEY] || (config.get("ai.openaiKey") as string);
+        else if (providerType === "gemini") apiKey = process.env[ENV_VARS.GEMINI_API_KEY] || (config.get("ai.geminiKey") as string);
+        else apiKey = apiKey || (config.get("ai.anthropicKey") as string) || (config.get(CONFIG_KEYS.AI_KEY) as string);
+
         if (!apiKey) {
-          spinner.warn(chalk.yellow("AI summary requested but no API key found. Skipping AI layer."));
+          spinner.warn(chalk.yellow(`AI summary requested but no API key found for ${providerType}. Skipping AI layer.`));
+          spinner.info(chalk.blue(`Run 'grotto config set-ai' to configure your preferred provider.`));
         } else {
           try {
-            const aiClient = createAIClient(apiKey);
-            result.aiSummary = await generateSummary(aiClient, result);
+            const aiProvider = getAIProvider(providerType as any, apiKey);
+            result.aiSummary = await generateSummary(aiProvider, result);
           } catch (aiErr) {
             spinner.warn(chalk.yellow("AI summary failed: " + (aiErr as Error).message));
           }
@@ -160,7 +175,7 @@ export const analyzeCommand = new Command("analyze")
       if (options.output) {
         await handleReportExport(result, repoPath, repoRoot, options, spinner);
       } else {
-        printConsoleReport(result, options.detailLevel);
+        printConsoleReport(result, options.detailLevel, !!options.ai);
       }
 
     } catch (err) {

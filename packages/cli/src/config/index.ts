@@ -5,7 +5,11 @@ const schema = {
   ai: {
     type: "object",
     properties: {
-      key: { type: "string" }
+      key: { type: "string" },
+      provider: { type: "string", enum: ["anthropic", "openai", "gemini"] },
+      anthropicKey: { type: "string" },
+      openaiKey: { type: "string" },
+      geminiKey: { type: "string" }
     }
   }
 } as const;

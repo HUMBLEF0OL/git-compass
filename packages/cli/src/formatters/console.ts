@@ -3,7 +3,7 @@ import boxen from "boxen";
 import { table, getBorderCharacters } from "table";
 import type { AnalysisResult } from "@grotto/core";
 
-export function printConsoleReport(result: AnalysisResult, detailLevel: string = "normal") {
+export function printConsoleReport(result: AnalysisResult, detailLevel: string = "normal", showAI: boolean = false) {
   try {
     const { meta, hotspots, riskScores, contributors, burnout, coupling, knowledge, impact, rot } = result;
     const isVerbose = detailLevel === "verbose";
@@ -31,23 +31,24 @@ export function printConsoleReport(result: AnalysisResult, detailLevel: string =
     );
 
     if (isSummary) {
-      printHealthIndicators(impact, rot);
+      printHealthIndicators(impact, rot, !!result.aiSummary);
       return;
     }
 
     // 2. AI Insights (Intuitive Format)
-    if (result.aiSummary) {
+    if (showAI && result.aiSummary) {
       console.log(
         boxen(
-          `${chalk.white(result.aiSummary.digest)}\n\n` +
-          `${chalk.gray.italic("Model: " + result.aiSummary.model)}`,
+          chalk.white(result.aiSummary.digest) + "\n\n" +
+          chalk.gray.italic(`Provider: ${result.aiSummary.provider} | Model: ${result.aiSummary.model}`),
           { 
             padding: 1, 
             margin: { bottom: 1 }, 
             borderStyle: "double", 
             borderColor: "magenta", 
-            title: "AI INSIGHTS", 
-            titleAlignment: "center" 
+            title: "AI ARCHITECTURAL INSIGHTS", 
+            titleAlignment: "center",
+            width: 80 // Limit width for better readability of structured text
           }
         )
       );
@@ -138,22 +139,30 @@ export function printConsoleReport(result: AnalysisResult, detailLevel: string =
     }
 
     // 7. Health Indicators & Footer Tip
-    printHealthIndicators(impact, rot);
+    printHealthIndicators(impact, rot, showAI);
   } catch (err) {
     console.error(chalk.red("\nError printing report:"), err);
   }
 }
 
-function printHealthIndicators(impact: any[], rot: any[]) {
+function printHealthIndicators(impact: any[], rot: any[], showAI: boolean) {
   const avgImpact = impact.length > 0 ? (impact.reduce((acc: number, i: any) => acc + i.blastRadius, 0) / impact.length).toFixed(2) : 0;
   
+  const footerContent = [
+    `${chalk.bold("Overall Health Indicators")}`,
+    `${chalk.gray("────────────────────────")}`,
+    `${chalk.white("Average Blast Radius:  ")} ${chalk.yellow(avgImpact + " files")}`,
+    `${chalk.white("Abandoned Files (Rot): ")} ${chalk.red(rot.length)}`
+  ];
+
+  if (!showAI) {
+    footerContent.push("");
+    footerContent.push(`${chalk.gray.italic("Tip: Run 'grotto config set-ai' to unlock AI-powered insights (use --ai flag).")}`);
+  }
+
   console.log(
     boxen(
-      `${chalk.bold("Overall Health Indicators")}\n` +
-      `${chalk.gray("────────────────────────")}\n` +
-      `${chalk.white("Average Blast Radius:  ")} ${chalk.yellow(avgImpact + " files")}\n` +
-      `${chalk.white("Abandoned Files (Rot): ")} ${chalk.red(rot.length)}\n\n` +
-      `${chalk.gray.italic("Tip: Set ANTHROPIC_API_KEY to unlock deeper AI-powered code audits.")}`,
+      footerContent.join("\n"),
       { 
         padding: 1, 
         margin: { top: 1, bottom: 1 }, 
