@@ -7,6 +7,24 @@
     "grotto": "./dist/bin/grotto.js"
   },
   "main": "./dist/index.js",
+  "license": "MIT",
+  "author": "HUMBLEF0OL",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HUMBLEF0OL/grotto.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/HUMBLEF0OL/grotto/issues"
+  },
+  "homepage": "https://github.com/HUMBLEF0OL/grotto/tree/main/packages/cli#readme",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
