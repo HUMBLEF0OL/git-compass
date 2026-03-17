@@ -11,8 +11,8 @@ Welcome to the Git Compass developer community! This guide will help you set up 
 ## Step 1: Clone and Install
 
 ```bash
-git clone https://github.com/git-compass/Git Compass.git
-cd Git Compass
+git clone https://github.com/HUMBLEF0OL/git-compass.git
+cd git-compass
 pnpm install
 ```
 
