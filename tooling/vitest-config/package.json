@@ -1,0 +1,9 @@
+{
+  "name": "@grotto/vitest-config",
+  "version": "0.1.0",
+  "main": "vitest.config.ts",
+  "private": true,
+  "dependencies": {
+    "vitest": "^1.6.0"
+  }
+}
