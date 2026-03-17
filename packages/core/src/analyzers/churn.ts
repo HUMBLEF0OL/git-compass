@@ -1,21 +1,14 @@
 import type { RawCommit, AnalysisWindow, ChurnDataPoint } from "../types.js";
+import { getWindowCutoff } from "../utils/index.js";
 
 /**
- * Calculates the cutoff date based on the analysis window.
+ * Analyzes code churn (additions/deletions) over time.
  */
-function getWindowCutoffForChurn(window: AnalysisWindow): Date {
-  if (window === "all") return new Date(0);
-  const now = new Date();
-  const days = { "7d": 7, "30d": 30, "90d": 90, "1y": 365 }[window];
-  now.setDate(now.getDate() - days);
-  return now;
-}
-
-/**
- * Analyzes code churn (lines added and removed) over time.
- */
-export function analyzeChurn(commits: RawCommit[], window: AnalysisWindow = "30d"): ChurnDataPoint[] {
-  const cutoff = getWindowCutoffForChurn(window);
+export function analyzeChurn(
+  commits: RawCommit[],
+  window: AnalysisWindow = "30d"
+): ChurnDataPoint[] {
+  const cutoff = getWindowCutoff(window);
   const filtered = commits.filter((c) => c.date >= cutoff);
   const churnMap = new Map<string, { added: number; removed: number; commits: number }>();
 

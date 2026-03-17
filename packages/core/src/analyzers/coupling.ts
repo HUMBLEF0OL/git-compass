@@ -1,4 +1,6 @@
 import type { RawCommit, CouplingLink } from "../types.js";
+import { extractFilesFromDiff } from "../utils/index.js";
+
 
 /**
  * Identifies "Temporal Coupling": files that consistently change together.
@@ -53,8 +55,3 @@ export function analyzeCoupling(commits: RawCommit[]): CouplingLink[] {
   return results.sort((a, b) => b.coupling - a.coupling);
 }
 
-function extractFilesFromDiff(diff: any): string[] {
-  if (!diff || typeof diff !== "object") return [];
-  const diffObj = diff as { files?: Array<{ file: string }> };
-  return diffObj.files?.map((f) => f.file) ?? [];
-}

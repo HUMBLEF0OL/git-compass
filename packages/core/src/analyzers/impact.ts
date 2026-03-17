@@ -1,4 +1,5 @@
 import type { RawCommit, FileImpact } from "../types.js";
+import { extractFilesFromDiff } from "../utils/index.js";
 
 /**
  * Calculates "Blast Radius": the average number of files affected when a specific file is changed.
@@ -30,8 +31,3 @@ export function analyzeImpact(commits: RawCommit[]): FileImpact[] {
     .sort((a, b) => b.blastRadius - a.blastRadius);
 }
 
-function extractFilesFromDiff(diff: any): string[] {
-  if (!diff || typeof diff !== "object") return [];
-  const diffObj = diff as { files?: Array<{ file: string }> };
-  return diffObj.files?.map((f) => f.file) ?? [];
-}

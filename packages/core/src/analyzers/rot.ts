@@ -1,4 +1,5 @@
-import type { RawCommit, CompassEntry } from "../types.js";
+import type { RawCommit } from "../types.js";
+import { extractFilesFromDiff } from "../utils/index.js";
 
 /**
  * Identifies "Abandoned Code" or "Rot": files that haven't been touched in a long time.
@@ -27,8 +28,3 @@ export function analyzeRot(commits: RawCommit[]): string[] {
     .map(([path]) => path);
 }
 
-function extractFilesFromDiff(diff: any): string[] {
-  if (!diff || typeof diff !== "object") return [];
-  const diffObj = diff as { files?: Array<{ file: string }> };
-  return diffObj.files?.map((f) => f.file) ?? [];
-}

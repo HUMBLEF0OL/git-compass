@@ -1,25 +1,7 @@
 import type { RawCommit, HotspotFile, AnalysisWindow } from "../types.js";
 
-/**
- * Calculates the cutoff date based on the analysis window.
- */
-function getWindowCutoff(window: AnalysisWindow): Date {
-  if (window === "all") return new Date(0);
-  const now = new Date();
-  const days = { "7d": 7, "30d": 30, "90d": 90, "1y": 365 }[window];
-  now.setDate(now.getDate() - days);
-  return now;
-}
-
-
-/**
- * Extracts changed file paths from a commit's diff metadata.
- */
-function extractFilesFromDiff(diff: any): string[] {
-  if (!diff || typeof diff !== "object") return [];
-  const diffObj = diff as { files?: Array<{ file: string }> };
-  return diffObj.files?.map((f) => f.file) ?? [];
-}
+import { getWindowCutoff } from "../utils/index.js";
+import { extractFilesFromDiff } from "../utils/index.js";
 
 /**
  * Identifies hotspots in a repository based on change frequency and author diversity.
@@ -63,3 +45,4 @@ export function analyzeHotspots(
     }))
     .sort((a, b) => b.changeCount - a.changeCount);
 }
+
