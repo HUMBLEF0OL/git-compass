@@ -16,7 +16,7 @@ import {
   getAIProvider, 
   generateSummary, 
   type AnalysisResult 
-} from "@grotto/core";
+} from "@git-compass/core";
 
 import { printConsoleReport } from "../formatters/console.js";
 import { exportJson } from "../formatters/report-gen.js";
@@ -57,7 +57,7 @@ export const analyzeCommand = new Command("analyze")
     try {
       const git = createGitParser(repoPath);
       
-      // Find repo root to place .grotto folder
+      // Find repo root to place .git-compass folder
       let repoRoot = repoPath;
       try {
         const topLevel = await git.revparse(["--show-toplevel"]);
@@ -153,7 +153,7 @@ export const analyzeCommand = new Command("analyze")
 
         if (!apiKey) {
           spinner.warn(chalk.yellow(`AI summary requested but no API key found for ${providerType}. Skipping AI layer.`));
-          spinner.info(chalk.blue(`Run 'grotto config set-ai' to configure your preferred provider.`));
+          spinner.info(chalk.blue(`Run 'git-compass config set-ai' to configure your preferred provider.`));
         } else {
           try {
             const aiProvider = getAIProvider(providerType as any, apiKey);
@@ -188,7 +188,7 @@ function generateReportFilename(repoPath: string, branch: string, format: string
   const repoName = path.basename(repoPath);
   const timestamp = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
   const cleanBranch = branch.replace(/[/\\?%*:|"<>]/g, "-");
-  return `grotto-report-${repoName}-${cleanBranch}-${timestamp}.${format}`;
+  return `git-compass-report-${repoName}-${cleanBranch}-${timestamp}.${format}`;
 }
 
 async function handleReportExport(
@@ -198,18 +198,18 @@ async function handleReportExport(
   options: any, 
   spinner: any
 ) {
-  const grottoDirPath = path.join(repoRoot, ".grotto");
+  const gitCompassDirPath = path.join(repoRoot, ".git-compass");
   let finalPath = path.resolve(options.output);
 
   // Normalize shorthand or relative paths
   if (options.output === "json") {
-    finalPath = grottoDirPath;
+    finalPath = gitCompassDirPath;
   } else if (!path.isAbsolute(options.output)) {
-    finalPath = path.resolve(grottoDirPath, options.output);
+    finalPath = path.resolve(gitCompassDirPath, options.output);
   }
   
-  // Ensure .grotto directory exists
-  await fs.mkdir(grottoDirPath, { recursive: true });
+  // Ensure .git-compass directory exists
+  await fs.mkdir(gitCompassDirPath, { recursive: true });
 
   // Handle directory vs file logic
   try {
@@ -232,3 +232,10 @@ async function handleReportExport(
     spinner.fail(chalk.red("Export failed: " + (err as Error).message));
   }
 }
+
+
+
+
+
+
+

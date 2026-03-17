@@ -1,6 +1,6 @@
-# Getting Started with Grotto Development
+# Getting Started with Git Compass Development
 
-Welcome to the Grotto developer community! This guide will help you set up your local environment and start contributing.
+Welcome to the Git Compass developer community! This guide will help you set up your local environment and start contributing.
 
 ## Prerequisites
 
@@ -11,8 +11,8 @@ Welcome to the Grotto developer community! This guide will help you set up your 
 ## Step 1: Clone and Install
 
 ```bash
-git clone https://github.com/HUMBLEF0OL/grotto.git
-cd grotto
+git clone https://github.com/git-compass/Git Compass.git
+cd Git Compass
 pnpm install
 ```
 
@@ -30,7 +30,7 @@ To test the CLI against a local repository:
 
 ```bash
 cd packages/cli
-npx tsx src/bin/grotto.ts analyze -p /path/to/some/repo
+npx tsx src/bin/git-compass.ts analyze -p /path/to/some/repo
 ```
 
 ## Step 4: Development Workflow
@@ -66,3 +66,5 @@ If `npx tsx` fails, ensure you are in the `packages/cli` directory or that the d
 
 ---
 Need help? Open an issue or reach out to the maintainers!
+
+

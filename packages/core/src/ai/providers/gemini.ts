@@ -31,7 +31,7 @@ export function createGeminiProvider(apiKey: string): AIProvider {
 
     query: async (question: string, analysis: AnalysisResult): Promise<string> => {
       const context = JSON.stringify(analysis, null, 2);
-      const prompt = `You are Grotto, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}\n\nQuestion: ${question}`;
+      const prompt = `You are Git Compass, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}\n\nQuestion: ${question}`;
       
       const result = await model.generateContent(prompt);
       const response = await result.response;
@@ -39,3 +39,17 @@ export function createGeminiProvider(apiKey: string): AIProvider {
     }
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

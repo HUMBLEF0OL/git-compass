@@ -24,7 +24,7 @@ export function buildSummaryPrompt(analysis: AnalysisResult): string {
     .map(c => `- ${c.head} <-> ${c.tail} (${(c.coupling * 100).toFixed(0)}% related)`)
     .join("\n");
 
-  return `You are Grotto, a highly technical Git architecture consultant. Analyze the following repository data and provide a structured, opinionated, and professional assessment.
+  return `You are Git Compass, a highly technical Git architecture consultant. Analyze the following repository data and provide a structured, opinionated, and professional assessment.
 
 STRICT FORMATTING RULES:
 1. NO MARKDOWN: Do not use asterisks (**), hashes (###), or underscores (_).
@@ -89,3 +89,17 @@ export async function queryAnalysis(
 // Deprecated or compatibility exports if needed, but since we are refactoring, we can keep it clean.
 // Legacy createAIClient could be aliased if necessary for backward compatibility during transition.
 export const createAIClient = (apiKey: string) => createAnthropicProvider(apiKey);
+
+
+
+
+
+
+
+
+
+
+
+
+
+

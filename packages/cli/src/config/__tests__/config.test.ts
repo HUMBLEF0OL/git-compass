@@ -37,30 +37,37 @@ describe("EnvConfig", () => {
     
     expect(fs.writeFileSync).toHaveBeenCalledWith(
       expect.stringContaining(".env"),
-      expect.stringContaining("GROTTO_AI_PROVIDER=openai"),
+      expect.stringContaining("GIT_COMPASS_AI_PROVIDER=openai"),
       "utf-8"
     );
   });
 
   it("should update existing value in .env file", () => {
     vi.mocked(fs.existsSync).mockReturnValue(true);
-    vi.mocked(fs.readFileSync).mockReturnValue("GROTTO_AI_PROVIDER=anthropic\nOTHER_KEY=val");
+    vi.mocked(fs.readFileSync).mockReturnValue("GIT_COMPASS_AI_PROVIDER=anthropic\nOTHER_KEY=val");
     
     config.set("ai.provider", "gemini");
     
     expect(fs.writeFileSync).toHaveBeenCalledWith(
       expect.stringContaining(".env"),
-      expect.stringContaining("GROTTO_AI_PROVIDER=gemini\nOTHER_KEY=val"),
+      expect.stringContaining("GIT_COMPASS_AI_PROVIDER=gemini\nOTHER_KEY=val"),
       "utf-8"
     );
   });
 
   it("should retrieve masked store accurately", () => {
     vi.mocked(fs.existsSync).mockReturnValue(true);
-    vi.mocked(fs.readFileSync).mockReturnValue("GROTTO_AI_PROVIDER=openai\nOPENAI_API_KEY=sk-12345");
+    vi.mocked(fs.readFileSync).mockReturnValue("GIT_COMPASS_AI_PROVIDER=openai\nOPENAI_API_KEY=sk-12345");
     
     const store = config.store;
     expect(store.ai.provider).toBe("openai");
     expect(store.ai.openaiKey).toBe("sk-12345");
   });
 });
+
+
+
+
+
+
+

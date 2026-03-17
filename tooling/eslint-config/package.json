@@ -1,6 +1,6 @@
 {
-  "name": "@grotto/eslint-config",
-  "version": "1.0.1",
+  "name": "@git-compass/eslint-config",
+  "version": "0.1.0",
   "main": "index.js",
   "private": true,
   "dependencies": {

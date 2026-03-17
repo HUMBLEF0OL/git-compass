@@ -64,3 +64,17 @@ export function analyzeBurnout(commits: RawCommit[]): BurnoutAnalysis {
     contributors,
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

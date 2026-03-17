@@ -3,8 +3,8 @@ import path from "path";
 import dotenv from "dotenv";
 
 const CONFIG_MAP: Record<string, string> = {
-  "ai.provider": "GROTTO_AI_PROVIDER",
-  "ai.key": "GROTTO_AI_KEY",
+  "ai.provider": "GIT_COMPASS_AI_PROVIDER",
+  "ai.key": "GIT_COMPASS_AI_KEY",
   "ai.anthropicKey": "ANTHROPIC_API_KEY",
   "ai.openaiKey": "OPENAI_API_KEY",
   "ai.geminiKey": "GEMINI_API_KEY"
@@ -94,3 +94,10 @@ class EnvConfig {
 }
 
 export const config = new EnvConfig();
+
+
+
+
+
+
+

@@ -9,7 +9,7 @@ import chalk from "chalk";
 const program = new Command();
 
 program
-  .name("grotto")
+  .name("git-compass")
   .description("Git repository analytics from your terminal")
   .version("0.1.0");
 
@@ -38,7 +38,7 @@ program.on("command:*", (cmds) => {
     console.log(`Did you mean ${chalk.green(suggestion)}?`);
   }
 
-  console.log(`Run ${chalk.cyan("grotto --help")} to see all available commands.\n`);
+  console.log(`Run ${chalk.cyan("git-compass --help")} to see all available commands.\n`);
   process.exit(1);
 });
 
@@ -55,3 +55,10 @@ export function run() {
     process.exit(1);
   }
 }
+
+
+
+
+
+
+

@@ -1,6 +1,6 @@
 {
-  "name": "@grotto/vitest-config",
-  "version": "1.0.1",
+  "name": "@git-compass/vitest-config",
+  "version": "0.1.0",
   "main": "vitest.config.ts",
   "private": true,
   "dependencies": {

@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import boxen from "boxen";
 import { table, getBorderCharacters } from "table";
-import type { AnalysisResult } from "@grotto/core";
+import type { AnalysisResult } from "@git-compass/core";
 
 export function printConsoleReport(result: AnalysisResult, detailLevel: string = "normal", showAI: boolean = false) {
   try {
@@ -13,7 +13,7 @@ export function printConsoleReport(result: AnalysisResult, detailLevel: string =
     // 1. Header Summary (Always shown)
     console.log(
       boxen(
-        `${chalk.cyan.bold("GROTTO ANALYSIS SUMMARY")}\n` +
+        `${chalk.cyan.bold("Git Compass ANALYSIS SUMMARY")}\n` +
         `${chalk.gray("────────────────────────")}\n` +
         `${chalk.white.bold("Repo:   ")} ${chalk.cyan(meta.repoPath)}\n` +
         `${chalk.white.bold("Branch: ")} ${chalk.yellow(meta.branch)}\n` +
@@ -157,7 +157,7 @@ function printHealthIndicators(impact: any[], rot: any[], showAI: boolean) {
 
   if (!showAI) {
     footerContent.push("");
-    footerContent.push(`${chalk.gray.italic("Tip: Run 'grotto config set-ai' to unlock AI-powered insights (use --ai flag).")}`);
+    footerContent.push(`${chalk.gray.italic("Tip: Run 'git-compass config set-ai' to unlock AI-powered insights (use --ai flag).")}`);
   }
 
   console.log(
@@ -181,3 +181,10 @@ function getRiskColor(level: string): string {
     default: return "#00FF00";
   }
 }
+
+
+
+
+
+
+

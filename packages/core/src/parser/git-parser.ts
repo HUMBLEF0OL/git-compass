@@ -59,3 +59,17 @@ export async function getCurrentBranch(git: SimpleGit): Promise<string> {
   const result = await git.branch();
   return result.current;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

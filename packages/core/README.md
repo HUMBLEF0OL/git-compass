@@ -1,10 +1,10 @@
-# @grotto/core
+# @git-compass/core
 
-The brain of the **Grotto** project. This package provides the foundational Git parsing and analytical engine used by the Grotto CLI, Web Dashboard, and VS Code Extension.
+The brain of the **Git Compass** project. This package provides the foundational Git parsing and analytical engine used by the Git Compass CLI, Web Dashboard, and VS Code Extension.
 
 ## Philosophy: Strictly Functional
 
-`@grotto/core` is built with a **strictly functional programming** approach. 
+`@git-compass/core` is built with a **strictly functional programming** approach. 
 - **No Classes**: Logic is organized into pure, stateless functions.
 - **Immutability**: Data is transformed, never mutated.
 - **Side Effects**: Isolated to the `parser` layer (Git I/O). The `analyzers` layer is composed of pure functions.
@@ -39,13 +39,13 @@ Functional wrappers for LLM-augmented analytics.
 ## Installation
 
 ```bash
-pnpm add @grotto/core
+pnpm add @git-compass/core
 ```
 
 ## Usage Example
 
 ```typescript
-import { createGitParser, getCommits, analyzeHotspots, computeRiskScores } from "@grotto/core";
+import { createGitParser, getCommits, analyzeHotspots, computeRiskScores } from "@git-compass/core";
 
 // 1. Initialize parser
 const git = createGitParser("./my-repo");
@@ -74,3 +74,17 @@ Tests are located in `packages/core/__tests__`. We enforce 100% logic coverage f
 
 ## License
 MIT
+
+
+
+
+
+
+
+
+
+
+
+
+
+

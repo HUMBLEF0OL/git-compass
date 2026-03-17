@@ -1,26 +1,26 @@
 {
-  "name": "@grotto/cli",
-  "version": "2.0.0",
+  "name": "@git-compass/cli",
+  "version": "0.1.0",
   "description": "Git repository analytics from your terminal",
   "type": "module",
   "bin": {
-    "grotto": "./dist/bin/grotto.js"
+    "git-compass": "./dist/bin/git-compass.js"
   },
   "main": "./dist/index.js",
   "license": "MIT",
-  "author": "HUMBLEF0OL",
+  "author": "git-compass",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HUMBLEF0OL/grotto.git",
+    "url": "git+https://github.com/git-compass/git-compass.git",
     "directory": "packages/cli"
   },
   "bugs": {
-    "url": "https://github.com/HUMBLEF0OL/grotto/issues"
+    "url": "https://github.com/git-compass/git-compass/issues"
   },
-  "homepage": "https://github.com/HUMBLEF0OL/grotto/tree/main/packages/cli#readme",
+  "homepage": "https://github.com/git-compass/git-compass/tree/main/packages/cli#readme",
   "files": [
     "dist",
     "README.md"
@@ -31,7 +31,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@grotto/core": "workspace:*",
+    "@git-compass/core": "workspace:*",
     "@inquirer/prompts": "8.3.2",
     "boxen": "^7.1.1",
     "chalk": "^5.3.0",

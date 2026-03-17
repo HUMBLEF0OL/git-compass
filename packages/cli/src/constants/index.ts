@@ -1,4 +1,4 @@
-export const PROJECT_NAME = "grotto";
+export const PROJECT_NAME = "Git Compass";
 
 export const DEFAULT_BRANCH = "HEAD";
 export const DEFAULT_WINDOW = "30d";
@@ -14,3 +14,10 @@ export const ENV_VARS = {
   OPENAI_API_KEY: "OPENAI_API_KEY",
   GEMINI_API_KEY: "GEMINI_API_KEY"
 } as const;
+
+
+
+
+
+
+

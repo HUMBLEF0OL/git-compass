@@ -1,8 +1,8 @@
-# @grotto/cli
+# @git-compass/cli
 
 > Git repository analytics from your terminal.
 
-Grotto is a powerful command-line tool designed to help developers and teams understand their codebases better. It analyzes Git history to reveal hotspots, risk areas, contributor trends, and potential knowledge silos.
+Git Compass is a powerful command-line tool designed to help developers and teams understand their codebases better. It analyzes Git history to reveal hotspots, risk areas, contributor trends, and potential knowledge silos.
 
 ## Features
 
@@ -18,9 +18,9 @@ Grotto is a powerful command-line tool designed to help developers and teams und
 ## Installation
 
 ```bash
-npm install -g @grotto/cli
+npm install -g @git-compass/cli
 # or
-pnpm add -g @grotto/cli
+pnpm add -g @git-compass/cli
 ```
 
 ## Getting Started
@@ -29,14 +29,14 @@ pnpm add -g @grotto/cli
 To use AI-powered features, set your Anthropic API key:
 
 ```bash
-grotto config set ai.key <your-api-key>
+Git Compass config set ai.key <your-api-key>
 ```
 
 ### 2. Run your first analysis
 Analyze the current repository:
 
 ```bash
-grotto analyze
+Git Compass analyze
 ```
 
 ## Command Walkthrough
@@ -45,7 +45,7 @@ grotto analyze
 The primary command for generating repository insights.
 
 ```bash
-grotto analyze [options]
+Git Compass analyze [options]
 ```
 
 **Options:**
@@ -61,24 +61,24 @@ grotto analyze [options]
 Monitor your repository in real-time. Automatically re-runs analysis whenever new commits or changes are detected in `.git`.
 
 ```bash
-grotto watch -p /path/to/repo
+Git Compass watch -p /path/to/repo
 ```
 
 ### `query`
 Ask natural language questions about your repository state. Requires an AI key.
 
 ```bash
-grotto query "Which files have the highest temporal coupling?"
-grotto query "Analyze the contributor trends for the last 30 days."
+Git Compass query "Which files have the highest temporal coupling?"
+Git Compass query "Analyze the contributor trends for the last 30 days."
 ```
 
 ### `config`
-Manage your global Grotto settings.
+Manage your global Git Compass settings.
 
 ```bash
-grotto config list
-grotto config get ai.key
-grotto config set ai.key <key>
+Git Compass config list
+Git Compass config get ai.key
+Git Compass config set ai.key <key>
 ```
 
 ## Environment Variables
@@ -93,8 +93,15 @@ To run the CLI from source during development:
 ```bash
 # In the packages/cli directory
 npm run dev # watchers tsc
-npx tsx src/bin/grotto.ts analyze
+npx tsx src/bin/Git Compass.ts analyze
 ```
 
 ---
 Built with ❤️ for better code.
+
+
+
+
+
+
+

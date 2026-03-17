@@ -15,7 +15,7 @@ import {
   analyzeRot,
   createAIClient,
   queryAnalysis
-} from "@grotto/core";
+} from "@git-compass/core";
 import { config } from "../config/index.js";
 import { 
   DEFAULT_BRANCH, 
@@ -64,7 +64,7 @@ export const queryCommand = new Command("query")
       const apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY] || (config.get(CONFIG_KEYS.AI_KEY) as string);
       
       if (!apiKey) {
-        spinner.fail(chalk.red(`No API key found. Use 'grotto config set ${CONFIG_KEYS.AI_KEY} <key>' to configure.`));
+        spinner.fail(chalk.red(`No API key found. Use 'Git Compass config set ${CONFIG_KEYS.AI_KEY} <key>' to configure.`));
         return;
       }
 
@@ -72,10 +72,17 @@ export const queryCommand = new Command("query")
       const answer = await queryAnalysis(aiClient, question, result);
 
       spinner.succeed(chalk.green("AI Query Complete."));
-      console.log(`\n${chalk.magenta.bold("Grotto AI:")} ${answer}\n`);
+      console.log(`\n${chalk.magenta.bold("Git Compass AI:")} ${answer}\n`);
 
     } catch (err) {
       spinner.fail(chalk.red("Query failed: " + (err as Error).message));
       console.error(err);
     }
   });
+
+
+
+
+
+
+

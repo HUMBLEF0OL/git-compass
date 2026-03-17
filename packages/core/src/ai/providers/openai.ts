@@ -38,7 +38,7 @@ export function createOpenAIProvider(apiKey: string): AIProvider {
       const response = await client.chat.completions.create({
         model: "gpt-4o",
         messages: [
-          { role: "system", content: `You are Grotto, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}` },
+          { role: "system", content: `You are Git Compass, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}` },
           { role: "user", content: question }
         ],
         max_tokens: 512,
@@ -50,3 +50,17 @@ export function createOpenAIProvider(apiKey: string): AIProvider {
     }
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
