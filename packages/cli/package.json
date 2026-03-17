@@ -1,0 +1,33 @@
+{
+  "name": "@grotto/cli",
+  "version": "0.1.0",
+  "description": "Git repository analytics from your terminal",
+  "type": "module",
+  "bin": {
+    "grotto": "./dist/bin/grotto.js"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+
+    "dev": "tsc --watch",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@grotto/core": "workspace:*",
+    "commander": "^12.1.0",
+    "chalk": "^5.3.0",
+    "ora": "^8.0.1",
+    "conf": "^12.0.0",
+    "chokidar": "^3.6.0",
+    "boxen": "^7.1.1",
+    "table": "^6.8.2",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  }
+}
