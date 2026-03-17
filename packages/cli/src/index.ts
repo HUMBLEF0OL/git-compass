@@ -19,9 +19,39 @@ program.addCommand(analyzeAllCommand);
 program.addCommand(watchCommand);
 program.addCommand(queryCommand);
 
+// Handle unknown commands gracefully
+program.on("command:*", (cmds) => {
+  const unknownCommand = cmds[0];
+  const availableCommands = program.commands.map(cmd => cmd.name());
+  
+  console.error(
+    `\n${chalk.red.bold("Error:")} Unknown command ${chalk.yellow(unknownCommand)}`
+  );
 
+  // Simple "did you mean" logic
+  const suggestion = availableCommands.find(c => {
+    // Basic prefix or substring match for simplicity
+    return c.startsWith(unknownCommand.slice(0, 3)) || unknownCommand.includes(c);
+  });
 
+  if (suggestion) {
+    console.log(`Did you mean ${chalk.green(suggestion)}?`);
+  }
+
+  console.log(`Run ${chalk.cyan("grotto --help")} to see all available commands.\n`);
+  process.exit(1);
+});
 
 export function run() {
-  program.parse(process.argv);
+  try {
+    program.parse(process.argv);
+    
+    // Show help if no arguments provided
+    if (!process.argv.slice(2).length) {
+      program.outputHelp();
+    }
+  } catch (err) {
+    console.error(`\n${chalk.red.bold("Fatal Error:")} ${(err as Error).message}`);
+    process.exit(1);
+  }
 }
