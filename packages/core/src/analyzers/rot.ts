@@ -28,3 +28,17 @@ export function analyzeRot(commits: RawCommit[]): string[] {
     .map(([path]) => path);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

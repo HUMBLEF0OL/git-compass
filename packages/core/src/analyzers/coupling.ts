@@ -55,3 +55,17 @@ export function analyzeCoupling(commits: RawCommit[]): CouplingLink[] {
   return results.sort((a, b) => b.coupling - a.coupling);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

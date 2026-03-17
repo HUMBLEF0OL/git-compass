@@ -1,5 +1,5 @@
 {
-  "name": "@grotto/eslint-config",
+  "name": "@git-compass/eslint-config",
   "version": "0.1.0",
   "main": "index.js",
   "private": true,
@@ -10,3 +10,24 @@
     "eslint-plugin-prettier": "^5.1.3"
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

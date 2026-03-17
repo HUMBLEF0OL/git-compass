@@ -8,19 +8,19 @@
   },
   "main": "./dist/index.js",
   "license": "MIT",
-  "author": "HUMBLEF0OL",
+  "author": "git-compass",
   "publishConfig": {
     "access": "public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HUMBLEF0OL/git-compass.git",
+    "url": "git+https://github.com/git-compass/git-compass.git",
     "directory": "packages/cli"
   },
   "bugs": {
-    "url": "https://github.com/HUMBLEF0OL/git-compass/issues"
+    "url": "https://github.com/git-compass/git-compass/issues"
   },
-  "homepage": "https://github.com/HUMBLEF0OL/git-compass/tree/main/packages/cli#readme",
+  "homepage": "https://github.com/git-compass/git-compass/tree/main/packages/cli#readme",
   "files": [
     "dist",
     "README.md"
@@ -49,3 +49,6 @@
     "vitest": "^1.6.0"
   }
 }
+
+
+

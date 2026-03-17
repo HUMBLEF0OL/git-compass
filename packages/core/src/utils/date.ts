@@ -21,3 +21,17 @@ export function getWindowCutoff(window: AnalysisWindow): Date {
 export function getDiffDays(d1: Date, d2: Date): number {
   return Math.abs(d1.getTime() - d2.getTime()) / (1000 * 60 * 60 * 24);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

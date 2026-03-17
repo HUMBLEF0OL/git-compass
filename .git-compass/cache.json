@@ -1,0 +1,2310 @@
+{
+  "Git Compass": {
+    "a716486913badd5e5699eb43ea016422ec2cf71b": {
+      "meta": {
+        "repoPath": "E:\\Projects and Learning\\Git Compass\\packages\\cli",
+        "branch": "HEAD",
+        "window": "30d",
+        "commitCount": 23,
+        "generatedAt": "2026-03-17T16:34:17.486Z"
+      },
+      "hotspots": [
+        {
+          "path": "packages/cli/package.json",
+          "changeCount": 5,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "pnpm-lock.yaml",
+          "changeCount": 5,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:09:19.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "package.json",
+          "changeCount": 4,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:25:52.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".gitignore",
+          "changeCount": 4,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:19:45.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:29:26.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:29:26.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/package.json",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:09:19.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/config/index.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T14:41:49.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/commands/analyze.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:11.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/formatters/console.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:11.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/output.txt",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T14:41:49.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/index.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T14:41:49.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/index.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:36.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/summarizer.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:36.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/types.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:36.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/commands/config.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:11.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/constants/index.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:11.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "README.md",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:19:45.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/commands/analyze-all.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:19:45.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/churn.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/compass.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/coupling.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/hotspot.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/impact.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/knowledge.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/rot.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/utils/index.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/__tests__/commands.test.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/__tests__/sanity.test.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/config/__tests__/config.test.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".changeset/tricky-lands-sleep.md",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:27:04.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".changeset/salty-pillows-help.md",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:14:06.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".changeset/README.md",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:09:19.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".changeset/config.json",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:09:19.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/providers/anthropic.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:36.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/providers/gemini.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:36.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/providers/openai.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T10:09:36.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "docs/architecture.md",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:19:45.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "docs/getting-started.md",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:19:45.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/README.md",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:05:26.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/bin/Git Compass.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:05:26.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/commands/query.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:05:26.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/commands/watch.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:05:26.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/formatters/report-gen.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:05:26.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/utils/cache.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:05:26.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/tsconfig.json",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T09:05:26.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/utils/date.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/utils/file.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:22:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".eslintrc.cjs",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:16:18.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".prettierrc",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:16:18.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/eslint-config/index.js",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:16:18.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/eslint-config/package.json",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:16:18.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/tsconfig/package.json",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:16:18.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/vitest-config/package.json",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:16:18.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/vitest-config/vitest.config.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:16:18.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/README.md",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/__tests__/analyzers.test.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/__tests__/git-parser.test.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/scripts/analyze.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/burnout.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/contributor.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/index.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/risk.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/index.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/parser/diff-parser.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/parser/git-parser.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/parser/index.ts",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/test_output.txt",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/tsconfig.json",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T06:09:48.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "pnpm-workspace.yaml",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T05:22:02.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/tsconfig/base.json",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T05:22:02.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "turbo.json",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T05:22:02.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "LICENSE",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T04:32:30.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "__test__/sample.test.js",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T04:32:30.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "bin/gitcompass.js",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T04:32:30.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "package-lock.json",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T04:32:30.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "src/cli/index.js",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T04:32:30.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "src/git/gitCommands.js",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T04:32:30.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "src/utils/logger.js",
+          "changeCount": 1,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T04:32:30.000Z",
+          "riskScore": 0
+        }
+      ],
+      "riskScores": [
+        {
+          "path": "packages/cli/package.json",
+          "score": 100,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 100,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "pnpm-lock.yaml",
+          "score": 100,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 100,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "package.json",
+          "score": 92,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 80,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": ".gitignore",
+          "score": 92,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 80,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "score": 84,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 60,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "score": 84,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 60,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/core/package.json",
+          "score": 84,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 60,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/cli/src/config/index.ts",
+          "score": 84,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 60,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/cli/src/commands/analyze.ts",
+          "score": 84,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 60,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/formatters/console.ts",
+          "score": 84,
+          "level": "critical",
+          "factors": {
+            "changeFrequency": 60,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/output.txt",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/cli/src/index.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/core/src/ai/index.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/ai/summarizer.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/types.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/commands/config.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/constants/index.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "README.md",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/commands/analyze-all.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/churn.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/compass.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/coupling.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/hotspot.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/impact.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/knowledge.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/rot.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/utils/index.ts",
+          "score": 76,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 40,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/__tests__/commands.test.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/cli/src/__tests__/sanity.test.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/cli/src/config/__tests__/config.test.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": ".changeset/tricky-lands-sleep.md",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": ".changeset/salty-pillows-help.md",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": ".changeset/README.md",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": ".changeset/config.json",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 100
+          }
+        },
+        {
+          "path": "packages/core/src/ai/providers/anthropic.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/ai/providers/gemini.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/ai/providers/openai.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "docs/architecture.md",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "docs/getting-started.md",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/README.md",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/bin/Git Compass.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/commands/query.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/commands/watch.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/formatters/report-gen.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/src/utils/cache.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/cli/tsconfig.json",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/utils/date.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/utils/file.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": ".eslintrc.cjs",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": ".prettierrc",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "tooling/eslint-config/index.js",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "tooling/eslint-config/package.json",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "tooling/tsconfig/package.json",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "tooling/vitest-config/package.json",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "tooling/vitest-config/vitest.config.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/README.md",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/__tests__/analyzers.test.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/__tests__/git-parser.test.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/scripts/analyze.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/burnout.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/contributor.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/index.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/risk.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/index.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/parser/diff-parser.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/parser/git-parser.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/src/parser/index.ts",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/test_output.txt",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "packages/core/tsconfig.json",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 99
+          }
+        },
+        {
+          "path": "pnpm-workspace.yaml",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        },
+        {
+          "path": "tooling/tsconfig/base.json",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        },
+        {
+          "path": "turbo.json",
+          "score": 68,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        },
+        {
+          "path": "LICENSE",
+          "score": 67,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        },
+        {
+          "path": "__test__/sample.test.js",
+          "score": 67,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        },
+        {
+          "path": "bin/gitcompass.js",
+          "score": 67,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        },
+        {
+          "path": "package-lock.json",
+          "score": 67,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        },
+        {
+          "path": "src/cli/index.js",
+          "score": 67,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        },
+        {
+          "path": "src/git/gitCommands.js",
+          "score": 67,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        },
+        {
+          "path": "src/utils/logger.js",
+          "score": 67,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 100,
+            "recentActivity": 98
+          }
+        }
+      ],
+      "churn": [
+        {
+          "date": "2026-03-17T00:00:00.000Z",
+          "linesAdded": 7838,
+          "linesRemoved": 5741,
+          "netChurn": 2097,
+          "commitCount": 17
+        }
+      ],
+      "contributors": [
+        {
+          "author": "github-actions",
+          "email": "github-actions@github.com",
+          "commitCount": 17,
+          "linesAdded": 7838,
+          "linesRemoved": 5741,
+          "filesChanged": 81,
+          "firstCommit": "2026-03-17T04:32:30.000Z",
+          "lastCommit": "2026-03-17T15:37:38.000Z",
+          "activeDays": 1
+        },
+        {
+          "author": "AMIT RANA",
+          "email": "123amitrana0123@gmail.com",
+          "commitCount": 6,
+          "linesAdded": 5366,
+          "linesRemoved": 14,
+          "filesChanged": 10,
+          "firstCommit": "2024-12-27T13:38:16.000Z",
+          "lastCommit": "2024-12-28T07:03:17.000Z",
+          "activeDays": 2
+        }
+      ],
+      "burnout": {
+        "flags": [
+          "AMIT RANA is at high burnout risk"
+        ],
+        "afterHoursCommits": 0,
+        "weekendCommits": 3,
+        "contributors": [
+          {
+            "author": "github-actions",
+            "afterHoursPercent": 0,
+            "weekendPercent": 0,
+            "riskLevel": "low"
+          },
+          {
+            "author": "AMIT RANA",
+            "afterHoursPercent": 0,
+            "weekendPercent": 50,
+            "riskLevel": "high"
+          }
+        ]
+      },
+      "coupling": [
+        {
+          "head": "packages/cli/output.txt",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/ai/index.ts",
+          "tail": "packages/core/src/ai/summarizer.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/ai/index.ts",
+          "tail": "packages/core/src/types.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/ai/summarizer.ts",
+          "tail": "packages/core/src/types.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 1,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/churn.ts",
+          "tail": "packages/core/src/analyzers/compass.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/churn.ts",
+          "tail": "packages/core/src/analyzers/coupling.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/churn.ts",
+          "tail": "packages/core/src/analyzers/hotspot.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/churn.ts",
+          "tail": "packages/core/src/analyzers/impact.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/churn.ts",
+          "tail": "packages/core/src/analyzers/knowledge.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/churn.ts",
+          "tail": "packages/core/src/analyzers/rot.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/churn.ts",
+          "tail": "packages/core/src/utils/index.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/compass.ts",
+          "tail": "packages/core/src/analyzers/coupling.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/compass.ts",
+          "tail": "packages/core/src/analyzers/hotspot.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/compass.ts",
+          "tail": "packages/core/src/analyzers/impact.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/compass.ts",
+          "tail": "packages/core/src/analyzers/knowledge.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/compass.ts",
+          "tail": "packages/core/src/analyzers/rot.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/compass.ts",
+          "tail": "packages/core/src/utils/index.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/coupling.ts",
+          "tail": "packages/core/src/analyzers/hotspot.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/coupling.ts",
+          "tail": "packages/core/src/analyzers/impact.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/coupling.ts",
+          "tail": "packages/core/src/analyzers/knowledge.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/coupling.ts",
+          "tail": "packages/core/src/analyzers/rot.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/coupling.ts",
+          "tail": "packages/core/src/utils/index.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/hotspot.ts",
+          "tail": "packages/core/src/analyzers/impact.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/hotspot.ts",
+          "tail": "packages/core/src/analyzers/knowledge.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/hotspot.ts",
+          "tail": "packages/core/src/analyzers/rot.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/hotspot.ts",
+          "tail": "packages/core/src/utils/index.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/impact.ts",
+          "tail": "packages/core/src/analyzers/knowledge.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/impact.ts",
+          "tail": "packages/core/src/analyzers/rot.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/impact.ts",
+          "tail": "packages/core/src/utils/index.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/knowledge.ts",
+          "tail": "packages/core/src/analyzers/rot.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/knowledge.ts",
+          "tail": "packages/core/src/utils/index.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/src/analyzers/rot.ts",
+          "tail": "packages/core/src/utils/index.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "__test__/sample.test.js",
+          "tail": "package-lock.json",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "bin/gitcompass.js",
+          "tail": "src/git/gitCommands.js",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": ".gitignore",
+          "tail": "README.md",
+          "coupling": 0.75,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/output.txt",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/package.json",
+          "tail": "packages/core/src/ai/index.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/package.json",
+          "tail": "packages/core/src/ai/summarizer.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/package.json",
+          "tail": "packages/core/src/types.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/commands/config.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/constants/index.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/commands/analyze.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "LICENSE",
+          "tail": "README.md",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "__test__/sample.test.js",
+          "tail": "src/cli/index.js",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "bin/gitcompass.js",
+          "tail": "src/cli/index.js",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "package-lock.json",
+          "tail": "src/cli/index.js",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "src/cli/index.js",
+          "tail": "src/git/gitCommands.js",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/package.json",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.6,
+          "sharedCommits": 3
+        },
+        {
+          "head": ".github/workflows/ci.yml",
+          "tail": ".github/workflows/release.yml",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": ".gitignore",
+          "tail": "LICENSE",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/output.txt",
+          "tail": "packages/cli/package.json",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/package.json",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/package.json",
+          "tail": "packages/cli/src/commands/config.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/package.json",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "__test__/sample.test.js",
+          "tail": "package.json",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "package-lock.json",
+          "tail": "package.json",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": ".github/workflows/release.yml",
+          "tail": "package.json",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/package.json",
+          "tail": "pnpm-lock.yaml",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/package.json",
+          "tail": "packages/cli/src/commands/analyze.ts",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/package.json",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "package.json",
+          "tail": "src/cli/index.js",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        }
+      ],
+      "knowledge": [
+        {
+          "path": "packages/cli/package.json",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 100,
+          "riskLevel": "high"
+        },
+        {
+          "path": "pnpm-lock.yaml",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 100,
+          "riskLevel": "high"
+        },
+        {
+          "path": "package.json",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 80,
+          "riskLevel": "medium"
+        },
+        {
+          "path": ".gitignore",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 80,
+          "riskLevel": "medium"
+        }
+      ],
+      "impact": [
+        {
+          "path": "packages/core/README.md",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/__tests__/analyzers.test.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/__tests__/git-parser.test.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/scripts/analyze.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/burnout.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/contributor.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/index.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/risk.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/index.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/parser/diff-parser.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/parser/git-parser.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/parser/index.ts",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/test_output.txt",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/tsconfig.json",
+          "blastRadius": 25,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/churn.ts",
+          "blastRadius": 17,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/compass.ts",
+          "blastRadius": 17,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/coupling.ts",
+          "blastRadius": 17,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/hotspot.ts",
+          "blastRadius": 17,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/impact.ts",
+          "blastRadius": 17,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/knowledge.ts",
+          "blastRadius": 17,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/analyzers/rot.ts",
+          "blastRadius": 17,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/utils/index.ts",
+          "blastRadius": 17,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/ai/index.ts",
+          "blastRadius": 16,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/ai/summarizer.ts",
+          "blastRadius": 16,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/core/src/types.ts",
+          "blastRadius": 16,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/cli/README.md",
+          "blastRadius": 15,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/bin/Git Compass.ts",
+          "blastRadius": 15,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/commands/query.ts",
+          "blastRadius": 15,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/commands/watch.ts",
+          "blastRadius": 15,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/formatters/report-gen.ts",
+          "blastRadius": 15,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/utils/cache.ts",
+          "blastRadius": 15,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/tsconfig.json",
+          "blastRadius": 15,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/core/package.json",
+          "blastRadius": 12.67,
+          "maxBlastRadius": 25
+        },
+        {
+          "path": "packages/cli/src/commands/analyze-all.ts",
+          "blastRadius": 11,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/commands/config.ts",
+          "blastRadius": 10,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/constants/index.ts",
+          "blastRadius": 10,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/output.txt",
+          "blastRadius": 9,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/index.ts",
+          "blastRadius": 9,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/commands/analyze.ts",
+          "blastRadius": 9,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/cli/src/formatters/console.ts",
+          "blastRadius": 9,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/core/src/utils/date.ts",
+          "blastRadius": 9,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": "packages/core/src/utils/file.ts",
+          "blastRadius": 9,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": ".eslintrc.cjs",
+          "blastRadius": 8,
+          "maxBlastRadius": 8
+        },
+        {
+          "path": ".prettierrc",
+          "blastRadius": 8,
+          "maxBlastRadius": 8
+        },
+        {
+          "path": "tooling/eslint-config/index.js",
+          "blastRadius": 8,
+          "maxBlastRadius": 8
+        },
+        {
+          "path": "tooling/eslint-config/package.json",
+          "blastRadius": 8,
+          "maxBlastRadius": 8
+        },
+        {
+          "path": "tooling/tsconfig/package.json",
+          "blastRadius": 8,
+          "maxBlastRadius": 8
+        },
+        {
+          "path": "tooling/vitest-config/package.json",
+          "blastRadius": 8,
+          "maxBlastRadius": 8
+        },
+        {
+          "path": "tooling/vitest-config/vitest.config.ts",
+          "blastRadius": 8,
+          "maxBlastRadius": 8
+        },
+        {
+          "path": "packages/cli/src/config/index.ts",
+          "blastRadius": 7.67,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "packages/core/src/ai/providers/anthropic.ts",
+          "blastRadius": 7,
+          "maxBlastRadius": 7
+        },
+        {
+          "path": "packages/core/src/ai/providers/gemini.ts",
+          "blastRadius": 7,
+          "maxBlastRadius": 7
+        },
+        {
+          "path": "packages/core/src/ai/providers/openai.ts",
+          "blastRadius": 7,
+          "maxBlastRadius": 7
+        },
+        {
+          "path": "docs/architecture.md",
+          "blastRadius": 7,
+          "maxBlastRadius": 7
+        },
+        {
+          "path": "docs/getting-started.md",
+          "blastRadius": 7,
+          "maxBlastRadius": 7
+        },
+        {
+          "path": "packages/cli/package.json",
+          "blastRadius": 6.8,
+          "maxBlastRadius": 15
+        },
+        {
+          "path": "pnpm-lock.yaml",
+          "blastRadius": 6.6,
+          "maxBlastRadius": 8
+        },
+        {
+          "path": ".changeset/README.md",
+          "blastRadius": 6,
+          "maxBlastRadius": 6
+        },
+        {
+          "path": ".changeset/config.json",
+          "blastRadius": 6,
+          "maxBlastRadius": 6
+        },
+        {
+          "path": "__test__/sample.test.js",
+          "blastRadius": 6,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": "package-lock.json",
+          "blastRadius": 6,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": "LICENSE",
+          "blastRadius": 5.5,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": "bin/gitcompass.js",
+          "blastRadius": 5.5,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": "src/git/gitCommands.js",
+          "blastRadius": 5.5,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": "packages/cli/src/__tests__/commands.test.ts",
+          "blastRadius": 5,
+          "maxBlastRadius": 5
+        },
+        {
+          "path": "packages/cli/src/__tests__/sanity.test.ts",
+          "blastRadius": 5,
+          "maxBlastRadius": 5
+        },
+        {
+          "path": "packages/cli/src/config/__tests__/config.test.ts",
+          "blastRadius": 5,
+          "maxBlastRadius": 5
+        },
+        {
+          "path": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "blastRadius": 5,
+          "maxBlastRadius": 5
+        },
+        {
+          "path": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "blastRadius": 5,
+          "maxBlastRadius": 5
+        },
+        {
+          "path": "package.json",
+          "blastRadius": 5,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": "pnpm-workspace.yaml",
+          "blastRadius": 5,
+          "maxBlastRadius": 5
+        },
+        {
+          "path": "tooling/tsconfig/base.json",
+          "blastRadius": 5,
+          "maxBlastRadius": 5
+        },
+        {
+          "path": "turbo.json",
+          "blastRadius": 5,
+          "maxBlastRadius": 5
+        },
+        {
+          "path": "src/cli/index.js",
+          "blastRadius": 4.67,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": ".gitignore",
+          "blastRadius": 4.6,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": "src/utils/logger.js",
+          "blastRadius": 4.5,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "blastRadius": 3.67,
+          "maxBlastRadius": 8
+        },
+        {
+          "path": "README.md",
+          "blastRadius": 3.6,
+          "maxBlastRadius": 9
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "blastRadius": 3,
+          "maxBlastRadius": 6
+        },
+        {
+          "path": ".changeset/tricky-lands-sleep.md",
+          "blastRadius": 0,
+          "maxBlastRadius": 0
+        },
+        {
+          "path": ".changeset/salty-pillows-help.md",
+          "blastRadius": 0,
+          "maxBlastRadius": 0
+        }
+      ],
+      "rot": []
+    }
+  }
+}

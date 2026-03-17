@@ -48,3 +48,17 @@ export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
     };
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -31,3 +31,17 @@ export function analyzeImpact(commits: RawCommit[]): FileImpact[] {
     .sort((a, b) => b.blastRadius - a.blastRadius);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

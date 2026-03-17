@@ -149,3 +149,17 @@ export interface AnalysisResult {
   aiSummary?: AISummary | null;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

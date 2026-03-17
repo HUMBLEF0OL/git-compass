@@ -37,3 +37,17 @@ export function analyzeChurn(
     }))
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

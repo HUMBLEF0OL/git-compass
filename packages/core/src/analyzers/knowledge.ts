@@ -53,3 +53,17 @@ export function analyzeKnowledge(commits: RawCommit[]): KnowledgeSilo[] {
   return results.sort((a, b) => b.authorshipPercent - a.authorshipPercent);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

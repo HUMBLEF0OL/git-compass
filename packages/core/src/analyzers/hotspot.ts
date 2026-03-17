@@ -46,3 +46,17 @@ export function analyzeHotspots(
     .sort((a, b) => b.changeCount - a.changeCount);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

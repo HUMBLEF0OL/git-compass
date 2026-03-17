@@ -1,14 +1,14 @@
-# Grotto Architecture
+# Git Compass Architecture
 
-Grotto is designed as a modular monorepo, separating core analysis logic from consumer interfaces.
+Git Compass is designed as a modular monorepo, separating core analysis logic from consumer interfaces.
 
 ## High-Level Architecture
 
 ```mermaid
 graph TD
     User([User])
-    CLI[@grotto/cli]
-    Core[@grotto/core]
+    CLI[@git-compass/cli]
+    Core[@git-compass/core]
     Git[(Git Repository)]
     AI[Anthropic API]
 
@@ -21,13 +21,13 @@ graph TD
 
 ## Packages
 
-### 1. `@grotto/core`
+### 1. `@git-compass/core`
 The "brain" of the project. It handles all raw data processing and insight generation.
 - **Git Parser**: Leverages `simple-git` to extract commit history, diffs, and metadata.
 - **Analyzers**: Pure functions that compute metrics like hotspots, churn, and temporal coupling.
 - **AI Clients**: Interfaces for interacting with LLMs to generate summaries and answer queries.
 
-### 2. `@grotto/cli`
+### 2. `@git-compass/cli`
 The primary user interface. Built with `commander`.
 - **Commands**: `analyze`, `watch`, `query`, and `config`.
 - **Formatters**: Converts core `AnalysisResult` data into human-readable console output, JSON, or HTML.
@@ -36,7 +36,7 @@ The primary user interface. Built with `commander`.
 ## Data Flow (Analysis Phase)
 
 1. **Input**: CLI receives a path and a branch.
-2. **Parsing**: `@grotto/core` fetches raw commit data from the `.git` directory.
+2. **Parsing**: `@git-compass/core` fetches raw commit data from the `.git` directory.
 3. **Analysis**: Data is passed through multiple analyzers concurrently.
 4. **AI Layer (Optional)**: If requested, results are sent to an LLM for structured insight generation.
 5. **Output**: CLI formats and prints the final report to the user's terminal or designated file.
@@ -46,3 +46,5 @@ The primary user interface. Built with `commander`.
 - **Separation of Concerns**: UI logic stays in `cli`, while business logic stays in `core`.
 - **Pure Functions**: Most analyzers are pure, making them easy to test and reason about.
 - **Plug-and-Play**: The AI client is designed to be swappable, supporting different models or providers in the future.
+
+

@@ -20,7 +20,7 @@ Git Compass is a powerful command-line tool designed to help developers and team
 ```bash
 npm install -g @git-compass/cli
 # or
-pnpm add -g @Git Compass/cli
+pnpm add -g @git-compass/cli
 ```
 
 ## Getting Started
@@ -98,6 +98,10 @@ npx tsx src/bin/Git Compass.ts analyze
 
 ---
 Built with ❤️ for better code.
+
+
+
+
 
 
 

@@ -32,3 +32,17 @@ export function analyzeCompass(commits: RawCommit[]): CompassEntry[] {
     .slice(0, 10);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -38,7 +38,7 @@ export function createAnthropicProvider(apiKey: string): AIProvider {
       const message = await client.messages.create({
         model: "claude-3-5-sonnet-20240620",
         max_tokens: 512,
-        system: `You are Grotto, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}`,
+        system: `You are Git Compass, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}`,
         messages: [{ role: "user", content: question }],
       });
 
@@ -48,3 +48,17 @@ export function createAnthropicProvider(apiKey: string): AIProvider {
     }
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -67,3 +67,17 @@ export function analyzeContributors(commits: RawCommit[]): ContributorStats[] {
     activeDays: data.days.size,
   }));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
