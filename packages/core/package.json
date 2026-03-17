@@ -1,0 +1,32 @@
+{
+  "name": "@grotto/core",
+  "version": "0.1.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:core": "tsx scripts/analyze.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.24.0",
+    "simple-git": "^3.24.0"
+  },
+  "devDependencies": {
+    "@grotto/eslint-config": "workspace:*",
+    "@grotto/tsconfig": "workspace:*",
+    "@grotto/vitest-config": "workspace:*",
+    "tsx": "^4.21.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}
