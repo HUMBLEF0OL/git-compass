@@ -48,6 +48,7 @@ export const analyzeCommand = new Command("analyze")
   .option("-w, --window <window>", `time window: 7d, 30d, 90d, 1y, all`, DEFAULT_WINDOW)
   .option("--max-commits <n>", "max commits to analyze", DEFAULT_MAX_COMMITS.toString())
   .option("-o, --output <path>", "path to save report (directory or filename)")
+  .option("-d, --detail-level <level>", "detail level: summary, normal, verbose", "normal")
   .option("--ai", "generate AI summary (requires API key)")
   .action(async (options) => {
     const repoPath = path.resolve(options.path);
@@ -86,7 +87,7 @@ export const analyzeCommand = new Command("analyze")
           // Proceed to save output if requested
           await handleReportExport(cachedResult, repoPath, repoRoot, options, spinner);
         } else {
-          printConsoleReport(cachedResult);
+          printConsoleReport(cachedResult, options.detailLevel);
         }
         return;
       }
@@ -159,7 +160,7 @@ export const analyzeCommand = new Command("analyze")
       if (options.output) {
         await handleReportExport(result, repoPath, repoRoot, options, spinner);
       } else {
-        printConsoleReport(result);
+        printConsoleReport(result, options.detailLevel);
       }
 
     } catch (err) {

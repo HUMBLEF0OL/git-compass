@@ -3,11 +3,14 @@ import boxen from "boxen";
 import { table, getBorderCharacters } from "table";
 import type { AnalysisResult } from "@grotto/core";
 
-export function printConsoleReport(result: AnalysisResult) {
+export function printConsoleReport(result: AnalysisResult, detailLevel: string = "normal") {
   try {
     const { meta, hotspots, riskScores, contributors, burnout, coupling, knowledge, impact, rot } = result;
+    const isVerbose = detailLevel === "verbose";
+    const isSummary = detailLevel === "summary";
+    const limit = isVerbose ? 10 : 5;
 
-    // 1. Header Summary
+    // 1. Header Summary (Always shown)
     console.log(
       boxen(
         `${chalk.cyan.bold("GROTTO ANALYSIS SUMMARY")}\n` +
@@ -26,6 +29,11 @@ export function printConsoleReport(result: AnalysisResult) {
         }
       )
     );
+
+    if (isSummary) {
+      printHealthIndicators(impact, rot);
+      return;
+    }
 
     // 2. AI Insights (Intuitive Format)
     if (result.aiSummary) {
@@ -52,7 +60,7 @@ export function printConsoleReport(result: AnalysisResult) {
         [chalk.bold("File"), chalk.bold("Changes"), chalk.bold("Authors"), chalk.bold("Risk Level")]
       ];
       
-      hotspots.slice(0, 5).forEach(h => {
+      hotspots.slice(0, limit).forEach(h => {
         const fileRisk = riskScores.find(r => r.path === h.path);
         const riskLevel = fileRisk?.level || "low";
         const riskColor = getRiskColor(riskLevel);
@@ -77,7 +85,7 @@ export function printConsoleReport(result: AnalysisResult) {
     const highRisk = riskScores.filter(r => r.level === "high" || r.level === "critical");
     if (highRisk.length > 0) {
       console.log(chalk.red.bold("\nHigh Risk Alert"));
-      highRisk.slice(0, 3).forEach(r => {
+      highRisk.slice(0, isVerbose ? 10 : 3).forEach(r => {
         const color = r.level === "critical" ? chalk.bgRed.white.bold : chalk.red.bold;
         console.log(`  ${color(" " + r.level.toUpperCase() + " ")} ${chalk.white(r.path)} ${chalk.gray("(Score: " + r.score + ")")}`);
       });
@@ -90,7 +98,7 @@ export function printConsoleReport(result: AnalysisResult) {
         [chalk.bold("Author"), chalk.bold("Commits"), chalk.bold("Activity"), chalk.bold("Status")]
       ];
 
-      contributors.slice(0, 5).forEach(c => {
+      contributors.slice(0, limit).forEach(c => {
         const burnoutInfo = burnout.contributors.find(b => b.author === c.author);
         const isBurnedOut = burnoutInfo && (burnoutInfo.afterHoursPercent > 30 || burnoutInfo.weekendPercent > 30);
         
@@ -104,50 +112,56 @@ export function printConsoleReport(result: AnalysisResult) {
       console.log(table(contribData, { border: getBorderCharacters("ramac") }));
     }
 
-    // 6. Deep Insights (Coupling & Silos)
-    const insightsData: string[][] = [];
-    
-    if (coupling.length > 0) {
-      insightsData.push([chalk.bold("Temporal Coupling")]);
-      coupling.slice(0, 3).forEach(c => {
-        insightsData.push([`  ${chalk.white(c.head)} ↔ ${chalk.white(c.tail)}\n  ${chalk.gray("Strength: ")}${chalk.magenta((c.coupling * 100).toFixed(0) + "%")}`]);
-      });
-    }
+    // 6. Deep Insights (Verbose only)
+    if (isVerbose) {
+      const insightsData: string[][] = [];
+      
+      if (coupling.length > 0) {
+        insightsData.push([chalk.bold("Temporal Coupling")]);
+        coupling.slice(0, 5).forEach(c => {
+          insightsData.push([`  ${chalk.white(c.head)} ↔ ${chalk.white(c.tail)}\n  ${chalk.gray("Strength: ")}${chalk.magenta((c.coupling * 100).toFixed(0) + "%")}`]);
+        });
+      }
 
-    if (knowledge.length > 0) {
-      insightsData.push([chalk.bold("Knowledge Silos")]);
-      knowledge.slice(0, 3).forEach(k => {
-        const color = k.riskLevel === "high" ? chalk.red : k.riskLevel === "medium" ? chalk.yellow : chalk.white;
-        insightsData.push([`  ${chalk.white(k.path)}\n  ${chalk.gray("Owner: ")}${color(k.mainContributor)} ${chalk.gray("(" + k.authorshipPercent + "%)")}`]);
-      });
-    }
+      if (knowledge.length > 0) {
+        insightsData.push([chalk.bold("Knowledge Silos")]);
+        knowledge.slice(0, 5).forEach(k => {
+          const color = k.riskLevel === "high" ? chalk.red : k.riskLevel === "medium" ? chalk.yellow : chalk.white;
+          insightsData.push([`  ${chalk.white(k.path)}\n  ${chalk.gray("Owner: ")}${color(k.mainContributor)} ${chalk.gray("(" + k.authorshipPercent + "%)")}`]);
+        });
+      }
 
-    if (insightsData.length > 0) {
-      console.log(chalk.blue.bold("\nDeep Architecture Insights"));
-      console.log(table(insightsData, { border: getBorderCharacters("ramac") }));
+      if (insightsData.length > 0) {
+        console.log(chalk.blue.bold("\nDeep Architecture Insights"));
+        console.log(table(insightsData, { border: getBorderCharacters("ramac") }));
+      }
     }
 
     // 7. Health Indicators & Footer Tip
-    const avgImpact = impact.length > 0 ? (impact.reduce((acc: number, i: any) => acc + i.blastRadius, 0) / impact.length).toFixed(2) : 0;
-    
-    console.log(
-      boxen(
-        `${chalk.bold("Overall Health Indicators")}\n` +
-        `${chalk.gray("────────────────────────")}\n` +
-        `${chalk.white("Average Blast Radius:  ")} ${chalk.yellow(avgImpact + " files")}\n` +
-        `${chalk.white("Abandoned Files (Rot): ")} ${chalk.red(rot.length)}\n\n` +
-        `${chalk.gray.italic("Tip: Set ANTHROPIC_API_KEY to unlock deeper AI-powered code audits.")}`,
-        { 
-          padding: 1, 
-          margin: { top: 1, bottom: 1 }, 
-          borderStyle: "round", 
-          borderColor: "gray" 
-        }
-      )
-    );
+    printHealthIndicators(impact, rot);
   } catch (err) {
     console.error(chalk.red("\nError printing report:"), err);
   }
+}
+
+function printHealthIndicators(impact: any[], rot: any[]) {
+  const avgImpact = impact.length > 0 ? (impact.reduce((acc: number, i: any) => acc + i.blastRadius, 0) / impact.length).toFixed(2) : 0;
+  
+  console.log(
+    boxen(
+      `${chalk.bold("Overall Health Indicators")}\n` +
+      `${chalk.gray("────────────────────────")}\n` +
+      `${chalk.white("Average Blast Radius:  ")} ${chalk.yellow(avgImpact + " files")}\n` +
+      `${chalk.white("Abandoned Files (Rot): ")} ${chalk.red(rot.length)}\n\n` +
+      `${chalk.gray.italic("Tip: Set ANTHROPIC_API_KEY to unlock deeper AI-powered code audits.")}`,
+      { 
+        padding: 1, 
+        margin: { top: 1, bottom: 1 }, 
+        borderStyle: "round", 
+        borderColor: "gray" 
+      }
+    )
+  );
 }
 
 function getRiskColor(level: string): string {

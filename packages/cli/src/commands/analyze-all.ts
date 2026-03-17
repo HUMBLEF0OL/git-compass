@@ -22,6 +22,7 @@ export const analyzeAllCommand = new Command("analyze-all")
   .description("Scan a directory for Git repositories and analyze them all")
   .argument("[path]", "directory to scan", process.cwd())
   .option("-w, --window <window>", "time window: 7d, 30d, 90d, 1y, all", "30d")
+  .option("-d, --detail-level <level>", "detail level: summary, normal, verbose", "normal")
   .action(async (scanPath, options) => {
     const rootPath = path.resolve(scanPath || process.cwd());
     const spinner = ora(`Scanning for Git repositories in ${rootPath}...`).start();
