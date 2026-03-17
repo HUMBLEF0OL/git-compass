@@ -1,6 +1,6 @@
 import fs from "fs/promises";
 import path from "path";
-import type { AnalysisResult } from "@grotto/core";
+import type { AnalysisResult } from "@git-compass/core";
 
 export interface CacheData {
   [repoKey: string]: {
@@ -11,7 +11,7 @@ export interface CacheData {
 const MAX_CACHE_ENTRIES_PER_REPO = 3;
 
 export async function getCachePath(repoRoot: string): Promise<string> {
-  return path.join(repoRoot, ".grotto", "cache.json");
+  return path.join(repoRoot, ".git-compass", "cache.json");
 }
 
 export async function loadCache(cachePath: string): Promise<CacheData> {
@@ -67,3 +67,6 @@ export function updateCache(
 
   return cache;
 }
+
+
+

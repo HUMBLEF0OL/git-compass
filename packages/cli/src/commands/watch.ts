@@ -40,7 +40,7 @@ export const watchCommand = new Command("watch")
 
 function runAnalysis(options: any) {
   try {
-    const binPath = path.join(process.cwd(), "dist", "bin", "grotto.js");
+    const binPath = path.join(process.cwd(), "dist/bin/git-compass.js");
     const cmd = `node ${binPath} analyze -p "${options.path}" -b "${options.branch}"`;
     
     execSync(cmd, { stdio: "inherit" });
@@ -48,3 +48,6 @@ function runAnalysis(options: any) {
     console.error(chalk.red("Watch analysis failed. check your git state."));
   }
 }
+
+
+

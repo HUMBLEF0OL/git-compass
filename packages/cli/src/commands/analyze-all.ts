@@ -9,7 +9,7 @@ import {
   analyzeHotspots, 
   computeRiskScores, 
   type AnalysisResult 
-} from "@grotto/core";
+} from "@git-compass/core";
 import { 
   getCachePath, 
   loadCache, 
@@ -134,3 +134,6 @@ async function findGitRepos(dir: string, depth = 0, maxDepth = 3): Promise<strin
 
   return repos;
 }
+
+
+

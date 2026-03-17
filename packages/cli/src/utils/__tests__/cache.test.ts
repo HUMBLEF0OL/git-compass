@@ -18,7 +18,7 @@ describe("Cache Utils", () => {
   it("should generate correct cache path", async () => {
     const repoRoot = "/test/repo";
     const cachePath = await getCachePath(repoRoot);
-    expect(cachePath).toBe(path.join(repoRoot, ".grotto", "cache.json"));
+    expect(cachePath).toBe(path.join(repoRoot, ".git-compass", "cache.json"));
   });
 
   it("should load empty cache if file does not exist", async () => {
@@ -46,3 +46,6 @@ describe("Cache Utils", () => {
     }
   });
 });
+
+
+

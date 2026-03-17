@@ -28,3 +28,6 @@ describe("Command Registration", () => {
     expect(optionFlags.some(f => f.includes("--output"))).toBe(true);
   });
 });
+
+
+
