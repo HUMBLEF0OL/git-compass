@@ -84,10 +84,23 @@ export interface CompassEntry {
   type: "entry-point" | "core" | "config" | "test";
 }
 
+export enum AIProviderType {
+  ANTHROPIC = "anthropic",
+  OPENAI = "openai",
+  GEMINI = "gemini",
+}
+
+export interface AIProvider {
+  type: AIProviderType;
+  generateSummary: (analysis: AnalysisResult) => Promise<AISummary>;
+  query: (question: string, analysis: AnalysisResult) => Promise<string>;
+}
+
 export interface AISummary {
   digest: string;
   generatedAt: Date;
   model: string;
+  provider: AIProviderType;
 }
 
 // ─── Deep Analytics ──────────────────────────────────────────────────────────
