@@ -15,7 +15,8 @@ import {
   analyzeRot, 
   getAIProvider, 
   generateSummary, 
-  type AnalysisResult 
+  type AnalysisResult,
+  AIProviderType
 } from "@git-compass/core";
 
 import { printConsoleReport } from "../formatters/console.js";
@@ -144,16 +145,28 @@ export const analyzeCommand = new Command("analyze")
         spinner.text = "Generating AI insights...";
         
         // Resolve provider and key
-        let providerType = (config.get(CONFIG_KEYS.AI_PROVIDER) as string) || "anthropic";
-        let apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY];
-        
-        if (providerType === "openai") apiKey = process.env[ENV_VARS.OPENAI_API_KEY] || (config.get("ai.openaiKey") as string);
-        else if (providerType === "gemini") apiKey = process.env[ENV_VARS.GEMINI_API_KEY] || (config.get("ai.geminiKey") as string);
-        else apiKey = apiKey || (config.get("ai.anthropicKey") as string) || (config.get(CONFIG_KEYS.AI_KEY) as string);
+        const envProvider = process.env[ENV_VARS.AI_PROVIDER] as AIProviderType;
+        const configProvider = config.get(CONFIG_KEYS.AI_PROVIDER) as AIProviderType;
+        const providerType = envProvider || configProvider || AIProviderType.ANTHROPIC;
+
+        // Determine API key based on provider
+        let apiKey: string | undefined;
+        switch (providerType) {
+          case AIProviderType.OPENAI:
+            apiKey = process.env[ENV_VARS.OPENAI_API_KEY] || config.get("ai.openaiKey");
+            break;
+          case AIProviderType.GEMINI:
+            apiKey = process.env[ENV_VARS.GEMINI_API_KEY] || config.get("ai.geminiKey");
+            break;
+          case AIProviderType.ANTHROPIC:
+          default:
+            apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY] || config.get("ai.anthropicKey") || config.get(CONFIG_KEYS.AI_KEY);
+            break;
+        }
 
         if (!apiKey) {
           spinner.warn(chalk.yellow(`AI summary requested but no API key found for ${providerType}. Skipping AI layer.`));
-          spinner.info(chalk.blue(`Run 'git-compass config set-ai' to configure your preferred provider.`));
+          spinner.info(chalk.blue(`Run 'git-compass config set ai.provider <type>' to configure your preferred provider.`));
         } else {
           try {
             const aiProvider = getAIProvider(providerType as any, apiKey);

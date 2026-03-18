@@ -14,7 +14,9 @@ import {
   analyzeImpact,
   analyzeRot,
   createAIClient,
-  queryAnalysis
+  queryAnalysis,
+  getAIProvider,
+  AIProviderType
 } from "@git-compass/core";
 import { config } from "../config/index.js";
 import { 
@@ -61,14 +63,33 @@ export const queryCommand = new Command("query")
       };
 
       spinner.text = "Consulting AI...";
-      const apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY] || (config.get(CONFIG_KEYS.AI_KEY) as string);
       
+      // Determine provider
+      const envProvider = process.env[ENV_VARS.AI_PROVIDER] as AIProviderType;
+      const configProvider = config.get(CONFIG_KEYS.AI_PROVIDER) as AIProviderType;
+      const providerType = envProvider || configProvider || AIProviderType.ANTHROPIC;
+
+      // Determine API key based on provider
+      let apiKey: string | undefined;
+      switch (providerType) {
+        case AIProviderType.OPENAI:
+          apiKey = process.env[ENV_VARS.OPENAI_API_KEY] || config.get("ai.openaiKey");
+          break;
+        case AIProviderType.GEMINI:
+          apiKey = process.env[ENV_VARS.GEMINI_API_KEY] || config.get("ai.geminiKey");
+          break;
+        case AIProviderType.ANTHROPIC:
+        default:
+          apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY] || config.get("ai.anthropicKey") || config.get(CONFIG_KEYS.AI_KEY);
+          break;
+      }
+
       if (!apiKey) {
-        spinner.fail(chalk.red(`No API key found. Use 'Git Compass config set ${CONFIG_KEYS.AI_KEY} <key>' to configure.`));
+        spinner.fail(chalk.red(`No API key found for ${providerType}. Use 'Git Compass config set' to configure.`));
         return;
       }
 
-      const aiClient = createAIClient(apiKey);
+      const aiClient = getAIProvider(providerType, apiKey);
       const answer = await queryAnalysis(aiClient, question, result);
 
       spinner.succeed(chalk.green("AI Query Complete."));
