@@ -9,6 +9,9 @@ export const watchCommand = new Command("watch")
   .description(`Watch for repository changes and re-run analysis`)
   .option("-p, --path <path>", "path to git repository", process.cwd())
   .option("-b, --branch <branch>", "branch to analyze", DEFAULT_BRANCH)
+  .option("-w, --window <window>", "time window: 7d, 30d, 90d, 1y, all", "30d")
+  .option("--max-commits <n>", "max commits to analyze", "500")
+  .option("--ai", "generate AI summary")
   .action((options) => {
     const repoPath = path.resolve(options.path);
     const gitDir = path.join(repoPath, ".git");
@@ -41,7 +44,8 @@ export const watchCommand = new Command("watch")
 function runAnalysis(options: any) {
   try {
     const binPath = path.join(process.cwd(), "dist/bin/git-compass.js");
-    const cmd = `node ${binPath} analyze -p "${options.path}" -b "${options.branch}"`;
+    let cmd = `node ${binPath} analyze -p "${options.path}" -b "${options.branch}" -w "${options.window}" --max-commits ${options.maxCommits}`;
+    if (options.ai) cmd += " --ai";
     
     execSync(cmd, { stdio: "inherit" });
   } catch (err) {
