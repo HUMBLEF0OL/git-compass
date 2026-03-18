@@ -1,5 +1,11 @@
 # @grotto/cli
 
+## 2.0.0
+
+### Major Changes
+
+- 563015b: query command fix
+
 ## 1.0.0
 
 ### Major Changes
