@@ -1,5 +1,11 @@
 # @grotto/cli
 
+## 1.0.0
+
+### Major Changes
+
+- 008910d: publishing git-compass
+
 ## 2.0.0
 
 ### Major Changes
