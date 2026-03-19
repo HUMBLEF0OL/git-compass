@@ -11,7 +11,7 @@
 2. [Monorepo Architecture](#2-monorepo-architecture)
 3. [Package Breakdown](#3-package-breakdown)
    - [3.1 `@git-compass/core` — Analytics Engine](#31-gitcompasscore--analytics-engine)
-   - [3.2 `@git-compass/cli` — CLI Tool](#32-gitcompasscli--cli-tool)
+   - [3.2 `git-compass` — CLI Tool](#32-git-compass--cli-tool)
    - [3.3 `@git-compass/web` — Next.js Dashboard](#33-gitcompassweb--nextjs-dashboard)
    - [3.4 `@git-compass/vscode` — VS Code Extension](#34-gitcompassvscode--vs-code-extension)
 4. [Data Models & Interfaces](#4-data-models--interfaces)
@@ -62,7 +62,7 @@
 Git Compass/
 ├── packages/
 │   ├── core/                   # @git-compass/core — analytics engine
-│   ├── cli/                    # @git-compass/cli — CLI tool (npm published)
+│   ├── cli/                    # git-compass — CLI tool (npm published)
 │   ├── web/                    # @git-compass/web — Next.js dashboard
 │   └── vscode/                 # @git-compass/vscode — VS Code extension
 ├── tooling/
@@ -462,7 +462,7 @@ Respond in plain English. No bullet points. No markdown formatting.`;
 
 ---
 
-### 3.2 `@git-compass/cli` — CLI Tool
+### 3.2 `git-compass` — CLI Tool
 
 Wraps the core engine into a user-facing CLI published to npm.
 
