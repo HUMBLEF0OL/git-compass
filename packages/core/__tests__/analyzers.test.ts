@@ -159,7 +159,7 @@ describe("Analyzers", () => {
 
   it("should analyze coupling correctly", () => {
     const coupling = analyzeCoupling(mockCommits);
-    const link = coupling.find(l => 
+    const link = coupling.find(l =>
       (l.head === "src/index.ts" && l.tail === "src/utils.ts") ||
       (l.head === "src/utils.ts" && l.tail === "src/index.ts")
     );

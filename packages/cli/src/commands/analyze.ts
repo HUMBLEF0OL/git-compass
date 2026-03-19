@@ -39,6 +39,7 @@ import {
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs/promises";
+import { ensureGitIgnore } from "../utils/gitignore.js";
 
 dotenv.config();
 
@@ -66,6 +67,9 @@ export const analyzeCommand = new Command("analyze")
       } catch (err) {
         // Fallback to repoPath if not a git repo or other error
       }
+
+      // Ensure .git-compass is ignored
+      await ensureGitIgnore(repoRoot, [".git-compass"]);
 
       spinner.text = `Fetching commits from ${options.branch}...`;
       

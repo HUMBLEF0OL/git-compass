@@ -1,4 +1,3 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { 
   AIProvider, 
   AIProviderType, 
@@ -7,51 +6,57 @@ import {
 } from "../../types.js";
 
 import { buildSummaryPrompt } from "../summarizer.js";
+import { ensurePackage } from "../../utils/pkg-installer.js";
 
 export function createAnthropicProvider(apiKey: string): AIProvider {
-  const client = new Anthropic({ apiKey });
-
   return {
     type: AIProviderType.ANTHROPIC,
 
     generateSummary: async (analysis: AnalysisResult): Promise<AISummary> => {
+      await ensurePackage("ai");
+      await ensurePackage("@ai-sdk/anthropic");
+      // @ts-ignore - dynamically installed
+      const { generateText } = await import("ai");
+      // @ts-ignore - dynamically installed
+      const { createAnthropic } = await import("@ai-sdk/anthropic");
+      
+      const anthropic = createAnthropic({ apiKey });
       const prompt = buildSummaryPrompt(analysis);
-      const message = await client.messages.create({
-        model: "claude-3-5-sonnet-20240620",
-        max_tokens: 1024,
-        messages: [{ role: "user", content: prompt }],
+
+      const { text } = await generateText({
+        model: anthropic("claude-3-5-sonnet-20240620"),
+        prompt,
       });
 
-      const text = message.content[0];
-      if (text?.type !== "text") throw new Error("Unexpected response type from Anthropic");
-
       return {
-        digest: text.text,
+        digest: text,
         generatedAt: new Date(),
-        model: message.model,
+        model: "claude-3-5-sonnet-20240620",
         provider: AIProviderType.ANTHROPIC,
       };
     },
 
     query: async (question: string, analysis: AnalysisResult): Promise<string> => {
+      await ensurePackage("ai");
+      await ensurePackage("@ai-sdk/anthropic");
+      // @ts-ignore - dynamically installed
+      const { generateText } = await import("ai");
+      // @ts-ignore - dynamically installed
+      const { createAnthropic } = await import("@ai-sdk/anthropic");
+      
+      const anthropic = createAnthropic({ apiKey });
       const context = JSON.stringify(analysis, null, 2);
-      const message = await client.messages.create({
-        model: "claude-3-5-sonnet-20240620",
-        max_tokens: 512,
+
+      const { text } = await generateText({
+        model: anthropic("claude-3-5-sonnet-20240620"),
         system: `You are Git Compass, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}`,
-        messages: [{ role: "user", content: question }],
+        prompt: question,
       });
 
-      const text = message.content[0];
-      if (text?.type !== "text") throw new Error("Unexpected response type from Anthropic");
-      return text.text;
+      return text;
     }
   };
 }
-
-
-
-
 
 
 

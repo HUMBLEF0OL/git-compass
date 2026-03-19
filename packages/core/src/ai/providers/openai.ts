@@ -1,4 +1,3 @@
-import OpenAI from "openai";
 import { 
   AIProvider, 
   AIProviderType, 
@@ -7,45 +6,53 @@ import {
 } from "../../types.js";
 
 import { buildSummaryPrompt } from "../summarizer.js";
+import { ensurePackage } from "../../utils/pkg-installer.js";
 
 export function createOpenAIProvider(apiKey: string): AIProvider {
-  const client = new OpenAI({ apiKey });
-
   return {
     type: AIProviderType.OPENAI,
 
     generateSummary: async (analysis: AnalysisResult): Promise<AISummary> => {
+      await ensurePackage("ai");
+      await ensurePackage("@ai-sdk/openai");
+      // @ts-ignore - dynamically installed
+      const { generateText } = await import("ai");
+      // @ts-ignore - dynamically installed
+      const { createOpenAI } = await import("@ai-sdk/openai");
+      
+      const openai = createOpenAI({ apiKey });
       const prompt = buildSummaryPrompt(analysis);
-      const response = await client.chat.completions.create({
-        model: "gpt-4o",
-        messages: [{ role: "user", content: prompt }],
-        max_tokens: 1024,
-      });
 
-      const text = response.choices[0]?.message?.content;
-      if (!text) throw new Error("Unexpected response from OpenAI");
+      const { text } = await generateText({
+        model: openai("gpt-4o"),
+        prompt,
+      });
 
       return {
         digest: text,
         generatedAt: new Date(),
-        model: response.model,
+        model: "gpt-4o",
         provider: AIProviderType.OPENAI,
       };
     },
 
     query: async (question: string, analysis: AnalysisResult): Promise<string> => {
+      await ensurePackage("ai");
+      await ensurePackage("@ai-sdk/openai");
+      // @ts-ignore - dynamically installed
+      const { generateText } = await import("ai");
+      // @ts-ignore - dynamically installed
+      const { createOpenAI } = await import("@ai-sdk/openai");
+      
+      const openai = createOpenAI({ apiKey });
       const context = JSON.stringify(analysis, null, 2);
-      const response = await client.chat.completions.create({
-        model: "gpt-4o",
-        messages: [
-          { role: "system", content: `You are Git Compass, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}` },
-          { role: "user", content: question }
-        ],
-        max_tokens: 512,
+
+      const { text } = await generateText({
+        model: openai("gpt-4o"),
+        system: `You are Git Compass, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}`,
+        prompt: question,
       });
 
-      const text = response.choices[0]?.message?.content;
-      if (!text) throw new Error("Unexpected response from OpenAI");
       return text;
     }
   };

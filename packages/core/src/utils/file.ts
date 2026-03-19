@@ -3,7 +3,7 @@
  */
 export function extractFilesFromDiff(diff: unknown): string[] {
   if (!diff || typeof diff !== "object") return [];
-  
+
   const diffObj = diff as { files?: Array<{ file: string }> };
   if (!diffObj.files) return [];
 

@@ -3,11 +3,11 @@ import ora from "ora";
 import chalk from "chalk";
 import path from "path";
 import fs from "fs/promises";
-import { 
-  createGitParser, 
-  getCommits, 
-  analyzeHotspots, 
-  computeRiskScores, 
+import {
+  createGitParser,
+  getCommits,
+  analyzeHotspots,
+  computeRiskScores,
   getAIProvider,
   generateSummary,
   type AnalysisResult,
@@ -15,13 +15,14 @@ import {
 } from "@git-compass/core";
 import { config } from "../config/index.js";
 import { CONFIG_KEYS, ENV_VARS } from "../constants/index.js";
-import { 
-  getCachePath, 
-  loadCache, 
-  getCachedResult, 
-  updateCache, 
-  saveCache 
+import {
+  getCachePath,
+  loadCache,
+  getCachedResult,
+  updateCache,
+  saveCache
 } from "../utils/cache.js";
+import { ensureGitIgnore } from "../utils/gitignore.js";
 
 export const analyzeAllCommand = new Command("analyze-all")
   .description("Scan a directory for Git repositories and analyze them all")
@@ -36,26 +37,29 @@ export const analyzeAllCommand = new Command("analyze-all")
 
     try {
       const repos = await findGitRepos(rootPath);
-      
+
       if (repos.length === 0) {
         spinner.fail(chalk.red("No Git repositories found."));
         return;
       }
 
       spinner.succeed(chalk.green(`Found ${repos.length} repositories.`));
-      
+
       const summaries: any[] = [];
 
       for (const repoPath of repos) {
         const repoName = path.basename(repoPath);
         const repoSpinner = ora(`Analyzing ${repoName}...`).start();
-        
+
         try {
           const git = createGitParser(repoPath);
           const topLevel = await git.revparse(["--show-toplevel"]);
           const repoRoot = path.resolve(topLevel);
           const latestCommit = await git.revparse(["HEAD"]);
           
+          // Ensure .git-compass is ignored
+          await ensureGitIgnore(repoRoot, [".git-compass"]);
+
           const cachePath = await getCachePath(repoRoot);
           const cache = await loadCache(cachePath);
           const cachedResult = getCachedResult(cache, repoRoot, latestCommit);
@@ -66,13 +70,13 @@ export const analyzeAllCommand = new Command("analyze-all")
             result = cachedResult;
             repoSpinner.text = `Loaded ${repoName} from cache.`;
           } else {
-            const commits = await getCommits(git, { 
+            const commits = await getCommits(git, {
               maxCount: parseInt(options.maxCommits, 10),
               since: options.window !== "all" ? options.window : undefined
             });
             const hotspots = analyzeHotspots(commits, options.window as any);
             const riskScores = computeRiskScores(hotspots);
-            
+
             result = {
               meta: {
                 repoPath: repoRoot,
@@ -96,7 +100,7 @@ export const analyzeAllCommand = new Command("analyze-all")
               const envProvider = process.env[ENV_VARS.AI_PROVIDER] as AIProviderType;
               const configProvider = config.get(CONFIG_KEYS.AI_PROVIDER) as AIProviderType;
               const providerType = envProvider || configProvider || AIProviderType.ANTHROPIC;
-              
+
               let apiKey: string | undefined;
               if (providerType === "openai") apiKey = process.env[ENV_VARS.OPENAI_API_KEY] || config.get("ai.openaiKey");
               else if (providerType === "gemini") apiKey = process.env[ENV_VARS.GEMINI_API_KEY] || config.get("ai.geminiKey");
@@ -106,7 +110,7 @@ export const analyzeAllCommand = new Command("analyze-all")
                 try {
                   const aiProvider = getAIProvider(providerType, apiKey);
                   result.aiSummary = await generateSummary(aiProvider, result);
-                } catch (e) {}
+                } catch (e) { }
               }
             }
 
@@ -115,7 +119,7 @@ export const analyzeAllCommand = new Command("analyze-all")
           }
 
           const highRiskCount = result.riskScores.filter(r => r.level === "high" || r.level === "critical").length;
-          
+
           summaries.push({
             name: repoName,
             commits: result.meta.commitCount,
@@ -139,10 +143,10 @@ export const analyzeAllCommand = new Command("analyze-all")
 
 async function findGitRepos(dir: string, depth = 0, maxDepth = 3): Promise<string[]> {
   const repos: string[] = [];
-  
+
   try {
     const entries = await fs.readdir(dir, { withFileTypes: true });
-    
+
     // Check if current dir is a git repo
     if (entries.some(e => e.isDirectory() && e.name === ".git")) {
       return [dir];

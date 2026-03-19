@@ -1,40 +1,313 @@
 {
-  "Git Compass": {
-    "a716486913badd5e5699eb43ea016422ec2cf71b": {
+  "grotto": {
+    "5509539fb0671108650316614244bec49f7b57b9": {
       "meta": {
-        "repoPath": "E:\\Projects and Learning\\Git Compass\\packages\\cli",
+        "repoPath": "E:\\Projects and Learning\\grotto",
         "branch": "HEAD",
         "window": "30d",
-        "commitCount": 23,
-        "generatedAt": "2026-03-17T16:34:17.486Z"
+        "commitCount": 38,
+        "generatedAt": "2026-03-19T14:58:34.846Z"
       },
       "hotspots": [
         {
           "path": "packages/cli/package.json",
-          "changeCount": 5,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "changeCount": 10,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-17T16:51:44.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/package.json",
+          "changeCount": 7,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-17T16:51:44.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/commands/analyze.ts",
+          "changeCount": 6,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-18T03:47:15.000Z",
           "riskScore": 0
         },
         {
           "path": "pnpm-lock.yaml",
-          "changeCount": 5,
+          "changeCount": 6,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:09:19.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
           "riskScore": 0
         },
         {
-          "path": "package.json",
-          "changeCount": 4,
+          "path": "packages/cli/src/commands/analyze-all.ts",
+          "changeCount": 5,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-18T14:27:24.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/commands/query.ts",
+          "changeCount": 5,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-18T14:27:24.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/constants/index.ts",
+          "changeCount": 5,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-18T03:47:15.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "changeCount": 5,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:25:52.000Z",
+          "lastChanged": "2026-03-18T02:59:18.000Z",
           "riskScore": 0
         },
         {
           "path": ".gitignore",
+          "changeCount": 5,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "package.json",
+          "changeCount": 5,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/config/index.ts",
+          "changeCount": 5,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/formatters/console.ts",
+          "changeCount": 5,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/commands/watch.ts",
+          "changeCount": 4,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-18T14:27:24.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/commands/config.ts",
           "changeCount": 4,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:19:45.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/index.ts",
+          "changeCount": 4,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/eslint-config/package.json",
+          "changeCount": 4,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/tsconfig/package.json",
+          "changeCount": 4,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/vitest-config/package.json",
+          "changeCount": 4,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".changeset/config.json",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:51:44.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "docs/getting-started.md",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:51:44.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".changeset/salty-pillows-help.md",
+          "changeCount": 3,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": ".changeset/tricky-lands-sleep.md",
+          "changeCount": 3,
+          "uniqueAuthors": 2,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "README.md",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/README.md",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/__tests__/commands.test.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/__tests__/sanity.test.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/config/__tests__/config.test.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/formatters/report-gen.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/src/utils/cache.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/tsconfig.json",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/index.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/summarizer.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/churn.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/compass.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/coupling.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/hotspot.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/impact.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/knowledge.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/rot.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/types.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/utils/index.ts",
+          "changeCount": 3,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
           "riskScore": 0
         },
         {
@@ -45,38 +318,206 @@
           "riskScore": 0
         },
         {
-          "path": ".github/workflows/release.yml",
-          "changeCount": 3,
+          "path": ".changeset/README.md",
+          "changeCount": 2,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:29:26.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
           "riskScore": 0
         },
         {
-          "path": "packages/core/package.json",
-          "changeCount": 3,
+          "path": "docs/architecture.md",
+          "changeCount": 2,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:09:19.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
           "riskScore": 0
         },
         {
-          "path": "packages/cli/src/config/index.ts",
-          "changeCount": 3,
+          "path": "packages/core/README.md",
+          "changeCount": 2,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T14:41:49.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
           "riskScore": 0
         },
         {
-          "path": "packages/cli/src/commands/analyze.ts",
-          "changeCount": 3,
+          "path": "packages/core/__tests__/analyzers.test.ts",
+          "changeCount": 2,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:11.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
           "riskScore": 0
         },
         {
-          "path": "packages/cli/src/formatters/console.ts",
-          "changeCount": 3,
+          "path": "packages/core/__tests__/git-parser.test.ts",
+          "changeCount": 2,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:11.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/scripts/analyze.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/providers/anthropic.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/providers/gemini.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/ai/providers/openai.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/burnout.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/contributor.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/index.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/analyzers/risk.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/index.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/parser/diff-parser.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/parser/git-parser.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/parser/index.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/utils/date.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/src/utils/file.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/test_output.txt",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/tsconfig.json",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/tsconfig/base.json",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/vitest-config/vitest.config.ts",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "turbo.json",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T16:40:32.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/cli/CHANGELOG.md",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:39:12.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "packages/core/CHANGELOG.md",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:39:12.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/eslint-config/CHANGELOG.md",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:39:12.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/tsconfig/CHANGELOG.md",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:39:12.000Z",
+          "riskScore": 0
+        },
+        {
+          "path": "tooling/vitest-config/CHANGELOG.md",
+          "changeCount": 2,
+          "uniqueAuthors": 1,
+          "lastChanged": "2026-03-17T15:39:12.000Z",
           "riskScore": 0
         },
         {
@@ -87,276 +528,59 @@
           "riskScore": 0
         },
         {
-          "path": "packages/cli/src/index.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T14:41:49.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/ai/index.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:36.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/ai/summarizer.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:36.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/types.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:36.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/src/commands/config.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:11.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/src/constants/index.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:11.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "README.md",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:19:45.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/src/commands/analyze-all.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:19:45.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/churn.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/compass.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/coupling.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/hotspot.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/impact.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/knowledge.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/rot.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/utils/index.ts",
-          "changeCount": 2,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/src/__tests__/commands.test.ts",
+          "path": ".changeset/shiny-mirrors-hang.md",
           "changeCount": 1,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "lastChanged": "2026-03-18T03:48:02.000Z",
           "riskScore": 0
         },
         {
-          "path": "packages/cli/src/__tests__/sanity.test.ts",
+          "path": ".changeset/wicked-steaks-sing.md",
           "changeCount": 1,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "lastChanged": "2026-03-18T03:02:10.000Z",
           "riskScore": 0
         },
         {
-          "path": "packages/cli/src/config/__tests__/config.test.ts",
+          "path": ".changeset/wide-shoes-leave.md",
           "changeCount": 1,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "lastChanged": "2026-03-17T16:51:44.000Z",
           "riskScore": 0
         },
         {
-          "path": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "path": ".git-compass/cache.json",
           "changeCount": 1,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
           "riskScore": 0
         },
         {
-          "path": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "path": "git-compass_roadmap.md",
           "changeCount": 1,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:37:38.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
           "riskScore": 0
         },
         {
-          "path": ".changeset/tricky-lands-sleep.md",
+          "path": "packages/cli/src/bin/git-compass.ts",
           "changeCount": 1,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:27:04.000Z",
+          "lastChanged": "2026-03-17T16:40:32.000Z",
           "riskScore": 0
         },
         {
-          "path": ".changeset/salty-pillows-help.md",
+          "path": "packages/cli/src/bin/{grotto.ts => git-compass.ts}",
           "changeCount": 1,
           "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:14:06.000Z",
+          "lastChanged": "2026-03-17T16:38:58.000Z",
           "riskScore": 0
         },
         {
-          "path": ".changeset/README.md",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:09:19.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": ".changeset/config.json",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T15:09:19.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/ai/providers/anthropic.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:36.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/ai/providers/gemini.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:36.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/ai/providers/openai.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T10:09:36.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "docs/architecture.md",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:19:45.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "docs/getting-started.md",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:19:45.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/README.md",
+          "path": "packages/cli/src/bin/grotto.ts",
           "changeCount": 1,
           "uniqueAuthors": 1,
           "lastChanged": "2026-03-17T09:05:26.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/src/bin/Git Compass.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:05:26.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/src/commands/query.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:05:26.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/src/commands/watch.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:05:26.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/src/formatters/report-gen.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:05:26.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/src/utils/cache.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:05:26.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/cli/tsconfig.json",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T09:05:26.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/utils/date.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/utils/file.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:22:15.000Z",
           "riskScore": 0
         },
         {
@@ -381,147 +605,7 @@
           "riskScore": 0
         },
         {
-          "path": "tooling/eslint-config/package.json",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:16:18.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "tooling/tsconfig/package.json",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:16:18.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "tooling/vitest-config/package.json",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:16:18.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "tooling/vitest-config/vitest.config.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:16:18.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/README.md",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/__tests__/analyzers.test.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/__tests__/git-parser.test.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/scripts/analyze.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/burnout.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/contributor.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/index.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/analyzers/risk.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/index.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/parser/diff-parser.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/parser/git-parser.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/src/parser/index.ts",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/test_output.txt",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "packages/core/tsconfig.json",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T06:09:48.000Z",
-          "riskScore": 0
-        },
-        {
           "path": "pnpm-workspace.yaml",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T05:22:02.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "tooling/tsconfig/base.json",
-          "changeCount": 1,
-          "uniqueAuthors": 1,
-          "lastChanged": "2026-03-17T05:22:02.000Z",
-          "riskScore": 0
-        },
-        {
-          "path": "turbo.json",
           "changeCount": 1,
           "uniqueAuthors": 1,
           "lastChanged": "2026-03-17T05:22:02.000Z",
@@ -580,875 +664,1204 @@
       "riskScores": [
         {
           "path": "packages/cli/package.json",
-          "score": 100,
+          "score": 98,
           "level": "critical",
           "factors": {
             "changeFrequency": 100,
             "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "pnpm-lock.yaml",
-          "score": 100,
-          "level": "critical",
-          "factors": {
-            "changeFrequency": 100,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "package.json",
-          "score": 92,
-          "level": "critical",
-          "factors": {
-            "changeFrequency": 80,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": ".gitignore",
-          "score": 92,
-          "level": "critical",
-          "factors": {
-            "changeFrequency": 80,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": ".github/workflows/ci.yml",
-          "score": 84,
-          "level": "critical",
-          "factors": {
-            "changeFrequency": 60,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": ".github/workflows/release.yml",
-          "score": 84,
-          "level": "critical",
-          "factors": {
-            "changeFrequency": 60,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/package.json",
-          "score": 84,
+          "score": 86,
           "level": "critical",
           "factors": {
-            "changeFrequency": 60,
+            "changeFrequency": 70,
             "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "packages/cli/src/config/index.ts",
-          "score": 84,
-          "level": "critical",
-          "factors": {
-            "changeFrequency": 60,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/cli/src/commands/analyze.ts",
-          "score": 84,
+          "score": 83,
           "level": "critical",
           "factors": {
             "changeFrequency": 60,
             "uniqueAuthors": 100,
-            "recentActivity": 99
+            "recentActivity": 95
           }
         },
         {
-          "path": "packages/cli/src/formatters/console.ts",
-          "score": 84,
-          "level": "critical",
+          "path": "pnpm-lock.yaml",
+          "score": 67,
+          "level": "high",
           "factors": {
             "changeFrequency": 60,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/cli/output.txt",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "packages/cli/src/index.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "packages/core/src/ai/index.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/ai/summarizer.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/types.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/cli/src/commands/config.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/cli/src/constants/index.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "README.md",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/cli/src/commands/analyze-all.ts",
-          "score": 76,
+          "score": 79,
           "level": "high",
           "factors": {
-            "changeFrequency": 40,
+            "changeFrequency": 50,
             "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/analyzers/churn.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/analyzers/compass.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/analyzers/coupling.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/analyzers/hotspot.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/analyzers/impact.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/analyzers/knowledge.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/analyzers/rot.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/utils/index.ts",
-          "score": 76,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 40,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/cli/src/__tests__/commands.test.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "packages/cli/src/__tests__/sanity.test.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "packages/cli/src/config/__tests__/config.test.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "packages/cli/src/formatters/__tests__/console.test.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "packages/cli/src/utils/__tests__/cache.test.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": ".changeset/tricky-lands-sleep.md",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": ".changeset/salty-pillows-help.md",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": ".changeset/README.md",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": ".changeset/config.json",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 100
-          }
-        },
-        {
-          "path": "packages/core/src/ai/providers/anthropic.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/ai/providers/gemini.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/ai/providers/openai.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "docs/architecture.md",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "docs/getting-started.md",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/cli/README.md",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/cli/src/bin/Git Compass.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "recentActivity": 97
           }
         },
         {
           "path": "packages/cli/src/commands/query.ts",
-          "score": 68,
+          "score": 79,
           "level": "high",
           "factors": {
-            "changeFrequency": 20,
+            "changeFrequency": 50,
             "uniqueAuthors": 100,
-            "recentActivity": 99
+            "recentActivity": 97
+          }
+        },
+        {
+          "path": "packages/cli/src/constants/index.ts",
+          "score": 79,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 50,
+            "uniqueAuthors": 100,
+            "recentActivity": 95
+          }
+        },
+        {
+          "path": ".github/workflows/release.yml",
+          "score": 64,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 50,
+            "uniqueAuthors": 50,
+            "recentActivity": 95
+          }
+        },
+        {
+          "path": ".gitignore",
+          "score": 63,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 50,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "package.json",
+          "score": 63,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 50,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/config/index.ts",
+          "score": 63,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 50,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/formatters/console.ts",
+          "score": 63,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 50,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/cli/src/commands/watch.ts",
-          "score": 68,
+          "score": 75,
           "level": "high",
           "factors": {
-            "changeFrequency": 20,
+            "changeFrequency": 40,
             "uniqueAuthors": 100,
-            "recentActivity": 99
+            "recentActivity": 97
           }
         },
         {
-          "path": "packages/cli/src/formatters/report-gen.ts",
-          "score": 68,
-          "level": "high",
+          "path": "packages/cli/src/commands/config.ts",
+          "score": 59,
+          "level": "medium",
           "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "changeFrequency": 40,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
-          "path": "packages/cli/src/utils/cache.ts",
-          "score": 68,
-          "level": "high",
+          "path": "packages/cli/src/index.ts",
+          "score": 59,
+          "level": "medium",
           "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/cli/tsconfig.json",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/utils/date.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "packages/core/src/utils/file.ts",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": ".eslintrc.cjs",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": ".prettierrc",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "tooling/eslint-config/index.js",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "changeFrequency": 40,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "tooling/eslint-config/package.json",
-          "score": 68,
+          "score": 74,
           "level": "high",
           "factors": {
-            "changeFrequency": 20,
+            "changeFrequency": 40,
             "uniqueAuthors": 100,
-            "recentActivity": 99
+            "recentActivity": 94
           }
         },
         {
           "path": "tooling/tsconfig/package.json",
-          "score": 68,
+          "score": 74,
           "level": "high",
           "factors": {
-            "changeFrequency": 20,
+            "changeFrequency": 40,
             "uniqueAuthors": 100,
-            "recentActivity": 99
+            "recentActivity": 94
           }
         },
         {
           "path": "tooling/vitest-config/package.json",
-          "score": 68,
+          "score": 74,
           "level": "high",
           "factors": {
-            "changeFrequency": 20,
+            "changeFrequency": 40,
             "uniqueAuthors": 100,
-            "recentActivity": 99
+            "recentActivity": 94
           }
         },
         {
-          "path": "tooling/vitest-config/vitest.config.ts",
-          "score": 68,
+          "path": ".changeset/config.json",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "docs/getting-started.md",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": ".changeset/salty-pillows-help.md",
+          "score": 70,
           "level": "high",
           "factors": {
-            "changeFrequency": 20,
+            "changeFrequency": 30,
             "uniqueAuthors": 100,
-            "recentActivity": 99
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": ".changeset/tricky-lands-sleep.md",
+          "score": 70,
+          "level": "high",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 100,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "README.md",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/README.md",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/__tests__/commands.test.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/__tests__/sanity.test.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/config/__tests__/config.test.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/formatters/report-gen.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/utils/cache.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/tsconfig.json",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/ai/index.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/ai/summarizer.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/churn.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/compass.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/coupling.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/hotspot.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/impact.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/knowledge.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/analyzers/rot.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/types.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/utils/index.ts",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": ".github/workflows/ci.yml",
+          "score": 55,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 30,
+            "uniqueAuthors": 50,
+            "recentActivity": 93
+          }
+        },
+        {
+          "path": ".changeset/README.md",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "docs/architecture.md",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/README.md",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/__tests__/analyzers.test.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/__tests__/git-parser.test.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/scripts/analyze.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/ai/providers/anthropic.ts",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/ai/providers/gemini.ts",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/ai/providers/openai.ts",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/src/analyzers/burnout.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/src/analyzers/contributor.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/src/analyzers/index.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/src/analyzers/risk.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/src/index.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/src/parser/diff-parser.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/src/parser/git-parser.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/src/parser/index.ts",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/utils/date.ts",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/core/src/utils/file.ts",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/test_output.txt",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "packages/core/tsconfig.json",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 99
-          }
-        },
-        {
-          "path": "pnpm-workspace.yaml",
-          "score": 68,
-          "level": "high",
-          "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "tooling/tsconfig/base.json",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "tooling/vitest-config/vitest.config.ts",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
           }
         },
         {
           "path": "turbo.json",
-          "score": 68,
-          "level": "high",
+          "score": 51,
+          "level": "medium",
           "factors": {
             "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/CHANGELOG.md",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 93
+          }
+        },
+        {
+          "path": "packages/core/CHANGELOG.md",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 93
+          }
+        },
+        {
+          "path": "tooling/eslint-config/CHANGELOG.md",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 93
+          }
+        },
+        {
+          "path": "tooling/tsconfig/CHANGELOG.md",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 93
+          }
+        },
+        {
+          "path": "tooling/vitest-config/CHANGELOG.md",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 93
+          }
+        },
+        {
+          "path": "packages/cli/output.txt",
+          "score": 51,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 20,
+            "uniqueAuthors": 50,
+            "recentActivity": 93
+          }
+        },
+        {
+          "path": ".changeset/shiny-mirrors-hang.md",
+          "score": 48,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 95
+          }
+        },
+        {
+          "path": ".changeset/wicked-steaks-sing.md",
+          "score": 48,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 95
+          }
+        },
+        {
+          "path": ".changeset/wide-shoes-leave.md",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": ".git-compass/cache.json",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "git-compass_roadmap.md",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/bin/git-compass.ts",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/bin/{grotto.ts => git-compass.ts}",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 94
+          }
+        },
+        {
+          "path": "packages/cli/src/bin/grotto.ts",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 93
+          }
+        },
+        {
+          "path": ".eslintrc.cjs",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
+          }
+        },
+        {
+          "path": ".prettierrc",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
+          }
+        },
+        {
+          "path": "tooling/eslint-config/index.js",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
+          }
+        },
+        {
+          "path": "pnpm-workspace.yaml",
+          "score": 47,
+          "level": "medium",
+          "factors": {
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
           }
         },
         {
           "path": "LICENSE",
-          "score": 67,
-          "level": "high",
+          "score": 47,
+          "level": "medium",
           "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
           }
         },
         {
           "path": "__test__/sample.test.js",
-          "score": 67,
-          "level": "high",
+          "score": 47,
+          "level": "medium",
           "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
           }
         },
         {
           "path": "bin/gitcompass.js",
-          "score": 67,
-          "level": "high",
+          "score": 47,
+          "level": "medium",
           "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
           }
         },
         {
           "path": "package-lock.json",
-          "score": 67,
-          "level": "high",
+          "score": 47,
+          "level": "medium",
           "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
           }
         },
         {
           "path": "src/cli/index.js",
-          "score": 67,
-          "level": "high",
+          "score": 47,
+          "level": "medium",
           "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
           }
         },
         {
           "path": "src/git/gitCommands.js",
-          "score": 67,
-          "level": "high",
+          "score": 47,
+          "level": "medium",
           "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
           }
         },
         {
           "path": "src/utils/logger.js",
-          "score": 67,
-          "level": "high",
+          "score": 47,
+          "level": "medium",
           "factors": {
-            "changeFrequency": 20,
-            "uniqueAuthors": 100,
-            "recentActivity": 98
+            "changeFrequency": 10,
+            "uniqueAuthors": 50,
+            "recentActivity": 92
           }
         }
       ],
       "churn": [
         {
           "date": "2026-03-17T00:00:00.000Z",
-          "linesAdded": 7838,
-          "linesRemoved": 5741,
-          "netChurn": 2097,
-          "commitCount": 17
+          "linesAdded": 12646,
+          "linesRemoved": 5882,
+          "netChurn": 6764,
+          "commitCount": 23
+        },
+        {
+          "date": "2026-03-18T00:00:00.000Z",
+          "linesAdded": 105,
+          "linesRemoved": 19,
+          "netChurn": 86,
+          "commitCount": 5
         }
       ],
       "contributors": [
         {
-          "author": "github-actions",
-          "email": "github-actions@github.com",
-          "commitCount": 17,
-          "linesAdded": 7838,
-          "linesRemoved": 5741,
-          "filesChanged": 81,
-          "firstCommit": "2026-03-17T04:32:30.000Z",
-          "lastCommit": "2026-03-17T15:37:38.000Z",
+          "author": "HUMBLEFOOL",
+          "email": "123amitrana0123@gmail.com",
+          "commitCount": 3,
+          "linesAdded": 99,
+          "linesRemoved": 19,
+          "filesChanged": 6,
+          "firstCommit": "2026-03-18T03:47:15.000Z",
+          "lastCommit": "2026-03-18T14:27:24.000Z",
           "activeDays": 1
         },
         {
+          "author": "github-actions",
+          "email": "github-actions@github.com",
+          "commitCount": 24,
+          "linesAdded": 12567,
+          "linesRemoved": 5854,
+          "filesChanged": 87,
+          "firstCommit": "2026-03-17T04:32:30.000Z",
+          "lastCommit": "2026-03-18T03:02:10.000Z",
+          "activeDays": 2
+        },
+        {
           "author": "AMIT RANA",
-          "email": "123amitrana0123@gmail.com",
-          "commitCount": 6,
+          "email": "69069897+HUMBLEF0OL@users.noreply.github.com",
+          "commitCount": 9,
           "linesAdded": 5366,
           "linesRemoved": 14,
           "filesChanged": 10,
           "firstCommit": "2024-12-27T13:38:16.000Z",
-          "lastCommit": "2024-12-28T07:03:17.000Z",
-          "activeDays": 2
+          "lastCommit": "2026-03-17T15:42:19.000Z",
+          "activeDays": 3
+        },
+        {
+          "author": "github-actions[bot]",
+          "email": "41898282+github-actions[bot]@users.noreply.github.com",
+          "commitCount": 2,
+          "linesAdded": 85,
+          "linesRemoved": 28,
+          "filesChanged": 12,
+          "firstCommit": "2026-03-17T15:20:21.000Z",
+          "lastCommit": "2026-03-17T15:39:12.000Z",
+          "activeDays": 1
         }
       ],
       "burnout": {
         "flags": [
-          "AMIT RANA is at high burnout risk"
+          "AMIT RANA is at medium burnout risk"
         ],
-        "afterHoursCommits": 0,
+        "afterHoursCommits": 4,
         "weekendCommits": 3,
         "contributors": [
           {
-            "author": "github-actions",
+            "author": "HUMBLEFOOL",
             "afterHoursPercent": 0,
+            "weekendPercent": 0,
+            "riskLevel": "low"
+          },
+          {
+            "author": "github-actions",
+            "afterHoursPercent": 17,
             "weekendPercent": 0,
             "riskLevel": "low"
           },
           {
             "author": "AMIT RANA",
             "afterHoursPercent": 0,
-            "weekendPercent": 50,
-            "riskLevel": "high"
+            "weekendPercent": 33,
+            "riskLevel": "medium"
+          },
+          {
+            "author": "github-actions[bot]",
+            "afterHoursPercent": 0,
+            "weekendPercent": 0,
+            "riskLevel": "low"
           }
         ]
       },
       "coupling": [
         {
-          "head": "packages/cli/output.txt",
-          "tail": "packages/cli/src/index.ts",
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/formatters/report-gen.ts",
           "coupling": 1,
           "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/utils/cache.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/__tests__/commands.test.ts",
+          "tail": "packages/cli/src/__tests__/sanity.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/__tests__/commands.test.ts",
+          "tail": "packages/cli/src/config/__tests__/config.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/__tests__/commands.test.ts",
+          "tail": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/__tests__/commands.test.ts",
+          "tail": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/__tests__/sanity.test.ts",
+          "tail": "packages/cli/src/config/__tests__/config.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/__tests__/sanity.test.ts",
+          "tail": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/__tests__/sanity.test.ts",
+          "tail": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/config/__tests__/config.test.ts",
+          "tail": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/config/__tests__/config.test.ts",
+          "tail": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "tail": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/formatters/report-gen.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/formatters/report-gen.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/utils/cache.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/CHANGELOG.md",
+          "tail": "packages/core/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/CHANGELOG.md",
+          "tail": "tooling/eslint-config/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/CHANGELOG.md",
+          "tail": "tooling/tsconfig/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/CHANGELOG.md",
+          "tail": "tooling/vitest-config/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/CHANGELOG.md",
+          "tail": "tooling/eslint-config/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/CHANGELOG.md",
+          "tail": "tooling/tsconfig/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/CHANGELOG.md",
+          "tail": "tooling/vitest-config/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/eslint-config/CHANGELOG.md",
+          "tail": "tooling/tsconfig/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/eslint-config/CHANGELOG.md",
+          "tail": "tooling/vitest-config/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/eslint-config/package.json",
+          "tail": "tooling/tsconfig/package.json",
+          "coupling": 1,
+          "sharedCommits": 3
+        },
+        {
+          "head": "tooling/eslint-config/package.json",
+          "tail": "tooling/vitest-config/package.json",
+          "coupling": 1,
+          "sharedCommits": 3
+        },
+        {
+          "head": "tooling/tsconfig/CHANGELOG.md",
+          "tail": "tooling/vitest-config/CHANGELOG.md",
+          "coupling": 1,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/tsconfig/package.json",
+          "tail": "tooling/vitest-config/package.json",
+          "coupling": 1,
+          "sharedCommits": 3
         },
         {
           "head": "packages/core/src/ai/index.ts",
@@ -1465,18 +1878,6 @@
         {
           "head": "packages/core/src/ai/summarizer.ts",
           "tail": "packages/core/src/types.ts",
-          "coupling": 1,
-          "sharedCommits": 2
-        },
-        {
-          "head": "packages/cli/src/commands/analyze.ts",
-          "tail": "packages/cli/src/formatters/console.ts",
-          "coupling": 1,
-          "sharedCommits": 3
-        },
-        {
-          "head": "packages/cli/src/commands/config.ts",
-          "tail": "packages/cli/src/constants/index.ts",
           "coupling": 1,
           "sharedCommits": 2
         },
@@ -1661,86 +2062,224 @@
           "sharedCommits": 2
         },
         {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.8,
+          "sharedCommits": 4
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.8,
+          "sharedCommits": 4
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/commands/watch.ts",
+          "coupling": 0.75,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/query.ts",
+          "tail": "packages/cli/src/commands/watch.ts",
+          "coupling": 0.75,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.75,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.75,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.75,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.75,
+          "sharedCommits": 3
+        },
+        {
           "head": ".gitignore",
           "tail": "README.md",
           "coupling": 0.75,
           "sharedCommits": 3
         },
         {
-          "head": "packages/cli/output.txt",
-          "tail": "packages/cli/src/config/index.ts",
-          "coupling": 0.67,
-          "sharedCommits": 2
-        },
-        {
-          "head": "packages/cli/src/config/index.ts",
-          "tail": "packages/cli/src/index.ts",
-          "coupling": 0.67,
-          "sharedCommits": 2
-        },
-        {
-          "head": "packages/core/package.json",
-          "tail": "packages/core/src/ai/index.ts",
-          "coupling": 0.67,
-          "sharedCommits": 2
-        },
-        {
-          "head": "packages/core/package.json",
-          "tail": "packages/core/src/ai/summarizer.ts",
-          "coupling": 0.67,
-          "sharedCommits": 2
-        },
-        {
-          "head": "packages/core/package.json",
-          "tail": "packages/core/src/types.ts",
-          "coupling": 0.67,
-          "sharedCommits": 2
-        },
-        {
-          "head": "packages/cli/src/commands/analyze.ts",
+          "head": "packages/cli/README.md",
           "tail": "packages/cli/src/commands/config.ts",
           "coupling": 0.67,
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/src/commands/analyze.ts",
-          "tail": "packages/cli/src/constants/index.ts",
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/commands/watch.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/index.ts",
           "coupling": 0.67,
           "sharedCommits": 2
         },
         {
           "head": "packages/cli/src/commands/config.ts",
-          "tail": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/src/formatters/report-gen.ts",
           "coupling": 0.67,
           "sharedCommits": 2
         },
         {
           "head": "packages/cli/src/commands/config.ts",
-          "tail": "packages/cli/src/formatters/console.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
           "coupling": 0.67,
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/src/config/index.ts",
-          "tail": "packages/cli/src/constants/index.ts",
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/tsconfig.json",
           "coupling": 0.67,
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/src/constants/index.ts",
-          "tail": "packages/cli/src/formatters/console.ts",
+          "head": "packages/cli/src/commands/watch.ts",
+          "tail": "packages/cli/src/formatters/report-gen.ts",
           "coupling": 0.67,
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/src/commands/analyze-all.ts",
-          "tail": "packages/cli/src/commands/analyze.ts",
+          "head": "packages/cli/src/commands/watch.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
           "coupling": 0.67,
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/src/commands/analyze-all.ts",
-          "tail": "packages/cli/src/formatters/console.ts",
+          "head": "packages/cli/src/commands/watch.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/formatters/report-gen.ts",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/index.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/index.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/CHANGELOG.md",
+          "tail": "tooling/eslint-config/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/CHANGELOG.md",
+          "tail": "tooling/tsconfig/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/CHANGELOG.md",
+          "tail": "tooling/vitest-config/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/CHANGELOG.md",
+          "tail": "tooling/eslint-config/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/CHANGELOG.md",
+          "tail": "tooling/tsconfig/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/CHANGELOG.md",
+          "tail": "tooling/vitest-config/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/eslint-config/CHANGELOG.md",
+          "tail": "tooling/eslint-config/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/eslint-config/CHANGELOG.md",
+          "tail": "tooling/tsconfig/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/eslint-config/CHANGELOG.md",
+          "tail": "tooling/vitest-config/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/eslint-config/package.json",
+          "tail": "tooling/tsconfig/CHANGELOG.md",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/eslint-config/package.json",
+          "tail": "tooling/vitest-config/CHANGELOG.md",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/tsconfig/CHANGELOG.md",
+          "tail": "tooling/tsconfig/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/tsconfig/CHANGELOG.md",
+          "tail": "tooling/vitest-config/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/tsconfig/package.json",
+          "tail": "tooling/vitest-config/CHANGELOG.md",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "tooling/vitest-config/CHANGELOG.md",
+          "tail": "tooling/vitest-config/package.json",
+          "coupling": 0.67,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/output.txt",
+          "tail": "packages/cli/src/index.ts",
           "coupling": 0.67,
           "sharedCommits": 2
         },
@@ -1775,10 +2314,202 @@
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/package.json",
-          "tail": "packages/cli/src/config/index.ts",
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/commands/query.ts",
           "coupling": 0.6,
           "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/query.ts",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.6,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.6,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/commands/config.ts",
+          "coupling": 0.6,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.6,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.6,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/constants/index.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.6,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/commands/query.ts",
+          "coupling": 0.5,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/commands/analyze-all.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/commands/query.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/commands/analyze.ts",
+          "coupling": 0.5,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/formatters/report-gen.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.5,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/src/commands/watch.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/query.ts",
+          "tail": "packages/cli/src/formatters/report-gen.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/query.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/query.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/watch.ts",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/src/formatters/report-gen.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/config/index.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/constants/index.ts",
+          "tail": "packages/cli/src/formatters/report-gen.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/constants/index.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/constants/index.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/formatters/console.ts",
+          "tail": "packages/cli/src/formatters/report-gen.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/formatters/console.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
+          "coupling": 0.5,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/formatters/console.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 0.5,
+          "sharedCommits": 2
         },
         {
           "head": ".github/workflows/ci.yml",
@@ -1787,14 +2518,8 @@
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/src/commands/analyze.ts",
+          "head": "packages/cli/output.txt",
           "tail": "packages/cli/src/config/index.ts",
-          "coupling": 0.5,
-          "sharedCommits": 2
-        },
-        {
-          "head": "packages/cli/src/config/index.ts",
-          "tail": "packages/cli/src/formatters/console.ts",
           "coupling": 0.5,
           "sharedCommits": 2
         },
@@ -1805,26 +2530,86 @@
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/output.txt",
-          "tail": "packages/cli/package.json",
+          "head": "packages/cli/package.json",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.44,
+          "sharedCommits": 4
+        },
+        {
+          "head": "packages/cli/README.md",
+          "tail": "packages/cli/src/commands/analyze.ts",
           "coupling": 0.4,
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/package.json",
-          "tail": "packages/cli/src/index.ts",
-          "coupling": 0.4,
-          "sharedCommits": 2
-        },
-        {
-          "head": "packages/cli/package.json",
+          "head": "packages/cli/src/commands/analyze-all.ts",
           "tail": "packages/cli/src/commands/config.ts",
           "coupling": 0.4,
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/package.json",
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/formatters/report-gen.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/utils/cache.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/tsconfig.json",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/config.ts",
+          "tail": "packages/cli/src/commands/query.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/query.ts",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/watch.ts",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/watch.ts",
           "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/watch.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/constants/index.ts",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.4,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/formatters/console.ts",
+          "tail": "packages/cli/src/index.ts",
           "coupling": 0.4,
           "sharedCommits": 2
         },
@@ -1841,6 +2626,96 @@
           "sharedCommits": 2
         },
         {
+          "head": "packages/cli/package.json",
+          "tail": "packages/core/package.json",
+          "coupling": 0.36,
+          "sharedCommits": 4
+        },
+        {
+          "head": ".changeset/config.json",
+          "tail": "packages/core/package.json",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/package.json",
+          "tail": "packages/cli/src/commands/config.ts",
+          "coupling": 0.33,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/package.json",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.33,
+          "sharedCommits": 3
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze-all.ts",
+          "tail": "packages/cli/src/constants/index.ts",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/commands/watch.ts",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/analyze.ts",
+          "tail": "packages/cli/src/index.ts",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/query.ts",
+          "tail": "packages/cli/src/config/index.ts",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/src/commands/query.ts",
+          "tail": "packages/cli/src/formatters/console.ts",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/cli/CHANGELOG.md",
+          "tail": "packages/core/package.json",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/CHANGELOG.md",
+          "tail": "packages/core/package.json",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/package.json",
+          "tail": "tooling/eslint-config/CHANGELOG.md",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/package.json",
+          "tail": "tooling/tsconfig/CHANGELOG.md",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
+          "head": "packages/core/package.json",
+          "tail": "tooling/vitest-config/CHANGELOG.md",
+          "coupling": 0.33,
+          "sharedCommits": 2
+        },
+        {
           "head": ".github/workflows/release.yml",
           "tail": "package.json",
           "coupling": 0.33,
@@ -1848,19 +2723,19 @@
         },
         {
           "head": "packages/core/package.json",
-          "tail": "pnpm-lock.yaml",
+          "tail": "packages/core/src/ai/index.ts",
           "coupling": 0.33,
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/package.json",
-          "tail": "packages/cli/src/commands/analyze.ts",
+          "head": "packages/core/package.json",
+          "tail": "packages/core/src/ai/summarizer.ts",
           "coupling": 0.33,
           "sharedCommits": 2
         },
         {
-          "head": "packages/cli/package.json",
-          "tail": "packages/cli/src/formatters/console.ts",
+          "head": "packages/core/package.json",
+          "tail": "packages/core/src/types.ts",
           "coupling": 0.33,
           "sharedCommits": 2
         },
@@ -1873,7 +2748,19 @@
       ],
       "knowledge": [
         {
-          "path": "packages/cli/package.json",
+          "path": ".github/workflows/release.yml",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 100,
+          "riskLevel": "high"
+        },
+        {
+          "path": "packages/cli/src/config/index.ts",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 100,
+          "riskLevel": "high"
+        },
+        {
+          "path": "packages/cli/src/formatters/console.ts",
           "mainContributor": "github-actions",
           "authorshipPercent": 100,
           "riskLevel": "high"
@@ -1885,228 +2772,433 @@
           "riskLevel": "high"
         },
         {
-          "path": "package.json",
+          "path": "packages/cli/src/commands/analyze.ts",
           "mainContributor": "github-actions",
-          "authorshipPercent": 80,
+          "authorshipPercent": 83,
           "riskLevel": "medium"
         },
         {
           "path": ".gitignore",
           "mainContributor": "github-actions",
+          "authorshipPercent": 83,
+          "riskLevel": "medium"
+        },
+        {
+          "path": "package.json",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 83,
+          "riskLevel": "medium"
+        },
+        {
+          "path": "packages/cli/src/commands/analyze-all.ts",
+          "mainContributor": "github-actions",
           "authorshipPercent": 80,
           "riskLevel": "medium"
+        },
+        {
+          "path": "packages/cli/src/constants/index.ts",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 80,
+          "riskLevel": "medium"
+        },
+        {
+          "path": "packages/cli/package.json",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 80,
+          "riskLevel": "medium"
+        },
+        {
+          "path": "packages/core/package.json",
+          "mainContributor": "github-actions",
+          "authorshipPercent": 71,
+          "riskLevel": "low"
         }
       ],
       "impact": [
         {
+          "path": ".git-compass/cache.json",
+          "blastRadius": 68,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "git-compass_roadmap.md",
+          "blastRadius": 68,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/bin/git-compass.ts",
+          "blastRadius": 68,
+          "maxBlastRadius": 68
+        },
+        {
           "path": "packages/core/README.md",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/__tests__/analyzers.test.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/__tests__/git-parser.test.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/scripts/analyze.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/src/analyzers/burnout.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/src/analyzers/contributor.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/src/analyzers/index.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/src/analyzers/risk.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/src/index.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/src/parser/diff-parser.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/src/parser/git-parser.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/src/parser/index.ts",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/test_output.txt",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/core/tsconfig.json",
-          "blastRadius": 25,
-          "maxBlastRadius": 25
+          "blastRadius": 46.5,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/analyzers/churn.ts",
-          "blastRadius": 17,
-          "maxBlastRadius": 25
+          "path": "packages/core/src/utils/date.ts",
+          "blastRadius": 38.5,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/analyzers/compass.ts",
-          "blastRadius": 17,
-          "maxBlastRadius": 25
+          "path": "packages/core/src/utils/file.ts",
+          "blastRadius": 38.5,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/analyzers/coupling.ts",
-          "blastRadius": 17,
-          "maxBlastRadius": 25
+          "path": "tooling/vitest-config/vitest.config.ts",
+          "blastRadius": 38,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/analyzers/hotspot.ts",
-          "blastRadius": 17,
-          "maxBlastRadius": 25
+          "path": "docs/architecture.md",
+          "blastRadius": 37.5,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/analyzers/impact.ts",
-          "blastRadius": 17,
-          "maxBlastRadius": 25
+          "path": "packages/core/src/ai/providers/anthropic.ts",
+          "blastRadius": 37.5,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/analyzers/knowledge.ts",
-          "blastRadius": 17,
-          "maxBlastRadius": 25
+          "path": "packages/core/src/ai/providers/gemini.ts",
+          "blastRadius": 37.5,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/analyzers/rot.ts",
-          "blastRadius": 17,
-          "maxBlastRadius": 25
+          "path": "packages/core/src/ai/providers/openai.ts",
+          "blastRadius": 37.5,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/utils/index.ts",
-          "blastRadius": 17,
-          "maxBlastRadius": 25
+          "path": ".changeset/README.md",
+          "blastRadius": 37,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/ai/index.ts",
-          "blastRadius": 16,
-          "maxBlastRadius": 25
+          "path": "tooling/tsconfig/base.json",
+          "blastRadius": 36.5,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/core/src/ai/summarizer.ts",
-          "blastRadius": 16,
-          "maxBlastRadius": 25
-        },
-        {
-          "path": "packages/core/src/types.ts",
-          "blastRadius": 16,
-          "maxBlastRadius": 25
+          "path": "turbo.json",
+          "blastRadius": 36.5,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/cli/README.md",
-          "blastRadius": 15,
-          "maxBlastRadius": 15
-        },
-        {
-          "path": "packages/cli/src/bin/Git Compass.ts",
-          "blastRadius": 15,
-          "maxBlastRadius": 15
-        },
-        {
-          "path": "packages/cli/src/commands/query.ts",
-          "blastRadius": 15,
-          "maxBlastRadius": 15
-        },
-        {
-          "path": "packages/cli/src/commands/watch.ts",
-          "blastRadius": 15,
-          "maxBlastRadius": 15
+          "blastRadius": 34,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/cli/src/formatters/report-gen.ts",
-          "blastRadius": 15,
-          "maxBlastRadius": 15
+          "blastRadius": 34,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/cli/src/utils/cache.ts",
-          "blastRadius": 15,
-          "maxBlastRadius": 15
+          "blastRadius": 34,
+          "maxBlastRadius": 68
         },
         {
           "path": "packages/cli/tsconfig.json",
+          "blastRadius": 34,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/analyzers/churn.ts",
+          "blastRadius": 34,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/analyzers/compass.ts",
+          "blastRadius": 34,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/analyzers/coupling.ts",
+          "blastRadius": 34,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/analyzers/hotspot.ts",
+          "blastRadius": 34,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/analyzers/impact.ts",
+          "blastRadius": 34,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/analyzers/knowledge.ts",
+          "blastRadius": 34,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/analyzers/rot.ts",
+          "blastRadius": 34,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/utils/index.ts",
+          "blastRadius": 34,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/ai/index.ts",
+          "blastRadius": 33.33,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/ai/summarizer.ts",
+          "blastRadius": 33.33,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/core/src/types.ts",
+          "blastRadius": 33.33,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/__tests__/commands.test.ts",
+          "blastRadius": 30.67,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/__tests__/sanity.test.ts",
+          "blastRadius": 30.67,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/config/__tests__/config.test.ts",
+          "blastRadius": 30.67,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/formatters/__tests__/console.test.ts",
+          "blastRadius": 30.67,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/utils/__tests__/cache.test.ts",
+          "blastRadius": 30.67,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/commands/config.ts",
+          "blastRadius": 26.75,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "docs/getting-started.md",
+          "blastRadius": 26.33,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/index.ts",
+          "blastRadius": 26.25,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/commands/watch.ts",
+          "blastRadius": 26,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": ".changeset/config.json",
+          "blastRadius": 26,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": ".changeset/salty-pillows-help.md",
+          "blastRadius": 26,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": ".changeset/tricky-lands-sleep.md",
+          "blastRadius": 26,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "tooling/eslint-config/package.json",
+          "blastRadius": 24,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "tooling/tsconfig/package.json",
+          "blastRadius": 24,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "tooling/vitest-config/package.json",
+          "blastRadius": 24,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/formatters/console.ts",
+          "blastRadius": 22.8,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/commands/analyze-all.ts",
+          "blastRadius": 22.2,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/config/index.ts",
+          "blastRadius": 22,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/constants/index.ts",
+          "blastRadius": 21.8,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/commands/query.ts",
+          "blastRadius": 21.2,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/commands/analyze.ts",
+          "blastRadius": 19.33,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/bin/{grotto.ts => git-compass.ts}",
+          "blastRadius": 19,
+          "maxBlastRadius": 19
+        },
+        {
+          "path": "packages/core/package.json",
+          "blastRadius": 18.57,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "pnpm-lock.yaml",
+          "blastRadius": 16.83,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "package.json",
+          "blastRadius": 15.5,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": ".gitignore",
+          "blastRadius": 15.17,
+          "maxBlastRadius": 68
+        },
+        {
+          "path": "packages/cli/src/bin/grotto.ts",
           "blastRadius": 15,
           "maxBlastRadius": 15
         },
         {
-          "path": "packages/core/package.json",
-          "blastRadius": 12.67,
-          "maxBlastRadius": 25
+          "path": "packages/cli/package.json",
+          "blastRadius": 14.5,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/cli/src/commands/analyze-all.ts",
-          "blastRadius": 11,
-          "maxBlastRadius": 15
+          "path": "README.md",
+          "blastRadius": 14.33,
+          "maxBlastRadius": 68
         },
         {
-          "path": "packages/cli/src/commands/config.ts",
+          "path": "packages/cli/CHANGELOG.md",
           "blastRadius": 10,
-          "maxBlastRadius": 15
+          "maxBlastRadius": 10
         },
         {
-          "path": "packages/cli/src/constants/index.ts",
+          "path": "packages/core/CHANGELOG.md",
           "blastRadius": 10,
-          "maxBlastRadius": 15
+          "maxBlastRadius": 10
+        },
+        {
+          "path": "tooling/eslint-config/CHANGELOG.md",
+          "blastRadius": 10,
+          "maxBlastRadius": 10
+        },
+        {
+          "path": "tooling/tsconfig/CHANGELOG.md",
+          "blastRadius": 10,
+          "maxBlastRadius": 10
+        },
+        {
+          "path": "tooling/vitest-config/CHANGELOG.md",
+          "blastRadius": 10,
+          "maxBlastRadius": 10
         },
         {
           "path": "packages/cli/output.txt",
           "blastRadius": 9,
           "maxBlastRadius": 15
-        },
-        {
-          "path": "packages/cli/src/index.ts",
-          "blastRadius": 9,
-          "maxBlastRadius": 15
-        },
-        {
-          "path": "packages/cli/src/commands/analyze.ts",
-          "blastRadius": 9,
-          "maxBlastRadius": 15
-        },
-        {
-          "path": "packages/cli/src/formatters/console.ts",
-          "blastRadius": 9,
-          "maxBlastRadius": 15
-        },
-        {
-          "path": "packages/core/src/utils/date.ts",
-          "blastRadius": 9,
-          "maxBlastRadius": 9
-        },
-        {
-          "path": "packages/core/src/utils/file.ts",
-          "blastRadius": 9,
-          "maxBlastRadius": 9
         },
         {
           "path": ".eslintrc.cjs",
@@ -2122,76 +3214,6 @@
           "path": "tooling/eslint-config/index.js",
           "blastRadius": 8,
           "maxBlastRadius": 8
-        },
-        {
-          "path": "tooling/eslint-config/package.json",
-          "blastRadius": 8,
-          "maxBlastRadius": 8
-        },
-        {
-          "path": "tooling/tsconfig/package.json",
-          "blastRadius": 8,
-          "maxBlastRadius": 8
-        },
-        {
-          "path": "tooling/vitest-config/package.json",
-          "blastRadius": 8,
-          "maxBlastRadius": 8
-        },
-        {
-          "path": "tooling/vitest-config/vitest.config.ts",
-          "blastRadius": 8,
-          "maxBlastRadius": 8
-        },
-        {
-          "path": "packages/cli/src/config/index.ts",
-          "blastRadius": 7.67,
-          "maxBlastRadius": 15
-        },
-        {
-          "path": "packages/core/src/ai/providers/anthropic.ts",
-          "blastRadius": 7,
-          "maxBlastRadius": 7
-        },
-        {
-          "path": "packages/core/src/ai/providers/gemini.ts",
-          "blastRadius": 7,
-          "maxBlastRadius": 7
-        },
-        {
-          "path": "packages/core/src/ai/providers/openai.ts",
-          "blastRadius": 7,
-          "maxBlastRadius": 7
-        },
-        {
-          "path": "docs/architecture.md",
-          "blastRadius": 7,
-          "maxBlastRadius": 7
-        },
-        {
-          "path": "docs/getting-started.md",
-          "blastRadius": 7,
-          "maxBlastRadius": 7
-        },
-        {
-          "path": "packages/cli/package.json",
-          "blastRadius": 6.8,
-          "maxBlastRadius": 15
-        },
-        {
-          "path": "pnpm-lock.yaml",
-          "blastRadius": 6.6,
-          "maxBlastRadius": 8
-        },
-        {
-          "path": ".changeset/README.md",
-          "blastRadius": 6,
-          "maxBlastRadius": 6
-        },
-        {
-          "path": ".changeset/config.json",
-          "blastRadius": 6,
-          "maxBlastRadius": 6
         },
         {
           "path": "__test__/sample.test.js",
@@ -2219,47 +3241,7 @@
           "maxBlastRadius": 9
         },
         {
-          "path": "packages/cli/src/__tests__/commands.test.ts",
-          "blastRadius": 5,
-          "maxBlastRadius": 5
-        },
-        {
-          "path": "packages/cli/src/__tests__/sanity.test.ts",
-          "blastRadius": 5,
-          "maxBlastRadius": 5
-        },
-        {
-          "path": "packages/cli/src/config/__tests__/config.test.ts",
-          "blastRadius": 5,
-          "maxBlastRadius": 5
-        },
-        {
-          "path": "packages/cli/src/formatters/__tests__/console.test.ts",
-          "blastRadius": 5,
-          "maxBlastRadius": 5
-        },
-        {
-          "path": "packages/cli/src/utils/__tests__/cache.test.ts",
-          "blastRadius": 5,
-          "maxBlastRadius": 5
-        },
-        {
-          "path": "package.json",
-          "blastRadius": 5,
-          "maxBlastRadius": 9
-        },
-        {
           "path": "pnpm-workspace.yaml",
-          "blastRadius": 5,
-          "maxBlastRadius": 5
-        },
-        {
-          "path": "tooling/tsconfig/base.json",
-          "blastRadius": 5,
-          "maxBlastRadius": 5
-        },
-        {
-          "path": "turbo.json",
           "blastRadius": 5,
           "maxBlastRadius": 5
         },
@@ -2269,14 +3251,14 @@
           "maxBlastRadius": 9
         },
         {
-          "path": ".gitignore",
-          "blastRadius": 4.6,
-          "maxBlastRadius": 9
-        },
-        {
           "path": "src/utils/logger.js",
           "blastRadius": 4.5,
           "maxBlastRadius": 9
+        },
+        {
+          "path": ".changeset/wide-shoes-leave.md",
+          "blastRadius": 4,
+          "maxBlastRadius": 4
         },
         {
           "path": ".github/workflows/ci.yml",
@@ -2284,22 +3266,17 @@
           "maxBlastRadius": 8
         },
         {
-          "path": "README.md",
-          "blastRadius": 3.6,
-          "maxBlastRadius": 9
-        },
-        {
           "path": ".github/workflows/release.yml",
-          "blastRadius": 3,
+          "blastRadius": 1.8,
           "maxBlastRadius": 6
         },
         {
-          "path": ".changeset/tricky-lands-sleep.md",
+          "path": ".changeset/shiny-mirrors-hang.md",
           "blastRadius": 0,
           "maxBlastRadius": 0
         },
         {
-          "path": ".changeset/salty-pillows-help.md",
+          "path": ".changeset/wicked-steaks-sing.md",
           "blastRadius": 0,
           "maxBlastRadius": 0
         }
