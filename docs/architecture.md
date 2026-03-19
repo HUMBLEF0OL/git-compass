@@ -7,7 +7,7 @@ Git Compass is designed as a modular monorepo, separating core analysis logic fr
 ```mermaid
 graph TD
     User([User])
-    CLI[@git-compass/cli]
+    CLI[git-compass]
     Core[@git-compass/core]
     Git[(Git Repository)]
     AI[Anthropic API]
@@ -27,7 +27,7 @@ The "brain" of the project. It handles all raw data processing and insight gener
 - **Analyzers**: Pure functions that compute metrics like hotspots, churn, and temporal coupling.
 - **AI Clients**: Interfaces for interacting with LLMs to generate summaries and answer queries.
 
-### 2. `@git-compass/cli`
+### 2. `git-compass`
 The primary user interface. Built with `commander`.
 - **Commands**: `analyze`, `watch`, `query`, and `config`.
 - **Formatters**: Converts core `AnalysisResult` data into human-readable console output, JSON, or HTML.

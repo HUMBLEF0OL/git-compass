@@ -36,15 +36,19 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.24.0",
-    "@google/generative-ai": "0.24.1",
-    "openai": "6.31.0",
     "simple-git": "^3.24.0"
   },
   "devDependencies": {
+    "@ai-sdk/anthropic": "^1.1.9",
+    "@ai-sdk/google": "^1.1.11",
+    "@ai-sdk/openai": "^1.1.9",
+    "@anthropic-ai/sdk": "^0.24.0",
     "@git-compass/eslint-config": "workspace:*",
     "@git-compass/tsconfig": "workspace:*",
     "@git-compass/vitest-config": "workspace:*",
+    "@google/generative-ai": "0.24.1",
+    "ai": "^4.1.45",
+    "openai": "6.31.0",
     "tsx": "^4.21.0",
     "typescript": "^5.4.0",
     "vitest": "^1.6.0"

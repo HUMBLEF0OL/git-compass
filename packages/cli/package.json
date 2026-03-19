@@ -1,7 +1,20 @@
 {
-  "name": "@git-compass/cli",
-  "version": "2.0.0",
+  "name": "git-compass",
+  "version": "0.1.0",
   "description": "Git repository analytics from your terminal",
+  "keywords": [
+    "git",
+    "analytics",
+    "hotspots",
+    "churn",
+    "bus-factor",
+    "code-quality",
+    "git-history",
+    "ai",
+    "llm",
+    "anthropic",
+    "developer-tools"
+  ],
   "type": "module",
   "bin": {
     "git-compass": "./dist/bin/git-compass.js"

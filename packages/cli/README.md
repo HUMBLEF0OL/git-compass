@@ -1,107 +1,114 @@
-# @git-compass/cli
+# git-compass
 
-> Git repository analytics from your terminal.
+[![npm version](https://img.shields.io/npm/v/git-compass.svg)](https://www.npmjs.com/package/git-compass)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 
-Git Compass is a powerful command-line tool designed to help developers and teams understand their codebases better. It analyzes Git history to reveal hotspots, risk areas, contributor trends, and potential knowledge silos.
+**Git Compass** is a local-first, AI-augmented analytics engine that delivers deep insights into your code's evolution directly from your terminal. No cloud required, no privacy compromises.
 
-## Features
+It helps developers and teams understand their codebases better by analyzing Git history to reveal **hotspots**, **risk areas**, **contributor trends**, and **potential knowledge silos**.
 
-- **Hotspot Analysis**: Identify frequently changed files that may need refactoring.
-- **Risk Scoring**: Automated risk assessment based on change frequency and complexity.
-- **Contributor Insights**: Track commit patterns, active days, and potential burnout.
-- **Temporal Coupling**: Find files that are often changed together, revealing hidden dependencies.
-- **Knowledge Silos**: Detect files with a single primary author (high "bus factor" risk).
-- **Code Health**: Monitor code rot (abandoned files) and average impact (blast radius).
-- **AI Summary**: Get high-level, natural language insights from your repository data (powered by Anthropic Claude).
-- **Natural Language Queries**: Ask questions about your repo like "Who knows the most about the auth module?" or "Which files are most risky?"
+---
+
+## Key Features
+
+### Deep Repository Intelligence
+- **Hotspot Detection**: Automatically bridge the gap between "frequently changed" and "risky" by analyzing churn velocity and author diversity.
+- **Architectural Risk Scoring**: Real-time risk assessment for every file, Helping you prioritize refactors based on where technical debt is actually growing.
+- **Temporal Coupling**: Surface hidden dependencies between files that always change together but aren't explicitly linked in code.
+- **Code Health Monitoring**: Track code rot (abandoned files) and average impact (blast radius).
+
+### Team Dynamics & Health
+- **Bus Factor Analysis**: Identify critical knowledge silos where a single person is the primary author of a component.
+- **Burnout Mitigation**: Heatmaps of after-hours and weekend commit patterns to help teams maintain a healthy pace.
+- **Contributor DNA**: Understand how different perspectives contribute to your codebase over time.
+
+### AI-Powered Synthesis (Optional)
+- **Natural Language Insights**: Generate human-readable summaries of complex Git history (powered by Anthropic Claude or OpenAI).
+- **Interactive Queries**: Ask your repo questions: *"Who knows the most about the auth module?"* or *"Which files are most risky?"*
+
+---
 
 ## Installation
 
 ```bash
-npm install -g @git-compass/cli
-# or
-pnpm add -g @git-compass/cli
-```
+# Global install (recommended)
+npm install -g git-compass
 
-## Getting Started
-
-### 1. Configure your API Key (Optional)
-To use AI-powered features, set your Anthropic API key:
-
-```bash
-Git Compass config set ai.key <your-api-key>
-```
-
-### 2. Run your first analysis
-Analyze the current repository:
-
-```bash
-Git Compass analyze
-```
-
-## Command Walkthrough
-
-### `analyze`
-The primary command for generating repository insights.
-
-```bash
-Git Compass analyze [options]
-```
-
-**Options:**
-- `-p, --path <path>`: Path to the Git repository (default: current directory).
-- `-b, --branch <branch>`: Branch to analyze (default: `HEAD`).
-- `-w, --window <window>`: Time window for analysis: `7d`, `30d`, `90d`, `1y`, or `all` (default: `30d`).
-- `--max-commits <n>`: Maximum number of commits to analyze (default: `500`).
-- `-o, --output <path>`: Save the report to a file (JSON or HTML).
-- `-f, --format <format>`: Output format for the saved report: `json` or `html`.
-- `--ai`: Generate an AI-powered digest of the analysis.
-
-### `watch`
-Monitor your repository in real-time. Automatically re-runs analysis whenever new commits or changes are detected in `.git`.
-
-```bash
-Git Compass watch -p /path/to/repo
-```
-
-### `query`
-Ask natural language questions about your repository state. Requires an AI key.
-
-```bash
-Git Compass query "Which files have the highest temporal coupling?"
-Git Compass query "Analyze the contributor trends for the last 30 days."
-```
-
-### `config`
-Manage your global Git Compass settings.
-
-```bash
-Git Compass config list
-Git Compass config get ai.key
-Git Compass config set ai.key <key>
-```
-
-## Environment Variables
-
-You can also provide the AI key via an environment variable:
-- `ANTHROPIC_API_KEY`: Your Anthropic API key.
-
-## Development
-
-To run the CLI from source during development:
-
-```bash
-# In the packages/cli directory
-npm run dev # watchers tsc
-npx tsx src/bin/Git Compass.ts analyze
+# Or run instantly via npx
+npx git-compass analyze
 ```
 
 ---
-Built with ❤️ for better code.
 
+## Quick Start
 
+### 1. Simple Analysis
+Generate a comprehensive report for your current repository:
+```bash
+git-compass analyze
+```
 
+### 2. Time-Windowed Deep Dive
+Analyze the last 90 days of history:
+```bash
+git-compass analyze --window 90d
+```
 
+### 3. AI Insights (Requires API Key)
+Unlock natural language summaries:
+```bash
+# Set your key once
+git-compass config set ai.openaiKey <your-openai-key>
+# or
+git-compass config set ai.anthropicKey <your-anthropic-key>
 
+# Run with AI augmentation
+git-compass analyze --ai
+```
 
+---
 
+## Command Reference
+
+### `analyze`
+The primary engine for generating repository insights.
+- `-p, --path <path>`: Path to Git repository (default: `.`)
+- `-b, --branch <branch>`: Branch to analyze (default: `HEAD`)
+- `-w, --window <window>`: Time window (`7d`, `30d`, `90d`, `1y`, `all`)
+- `--max-commits <n>`: Cap the analysis scope
+- `-o, --output <path>`: Export to JSON or HTML report
+
+### `query`
+Interactive natural language interface for your repository.
+```bash
+git-compass query "Show me the files with the highest churn in the last week"
+```
+
+### `watch`
+Real-time monitoring mode. Automatically re-analyzes your repo as you commit.
+
+---
+
+## Configuration
+
+Git Compass stores settings in a local config file. You can manage them via:
+```bash
+git-compass config list
+git-compass config set <key> <value>
+```
+
+**Available Keys:**
+- `ai.provider`: LLM provider (`openai`, `anthropic`, `gemini`)
+- `ai.openaiKey`: Your OpenAI API key.
+- `ai.anthropicKey`: Your Anthropic API key.
+
+---
+
+## Privacy & Safety
+
+Git Compass is **local-first**. All repository parsing and traditional analytics happen entirely on your machine. If you choose to use the optional AI features, only the summarized metadata (never your full source code) is sent to the LLM provider for synthesis.
+
+---
+
+Built with care for teams that value code health.

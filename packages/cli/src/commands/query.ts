@@ -22,6 +22,7 @@ import { config } from "../config/index.js";
 import { 
   DEFAULT_BRANCH, 
   DEFAULT_MAX_COMMITS, 
+  DEFAULT_WINDOW,
   CONFIG_KEYS, 
   ENV_VARS 
 } from "../constants/index.js";
@@ -35,13 +36,20 @@ export const queryCommand = new Command("query")
   .argument("<question>", "the question to ask")
   .option("-p, --path <path>", "path to git repository", process.cwd())
   .option("-b, --branch <branch>", "branch to analyze", DEFAULT_BRANCH)
+  .option("-w, --window <window>", "time window: 7d, 30d, 90d, 1y, all", DEFAULT_WINDOW)
+  .option("--max-commits <n>", "max commits to analyze", DEFAULT_MAX_COMMITS.toString())
+  .option("--ai", "generate AI summary")
   .action(async (question, options) => {
     const repoPath = path.resolve(options.path);
     const spinner = ora("Setting up context...").start();
 
     try {
       const git = createGitParser(repoPath);
-      const commits = await getCommits(git, { branch: options.branch, maxCount: DEFAULT_MAX_COMMITS });
+      const commits = await getCommits(git, { 
+        branch: options.branch, 
+        maxCount: parseInt(options.maxCommits, 10),
+        since: options.window !== "all" ? options.window : undefined
+      });
 
       if (commits.length === 0) {
         spinner.fail(chalk.red("No commits found to build context."));

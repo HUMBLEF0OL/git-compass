@@ -6,7 +6,7 @@ Git Compass is a modular monorepo designed to help developers and teams understa
 
 ## Monorepo Packages
 
-- **[@git-compass/cli](./packages/cli)**: The primary command-line interface.
+- **[git-compass](./packages/cli)**: The primary command-line interface.
 - **[@git-compass/core](./packages/core)**: The functional analytics engine.
 - **[tooling](./tooling)**: Shared configurations for ESLint, TypeScript, and Vitest.
 

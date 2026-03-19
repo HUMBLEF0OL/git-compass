@@ -3,66 +3,80 @@ import ora from "ora";
 import chalk from "chalk";
 import path from "path";
 import fs from "fs/promises";
-import { 
-  createGitParser, 
-  getCommits, 
-  analyzeHotspots, 
-  computeRiskScores, 
-  type AnalysisResult 
+import {
+  createGitParser,
+  getCommits,
+  analyzeHotspots,
+  computeRiskScores,
+  getAIProvider,
+  generateSummary,
+  type AnalysisResult,
+  AIProviderType
 } from "@git-compass/core";
-import { 
-  getCachePath, 
-  loadCache, 
-  getCachedResult, 
-  updateCache, 
-  saveCache 
+import { config } from "../config/index.js";
+import { CONFIG_KEYS, ENV_VARS } from "../constants/index.js";
+import {
+  getCachePath,
+  loadCache,
+  getCachedResult,
+  updateCache,
+  saveCache
 } from "../utils/cache.js";
+import { ensureGitIgnore } from "../utils/gitignore.js";
 
 export const analyzeAllCommand = new Command("analyze-all")
   .description("Scan a directory for Git repositories and analyze them all")
   .argument("[path]", "directory to scan", process.cwd())
   .option("-w, --window <window>", "time window: 7d, 30d, 90d, 1y, all", "30d")
+  .option("--max-commits <n>", "max commits to analyze per repo", "100")
   .option("-d, --detail-level <level>", "detail level: summary, normal, verbose", "normal")
+  .option("--ai", "generate AI summaries (requires API key)")
   .action(async (scanPath, options) => {
     const rootPath = path.resolve(scanPath || process.cwd());
     const spinner = ora(`Scanning for Git repositories in ${rootPath}...`).start();
 
     try {
       const repos = await findGitRepos(rootPath);
-      
+
       if (repos.length === 0) {
         spinner.fail(chalk.red("No Git repositories found."));
         return;
       }
 
       spinner.succeed(chalk.green(`Found ${repos.length} repositories.`));
-      
+
       const summaries: any[] = [];
 
       for (const repoPath of repos) {
         const repoName = path.basename(repoPath);
         const repoSpinner = ora(`Analyzing ${repoName}...`).start();
-        
+
         try {
           const git = createGitParser(repoPath);
           const topLevel = await git.revparse(["--show-toplevel"]);
           const repoRoot = path.resolve(topLevel);
           const latestCommit = await git.revparse(["HEAD"]);
           
+          // Ensure .git-compass is ignored
+          await ensureGitIgnore(repoRoot, [".git-compass"]);
+
           const cachePath = await getCachePath(repoRoot);
           const cache = await loadCache(cachePath);
           const cachedResult = getCachedResult(cache, repoRoot, latestCommit);
 
           let result: AnalysisResult;
 
-          if (cachedResult) {
+          if (cachedResult && (!options.ai || cachedResult.aiSummary)) {
             result = cachedResult;
             repoSpinner.text = `Loaded ${repoName} from cache.`;
           } else {
-            const commits = await getCommits(git, { maxCount: 100 });
+            const commits = await getCommits(git, {
+              maxCount: parseInt(options.maxCommits, 10),
+              since: options.window !== "all" ? options.window : undefined
+            });
             const hotspots = analyzeHotspots(commits, options.window as any);
             const riskScores = computeRiskScores(hotspots);
-            
+
             result = {
               meta: {
                 repoPath: repoRoot,
@@ -73,7 +87,7 @@ export const analyzeAllCommand = new Command("analyze-all")
               },
               hotspots,
               riskScores,
-              churn: [], // Minimal for overview
+              churn: [],
               contributors: [],
               burnout: { flags: [], afterHoursCommits: 0, weekendCommits: 0, contributors: [] },
               coupling: [],
@@ -82,12 +96,30 @@ export const analyzeAllCommand = new Command("analyze-all")
               rot: []
             };
 
+            if (options.ai) {
+              const envProvider = process.env[ENV_VARS.AI_PROVIDER] as AIProviderType;
+              const configProvider = config.get(CONFIG_KEYS.AI_PROVIDER) as AIProviderType;
+              const providerType = envProvider || configProvider || AIProviderType.ANTHROPIC;
+
+              let apiKey: string | undefined;
+              if (providerType === "openai") apiKey = process.env[ENV_VARS.OPENAI_API_KEY] || config.get("ai.openaiKey");
+              else if (providerType === "gemini") apiKey = process.env[ENV_VARS.GEMINI_API_KEY] || config.get("ai.geminiKey");
+              else apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY] || config.get("ai.anthropicKey") || config.get(CONFIG_KEYS.AI_KEY);
+
+              if (apiKey) {
+                try {
+                  const aiProvider = getAIProvider(providerType, apiKey);
+                  result.aiSummary = await generateSummary(aiProvider, result);
+                } catch (e) { }
+              }
+            }
+
             const updatedCache = updateCache(cache, repoRoot, latestCommit, result);
             await saveCache(cachePath, updatedCache);
           }
 
           const highRiskCount = result.riskScores.filter(r => r.level === "high" || r.level === "critical").length;
-          
+
           summaries.push({
             name: repoName,
             commits: result.meta.commitCount,
@@ -111,10 +143,10 @@ export const analyzeAllCommand = new Command("analyze-all")
 
 async function findGitRepos(dir: string, depth = 0, maxDepth = 3): Promise<string[]> {
   const repos: string[] = [];
-  
+
   try {
     const entries = await fs.readdir(dir, { withFileTypes: true });
-    
+
     // Check if current dir is a git repo
     if (entries.some(e => e.isDirectory() && e.name === ".git")) {
       return [dir];

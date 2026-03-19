@@ -1,5 +1,5 @@
 {
-  "name": "git-compass",
+  "name": "git-compass-repo",
   "private": true,
   "packageManager": "pnpm@10.32.1",
   "scripts": {
