@@ -1,5 +1,11 @@
 # @grotto/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- e10c3f2: documentation and tree shakable
+
 ## 2.0.0
 
 ### Major Changes
