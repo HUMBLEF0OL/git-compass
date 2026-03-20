@@ -1,4 +1,4 @@
-# @grotto/core
+# @git-compass/web
 
 ## 1.0.0
 
@@ -10,14 +10,8 @@
 
 - 38eb265: exclusion pattern
 
-## 1.0.1
-
 ### Patch Changes
 
-- e787ea4: node version upgrage
-
-## 1.0.0
-
-### Major Changes
-
-- 51b9eb6: v1.0.0
+- Updated dependencies [38eb265]
+- Updated dependencies [91afb57]
+  - @git-compass/core@1.0.0
