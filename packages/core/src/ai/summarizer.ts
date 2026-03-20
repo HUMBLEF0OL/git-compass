@@ -24,6 +24,8 @@ export function buildSummaryPrompt(analysis: AnalysisResult): string {
     .map(c => `- ${c.head} <-> ${c.tail} (${(c.coupling * 100).toFixed(0)}% related)`)
     .join("\n");
 
+  const health = analysis.health;
+
   return `You are Git Compass, a highly technical Git architecture consultant. Analyze the following repository data and provide a structured, opinionated, and professional assessment.
 
 STRICT FORMATTING RULES:
@@ -36,6 +38,13 @@ DATA FOR ${analysis.meta.repoPath} (${analysis.meta.branch}):
 - Commits: ${analysis.meta.commitCount}
 - Window: ${analysis.meta.window}
 
+HEALTH METRICS (0-100 scale):
+- Stability: ${health.stability}%
+- Velocity: ${health.velocity}%
+- Simplicity: ${health.simplicity}%
+- Coverage: ${health.coverage}%
+- Decoupling: ${health.decoupling}%
+
 TOP HOTSPOTS (High churn/complexity):
 ${hotspots || "None significant"}
 
@@ -44,10 +53,6 @@ ${silos || "No extreme silos"}
 
 TEMPORAL COUPLING (Unexpected dependencies):
 ${coupling || "No strong coupling found"}
-
-HEALTH INDICATORS:
-- Burnout Flags: ${analysis.burnout.flags.join(", ") || "None"}
-- Avg. Blast Radius: ${analysis.impact.length > 0 ? (analysis.impact.reduce((acc, i) => acc + i.blastRadius, 0) / analysis.impact.length).toFixed(2) : 0} files
 
 Provide a sharp, professional assessment with actionable feedback.`;
 }

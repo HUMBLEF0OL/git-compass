@@ -27,6 +27,7 @@ export interface HotspotFile {
   changeCount: number;
   uniqueAuthors: number;
   lastChanged: Date;
+  linesImpacted: number; // New: total insertions + deletions
   riskScore: number;
   riskLevel?: "low" | "medium" | "high" | "critical";
 }
@@ -62,6 +63,11 @@ export interface ContributorStats {
   activeDays: number;
 }
 
+export interface ContributorTimelinePoint {
+  date: Date;
+  impacts: { [author: string]: number };
+}
+
 export interface BurnoutAnalysis {
   flags: string[];
   afterHoursCommits: number;    // commits between 22:00 and 06:00
@@ -82,6 +88,17 @@ export interface CompassEntry {
   reason: string;           // e.g., "High centrality, touched by all contributors"
   changeCount: number;
   type: "entry-point" | "core" | "config" | "test";
+}
+
+export interface ComponentMaturity {
+  name: string;
+  maturity: "Stable" | "Evolving" | "Legacy";
+}
+
+export interface CompassResult {
+  essentials: CompassEntry[];
+  components: ComponentMaturity[];
+  documentation?: string;
 }
 
 export enum AIProviderType {
@@ -125,6 +142,14 @@ export interface FileImpact {
   maxBlastRadius: number;   // max files changed in a single commit with this one
 }
 
+export interface RepositoryHealth {
+  stability: number;   // 0–100
+  velocity: number;    // 0–100
+  simplicity: number;  // 0–100
+  coverage: number;    // 0–100
+  decoupling: number;  // 0–100
+}
+
 // ─── Full Analysis Result ────────────────────────────────────────────────────
 
 export interface AnalysisResult {
@@ -139,12 +164,14 @@ export interface AnalysisResult {
   riskScores: RiskScore[];
   churn: ChurnDataPoint[];
   contributors: ContributorStats[];
+  contributorTimeline: ContributorTimelinePoint[];
   burnout: BurnoutAnalysis;
   coupling: CouplingLink[];
   knowledge: KnowledgeSilo[];
   impact: FileImpact[];
   rot: string[];
-  compass?: CompassEntry[];
+  compass: CompassResult;
+  health: RepositoryHealth;
 
   aiSummary?: AISummary | null;
 }
