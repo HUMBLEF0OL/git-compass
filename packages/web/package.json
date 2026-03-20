@@ -1,7 +1,19 @@
 {
   "name": "@git-compass/web",
   "version": "0.1.0",
-  "private": true,
+  "description": "Local-first Git analytics dashboard",
+  "bin": {
+    "git-compass-web": "./bin/git-compass-web.js"
+  },
+  "files": [
+    ".next/standalone",
+    ".next/static",
+    "public",
+    "bin"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "next dev --port 4321",
     "build": "next build",
