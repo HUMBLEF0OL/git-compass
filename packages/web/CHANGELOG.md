@@ -1,5 +1,11 @@
 # @git-compass/web
 
+## 1.0.1
+
+### Patch Changes
+
+- 2788068: build fix
+
 ## 1.0.0
 
 ### Major Changes
