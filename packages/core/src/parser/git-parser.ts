@@ -26,15 +26,15 @@ export async function isValidRepo(git: SimpleGit): Promise<boolean> {
 export async function getCommits(git: SimpleGit, options: ParseOptions = {}): Promise<RawCommit[]> {
   const { branch = "HEAD", since, until, maxCount = 500 } = options;
 
-  const log: LogResult<DefaultLogFields> = await git.log([
-    branch,
-    `--max-count=${maxCount}`,
-    "--stat=4096",
-    ...(since ? [`--since=${since}`] : []),
-    ...(until ? [`--until=${until}`] : []),
-  ]);
+  const log = await git.log({
+    [branch]: null,
+    "--max-count": maxCount,
+    "--stat": "4096",
+    ...(since ? { "--since": since } : {}),
+    ...(until ? { "--until": until } : {}),
+  } as any);
 
-  return log.all.map((commit) => ({
+  return log.all.map((commit: any) => ({
     hash: commit.hash,
     author: commit.author_name,
     email: commit.author_email,
@@ -58,6 +58,14 @@ export async function getFileDiff(git: SimpleGit, commitHash: string): Promise<s
 export async function getCurrentBranch(git: SimpleGit): Promise<string> {
   const result = await git.branch();
   return result.current;
+}
+
+/**
+ * Retrieves a list of all local branches.
+ */
+export async function getBranches(git: SimpleGit): Promise<string[]> {
+  const result = await git.branchLocal();
+  return result.all;
 }
 
 

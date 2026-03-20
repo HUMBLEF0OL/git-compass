@@ -1,9 +1,10 @@
 import type { HotspotFile, RiskScore } from "../types.js";
 
 const RISK_WEIGHTS = {
-  changeFrequency: 0.4,
-  uniqueAuthors: 0.3,
-  recency: 0.3,
+  changeFrequency: 0.3,
+  linesImpacted: 0.3,   // Churn volume factor
+  uniqueAuthors: 0.2,
+  recency: 0.2,
 } as const;
 
 /**
@@ -14,6 +15,7 @@ export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
 
   const maxChanges = Math.max(...files.map((f) => f.changeCount), 1);
   const maxAuthors = Math.max(...files.map((f) => f.uniqueAuthors), 1);
+  const maxImpact = Math.max(...files.map((f) => f.linesImpacted), 1);
   const now = Date.now();
 
   return files.map((file) => {
@@ -23,6 +25,9 @@ export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
     // Author Score: Normalized unique author count (0-1)
     const authorScore = file.uniqueAuthors / maxAuthors;
 
+    // Impact Score: Normalized churn volume (0-1)
+    const impactScore = file.linesImpacted / maxImpact;
+
     // Recency Score: Inverse of time since last change (0-1)
     // 0 = 30+ days ago, 1 = changed just now
     const msIn30Days = 30 * 24 * 60 * 60 * 1000;
@@ -30,6 +35,7 @@ export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
 
     const totalScore =
       frequencyScore * RISK_WEIGHTS.changeFrequency +
+      impactScore * RISK_WEIGHTS.linesImpacted +
       authorScore * RISK_WEIGHTS.uniqueAuthors +
       recencyRatio * RISK_WEIGHTS.recency;
 

@@ -1,12 +1,13 @@
 import type { RawCommit, AnalysisWindow, ChurnDataPoint } from "../types.js";
-import { getWindowCutoff } from "../utils/index.js";
+import { getWindowCutoff, extractImpactsFromDiff } from "../utils/index.js";
 
 /**
  * Analyzes code churn (additions/deletions) over time.
  */
 export function analyzeChurn(
   commits: RawCommit[],
-  window: AnalysisWindow = "30d"
+  window: AnalysisWindow = "30d",
+  excludePatterns?: string[]
 ): ChurnDataPoint[] {
   const cutoff = getWindowCutoff(window);
   const filtered = commits.filter((c) => c.date >= cutoff);
@@ -16,13 +17,17 @@ export function analyzeChurn(
 
     if (!commit.diff || typeof commit.diff !== "object") continue;
 
-    const diffObj = commit.diff as { insertions: number; deletions: number };
+    const impacts = extractImpactsFromDiff(commit.diff, excludePatterns);
+    if (impacts.length === 0) continue;
+
     const dateKey = commit.date.toISOString().split("T")[0];
     if (!dateKey) continue;
 
     const existing = churnMap.get(dateKey) ?? { added: 0, removed: 0, commits: 0 };
-    existing.added += diffObj.insertions ?? 0;
-    existing.removed += diffObj.deletions ?? 0;
+    for (const impact of impacts) {
+        existing.added += impact.insertions;
+        existing.removed += impact.deletions;
+    }
     existing.commits += 1;
     churnMap.set(dateKey, existing);
   }

@@ -1,8 +1,5 @@
-import type { RawCommit, ContributorStats } from "../types.js";
+import type { RawCommit, ContributorStats, ContributorTimelinePoint } from "../types.js";
 
-/**
- * Maps repository activity and engagement levels per contributor.
- */
 export function analyzeContributors(commits: RawCommit[]): ContributorStats[] {
   const contributorMap = new Map<
     string,
@@ -66,6 +63,32 @@ export function analyzeContributors(commits: RawCommit[]): ContributorStats[] {
     lastCommit: data.last,
     activeDays: data.days.size,
   }));
+}
+
+/**
+ * Tracks contributor impact (lines added) over time for temporal visualization.
+ */
+export function analyzeContributorTimeline(commits: RawCommit[]): ContributorTimelinePoint[] {
+  const timelineMap = new Map<string, { [author: string]: number }>();
+
+  for (const commit of commits) {
+    const dateKey = commit.date.toISOString().split("T")[0];
+    if (!dateKey) continue;
+    
+    const diff = commit.diff as { insertions?: number } | null;
+    const impact = diff?.insertions ?? 0;
+
+    const dayData = timelineMap.get(dateKey) ?? {};
+    dayData[commit.author] = (dayData[commit.author] ?? 0) + impact;
+    timelineMap.set(dateKey, dayData);
+  }
+
+  return Array.from(timelineMap.entries())
+    .map(([date, impacts]) => ({
+      date: new Date(date),
+      impacts
+    }))
+    .sort((a, b) => a.date.getTime() - b.date.getTime());
 }
 
 

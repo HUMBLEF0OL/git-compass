@@ -8,6 +8,16 @@ import {
   getCommits,
   analyzeHotspots,
   computeRiskScores,
+  analyzeChurn,
+  analyzeContributors,
+  analyzeContributorTimeline,
+  analyzeBurnout,
+  analyzeCoupling,
+  analyzeKnowledge,
+  analyzeImpact,
+  analyzeRot,
+  analyzeCompass,
+  analyzeHealth,
   getAIProvider,
   generateSummary,
   type AnalysisResult,
@@ -77,6 +87,9 @@ export const analyzeAllCommand = new Command("analyze-all")
             const hotspots = analyzeHotspots(commits, options.window as any);
             const riskScores = computeRiskScores(hotspots);
 
+            const churn = analyzeChurn(commits, options.window as any);
+            const coupling = analyzeCoupling(commits);
+            
             result = {
               meta: {
                 repoPath: repoRoot,
@@ -87,13 +100,16 @@ export const analyzeAllCommand = new Command("analyze-all")
               },
               hotspots,
               riskScores,
-              churn: [],
-              contributors: [],
-              burnout: { flags: [], afterHoursCommits: 0, weekendCommits: 0, contributors: [] },
-              coupling: [],
-              knowledge: [],
-              impact: [],
-              rot: []
+              churn,
+              contributors: analyzeContributors(commits),
+              contributorTimeline: analyzeContributorTimeline(commits),
+              burnout: analyzeBurnout(commits),
+              coupling,
+              knowledge: analyzeKnowledge(commits),
+              impact: analyzeImpact(commits),
+              rot: analyzeRot(commits),
+              compass: analyzeCompass(commits),
+              health: analyzeHealth(commits, churn, coupling)
             };
 
             if (options.ai) {

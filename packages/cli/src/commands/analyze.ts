@@ -8,11 +8,14 @@ import {
   computeRiskScores, 
   analyzeChurn, 
   analyzeContributors, 
+  analyzeContributorTimeline,
   analyzeBurnout, 
   analyzeCoupling, 
   analyzeKnowledge, 
   analyzeImpact, 
   analyzeRot, 
+  analyzeCompass,
+  analyzeHealth,
   getAIProvider, 
   generateSummary, 
   type AnalysisResult,
@@ -127,7 +130,10 @@ export const analyzeCommand = new Command("analyze")
         coupling: analyzeCoupling(commits),
         knowledge: analyzeKnowledge(commits),
         impact: analyzeImpact(commits),
-        rot: analyzeRot(commits)
+        rot: analyzeRot(commits),
+        compass: analyzeCompass(commits),
+        health: analyzeHealth(commits, analyzeChurn(commits, options.window as any), analyzeCoupling(commits)),
+        contributorTimeline: analyzeContributorTimeline(commits)
       };
 
       // Re-calculate hotspots/risk if we don't have cached result (above logic is a bit messy, let's fix)
@@ -136,13 +142,18 @@ export const analyzeCommand = new Command("analyze")
         const h = analyzeHotspots(commits, options.window as any);
         result.hotspots = h;
         result.riskScores = computeRiskScores(h);
-        result.churn = analyzeChurn(commits, options.window as any);
+        const churn = analyzeChurn(commits, options.window as any);
+        const coupling = analyzeCoupling(commits);
+        result.churn = churn;
         result.contributors = analyzeContributors(commits);
         result.burnout = analyzeBurnout(commits);
-        result.coupling = analyzeCoupling(commits);
+        result.coupling = coupling;
         result.knowledge = analyzeKnowledge(commits);
         result.impact = analyzeImpact(commits);
         result.rot = analyzeRot(commits);
+        result.compass = analyzeCompass(commits);
+        result.health = analyzeHealth(commits, churn, coupling);
+        result.contributorTimeline = analyzeContributorTimeline(commits);
       }
 
       if (options.ai) {

@@ -49,7 +49,14 @@ export function createAnthropicProvider(apiKey: string): AIProvider {
 
       const { text } = await generateText({
         model: anthropic("claude-3-5-sonnet-20240620"),
-        system: `You are Git Compass, a Git analytics assistant. Answer questions about this repository analysis concisely and accurately. Context:\n${context}`,
+        system: `You are Git Compass, a specialized Git analytics assistant. 
+GROUNDING RULES:
+1. ONLY answer questions based on the provided repository analysis data.
+2. If a user asks something unrelated to this specific codebase (e.g., general knowledge, jokes, unrelated programming questions), politely decline and state that you are only authorized to discuss this project's analysis.
+3. Keep answers technical, concise, and professional.
+
+Context:
+${context}`,
         prompt: question,
       });
 

@@ -6,12 +6,12 @@ import { extractFilesFromDiff } from "../utils/index.js";
  * Identifies "Temporal Coupling": files that consistently change together.
  * Higher coupling suggests hidden logical dependencies.
  */
-export function analyzeCoupling(commits: RawCommit[]): CouplingLink[] {
+export function analyzeCoupling(commits: RawCommit[], excludePatterns?: string[]): CouplingLink[] {
   const filePairs = new Map<string, number>();
   const fileChangeCounts = new Map<string, number>();
 
   for (const commit of commits) {
-    const files = extractFilesFromDiff(commit.diff);
+    const files = extractFilesFromDiff(commit.diff, excludePatterns);
     if (files.length < 2 || files.length > 50) continue; // Skip huge commits or single-file commits
 
     // Update individual file counts
