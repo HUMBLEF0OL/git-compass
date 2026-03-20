@@ -5,12 +5,15 @@ import type { AnalysisResult } from "@git-compass/core";
 
 export function printConsoleReport(result: AnalysisResult, detailLevel: string = "normal", showAI: boolean = false) {
   try {
-    const { meta, hotspots, riskScores, contributors, burnout, coupling, knowledge, impact, rot } = result;
+    const { meta, hotspots, riskScores, contributors, burnout, coupling, knowledge, impact, rot, compass, health } = result;
     const isVerbose = detailLevel === "verbose";
     const isSummary = detailLevel === "summary";
     const limit = isVerbose ? 10 : 5;
 
     // 1. Header Summary (Always shown)
+    const healthScore = Math.round((health.stability + health.velocity + health.simplicity + health.coverage + health.decoupling) / 5);
+    const healthColor = healthScore > 70 ? chalk.green : healthScore > 40 ? chalk.yellow : chalk.red;
+
     console.log(
       boxen(
         `${chalk.cyan.bold("Git Compass ANALYSIS SUMMARY")}\n` +
@@ -18,10 +21,11 @@ export function printConsoleReport(result: AnalysisResult, detailLevel: string =
         `${chalk.white.bold("Repo:   ")} ${chalk.cyan(meta.repoPath)}\n` +
         `${chalk.white.bold("Branch: ")} ${chalk.yellow(meta.branch)}\n` +
         `${chalk.white.bold("Window: ")} ${chalk.magenta(meta.window)}\n` +
-        `${chalk.white.bold("Commits:")} ${chalk.green(meta.commitCount)}`,
+        `${chalk.white.bold("Commits:")} ${chalk.green(meta.commitCount)}\n` +
+        `${chalk.white.bold("Health: ")} ${healthColor.bold(healthScore + "%")}`,
         { 
           padding: 1, 
-          margin: { top: 1, bottom: 1 }, 
+          margin: { top: 1, bottom: 0 }, 
           borderStyle: "round", 
           borderColor: "cyan",
           title: "Repository Metadata",
@@ -30,12 +34,35 @@ export function printConsoleReport(result: AnalysisResult, detailLevel: string =
       )
     );
 
+    // 2. Onboarding Compass (New)
+    if (compass && (isVerbose || !isSummary)) {
+      const compassContent = [
+        chalk.white.bold("Essential Files:"),
+        ...compass.essentials.map(e => `  ${chalk.cyan(e.path.padEnd(30))} ${chalk.gray("│")} ${chalk.yellow(e.type.toUpperCase().padEnd(12))} ${chalk.gray("│")} ${chalk.magenta(e.changeCount + " changes")}`),
+        "",
+        chalk.white.bold("Contributor Documentation:"),
+        chalk.italic.gray(compass.documentation || "No specific contributor documentation available.")
+      ].join("\n");
+
+      console.log(
+        boxen(compassContent, {
+          padding: 1,
+          margin: { top: 1, bottom: 1 },
+          borderStyle: "round",
+          borderColor: "blue",
+          title: "ONBOARDING COMPASS",
+          titleAlignment: "left"
+        })
+      );
+    }
+
     if (isSummary) {
-      printHealthIndicators(impact, rot, !!result.aiSummary);
+      printHealthIndicators(health, impact, rot, !!result.aiSummary);
       return;
     }
 
-    // 2. AI Insights (Intuitive Format)
+
+    // 3. AI Insights (Intuitive Format)
     if (showAI && result.aiSummary) {
       console.log(
         boxen(
@@ -139,20 +166,24 @@ export function printConsoleReport(result: AnalysisResult, detailLevel: string =
     }
 
     // 7. Health Indicators & Footer Tip
-    printHealthIndicators(impact, rot, showAI);
+    printHealthIndicators(health, impact, rot, showAI);
   } catch (err) {
     console.error(chalk.red("\nError printing report:"), err);
   }
 }
 
-function printHealthIndicators(impact: any[], rot: any[], showAI: boolean) {
+function printHealthIndicators(health: any, impact: any[], rot: any[], showAI: boolean) {
   const avgImpact = impact.length > 0 ? (impact.reduce((acc: number, i: any) => acc + i.blastRadius, 0) / impact.length).toFixed(2) : 0;
   
   const footerContent = [
     `${chalk.bold("Overall Health Indicators")}`,
     `${chalk.gray("────────────────────────")}`,
-    `${chalk.white("Average Blast Radius:  ")} ${chalk.yellow(avgImpact + " files")}`,
-    `${chalk.white("Abandoned Files (Rot): ")} ${chalk.red(rot.length)}`
+    `${chalk.white("Stability:   ")} ${chalk.cyan(health.stability + "%")}`,
+    `${chalk.white("Velocity:    ")} ${chalk.cyan(health.velocity + "%")}`,
+    `${chalk.white("Complexity:  ")} ${chalk.cyan(health.simplicity + "%")}`,
+    `${chalk.white("Decoupling:  ")} ${chalk.cyan(health.decoupling + "%")}`,
+    `${chalk.white("Blast Radius:")} ${chalk.yellow(avgImpact + " files")}`,
+    `${chalk.white("Code Rot:    ")} ${chalk.red(rot.length + " abandoned files")}`
   ];
 
   if (!showAI) {
