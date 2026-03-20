@@ -18,7 +18,7 @@ interface Settings {
 }
 
 const DEFAULT_SETTINGS: Settings = {
-  repoPath: "../../", // Changed to match original default
+  repoPath: "", // Empty so server defaults (GIT_COMPASS_CWD) can take over
   branch: "HEAD",
   window: "30d",
   maxCommits: 500,
@@ -69,7 +69,6 @@ function SettingsContent({ children }: { children: React.ReactNode }) {
   const [loadingBranches, setLoadingBranches] = useState(false);
 
   const fetchBranches = useCallback(async (path: string) => {
-    if (!path) return;
     setLoadingBranches(true);
     try {
       const res = await fetch(`/api/branches?repoPath=${encodeURIComponent(path)}`);

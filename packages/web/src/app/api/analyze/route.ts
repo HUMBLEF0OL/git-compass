@@ -23,15 +23,16 @@ import {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    // Default to project root relative to execution context
+    // Default to GIT_COMPASS_CWD (passed from binary) or project root relative to execution context
     const { 
-      repoPath = "../../", 
+      repoPath = process.env.GIT_COMPASS_CWD || "../../", 
       branch = "HEAD", 
       window = "30d", 
       maxCommits = 500, 
       ai = true,
       aiProvider = "openai",
-      aiApiKey = ""
+      aiApiKey = "",
+      excludePatterns = undefined
     } = body;
 
     const parser = createGitParser(repoPath);
@@ -41,10 +42,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Not a valid Git repository at " + repoPath }, { status: 400 });
     }
 
-    const commits = await getCommits(parser, { branch, window, maxCount: maxCommits });
+    const commits = await getCommits(parser, { branch, window, maxCount: maxCommits, excludePatterns });
     
     // Run all analyzers
-    const hotspots = analyzeHotspots(commits, window as any);
+    const hotspots = analyzeHotspots(commits, window as any, excludePatterns);
     const riskScores = computeRiskScores(hotspots);
     
     // Merge risk scores back into hotspots for UI consumption
@@ -57,15 +58,15 @@ export async function POST(req: NextRequest) {
       };
     });
 
-    const churn = analyzeChurn(commits, window as any);
+    const churn = analyzeChurn(commits, window as any, excludePatterns);
     const contributors = analyzeContributors(commits);
     const contributorTimeline = analyzeContributorTimeline(commits);
     const burnout = analyzeBurnout(commits);
-    const coupling = analyzeCoupling(commits);
-    const knowledge = analyzeKnowledge(commits);
-    const impact = analyzeImpact(commits);
-    const rot = analyzeRot(commits);
-    const compass = analyzeCompass(commits);
+    const coupling = analyzeCoupling(commits, excludePatterns);
+    const knowledge = analyzeKnowledge(commits, excludePatterns);
+    const impact = analyzeImpact(commits, excludePatterns);
+    const rot = analyzeRot(commits, excludePatterns);
+    const compass = analyzeCompass(commits, excludePatterns);
     const health = analyzeHealth(commits, churn, coupling);
 
     const analysisResult = {

@@ -18,6 +18,7 @@ export interface ParseOptions {
   maxCount?: number;
   since?: string;
   until?: string;
+  excludePatterns?: string[];
 }
 
 // ─── Analysis Outputs ────────────────────────────────────────────────────────

@@ -8,7 +8,7 @@ import { extractFilesFromDiff } from "../utils/index.js";
  * Maps onboarding file priority based on centrality and developer touchpoints.
  * Also identifies component maturity based on recent churn and activity.
  */
-export function analyzeCompass(commits: RawCommit[]): CompassResult {
+export function analyzeCompass(commits: RawCommit[], excludePatterns?: string[]): CompassResult {
   const componentMap = new Map<string, { lastChanged: Date; churn: number }>();
   const fileTouchpoints = new Map<string, Set<string>>();
   const now = new Date();
@@ -17,7 +17,7 @@ export function analyzeCompass(commits: RawCommit[]): CompassResult {
 
   // Group files into components (top-level directories)
   for (const commit of commits) {
-    const files = extractFilesFromDiff(commit.diff);
+    const files = extractFilesFromDiff(commit.diff, excludePatterns);
     for (const file of files) {
       const parts = file.split('/');
       // Skip hidden files/folders and root files for component mapping
@@ -58,7 +58,7 @@ export function analyzeCompass(commits: RawCommit[]): CompassResult {
       path,
       priority: 1,
       reason: `Touched by ${authors.size} unique contributors`,
-      changeCount: commits.filter(c => extractFilesFromDiff(c.diff).includes(path)).length,
+      changeCount: commits.filter(c => extractFilesFromDiff(c.diff, excludePatterns).includes(path)).length,
       type: (path.includes('index') || path.includes('main') || path.includes('App')) ? "entry-point" as const : "core" as const,
     }))
     .sort((a, b) => b.changeCount - a.changeCount)

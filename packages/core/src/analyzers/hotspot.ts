@@ -7,6 +7,7 @@ import { getWindowCutoff, extractImpactsFromDiff } from "../utils/index.js";
 export function analyzeHotspots(
   commits: RawCommit[],
   window: AnalysisWindow = "30d",
+  excludePatterns?: string[]
 ): HotspotFile[] {
   const cutoff = getWindowCutoff(window);
   const filtered = commits.filter((c) => c.date >= cutoff);
@@ -17,7 +18,7 @@ export function analyzeHotspots(
   >();
 
   for (const commit of filtered) {
-    const impacts = extractImpactsFromDiff(commit.diff);
+    const impacts = extractImpactsFromDiff(commit.diff, excludePatterns);
     for (const impact of impacts) {
       const existing = fileMap.get(impact.file) ?? {
         changeCount: 0,

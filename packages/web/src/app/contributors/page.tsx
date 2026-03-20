@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Users, ShieldCheck, Flame, AlertCircle } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
+import { Loading } from "@/components/ui/Loading";
 import dynamic from "next/dynamic";
 const ContributorImpactChart = dynamic(() => import("@/components/charts/ContributorImpactChart").then(mod => mod.ContributorImpactChart), { ssr: false });
 
@@ -43,15 +44,7 @@ export default function ContributorsPage() {
     fetchData();
   }, [repoPath, branch, window, maxCommits, aiEnabled, aiProvider, aiApiKey]);
 
-  if (loading) return (
-    <div className="max-w-6xl mx-auto space-y-10 animate-pulse">
-        <div className="h-40 bg-card/50 rounded-xl" />
-        <div className="h-96 bg-card/50 rounded-xl" />
-        <div className="grid gap-8 md:grid-cols-3">
-            {[1,2,3].map(i => <div key={i} className="h-48 bg-card/50 rounded-xl" />)}
-        </div>
-    </div>
-  );
+  if (loading) return <Loading message="Analyzing Team Dynamics..." stage="advanced" />;
 
   if (error) return (
     <div className="max-w-6xl mx-auto p-12 text-center bg-card rounded-xl shadow-neumo-convex">

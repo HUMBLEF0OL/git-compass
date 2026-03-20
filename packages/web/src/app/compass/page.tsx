@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Compass, Map, Flag, Zap, BookOpen, Layers, AlertCircle } from "lucide-react";
 
 import { useSettings } from "@/context/SettingsContext";
+import { Loading } from "@/components/ui/Loading";
 
 export default function CompassPage() {
     const [data, setData] = useState<any>(null);
@@ -40,7 +41,7 @@ export default function CompassPage() {
         fetchData();
     }, [repoPath, branch, window, maxCommits, aiEnabled, aiProvider, aiApiKey]);
 
-    if (loading) return <div className="p-8 animate-pulse text-muted-foreground">Building priority map...</div>;
+    if (loading) return <Loading message="Building priority map..." stage="advanced" />;
     if (!data) return null;
 
     const { compass, hotspots, riskScores } = data;

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { AlertCircle, ArrowUpRight, AlertTriangle } from "lucide-react";
 import { useSettings } from "@/context/SettingsContext";
+import { Loading } from "@/components/ui/Loading";
 import dynamic from "next/dynamic";
 const ImpactScatter = dynamic(() => import("@/components/charts/ImpactScatter").then(mod => mod.ImpactScatter), { ssr: false });
 
@@ -43,13 +44,7 @@ export default function HotspotsPage() {
     fetchData();
   }, [repoPath, branch, window, maxCommits, aiEnabled, aiProvider, aiApiKey]);
 
-  if (loading) return (
-    <div className="max-w-6xl mx-auto space-y-10 animate-pulse">
-        <div className="h-40 bg-card/50 rounded-xl" />
-        <div className="h-96 bg-card/50 rounded-xl" />
-        <div className="h-60 bg-card/50 rounded-xl" />
-    </div>
-  );
+  if (loading) return <Loading message="Identifying Hotspots..." stage="hotspots" />;
 
   if (error) return (
     <div className="max-w-6xl mx-auto p-12 text-center bg-card rounded-xl shadow-neumo-convex">

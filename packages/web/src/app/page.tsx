@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { GitBranch, Activity, AlertTriangle, Users, AlertCircle, ShieldCheck, Flame } from "lucide-react";
 import dynamic from "next/dynamic";
 import { AISummaryCard } from "@/components/AISummaryCard";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { NLQueryBox } from "@/components/NLQueryBox";
 
 const HealthRadar = dynamic(() => import("@/components/charts/HealthRadar").then(mod => mod.HealthRadar), { ssr: false });
@@ -12,52 +13,72 @@ const ChurnChart = dynamic(() => import("@/components/charts/ChurnChart").then(m
 const HotspotHeatmap = dynamic(() => import("@/components/charts/HotspotHeatmap").then(mod => mod.HotspotHeatmap), { ssr: false });
 
 import { useSettings } from "@/context/SettingsContext";
+import { Loading } from "@/components/ui/Loading";
 
 export default function DashboardPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [progress, setProgress] = useState<{ stage: string; message: string }>({ stage: "idle", message: "" });
   const { repoPath, branch, window, maxCommits, aiEnabled, aiProvider, aiApiKey } = useSettings();
 
   useEffect(() => {
-    async function fetchData() {
+    let isMounted = true;
+    const fetchData = () => {
         setLoading(true);
         setError(null);
-        try {
-            const response = await fetch("/api/analyze", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    repoPath,
-                    branch,
-                    window,
-                    maxCommits,
-                    ai: aiEnabled,
-                    aiProvider,
-                    aiApiKey
-                }),
-            });
-            if (!response.ok) throw new Error("Failed to fetch analysis data");
-            const result = await response.json();
-            setData(result);
-        } catch (e: any) {
-            setError(e.message);
-        } finally {
+        setProgress({ stage: "starting", message: "Connecting to server..." });
+
+        const params = new URLSearchParams({
+            repoPath: repoPath || "",
+            branch,
+            window,
+            maxCommits: maxCommits.toString(),
+            ai: aiEnabled.toString(),
+            aiProvider,
+            aiApiKey
+        });
+
+        const eventSource = new EventSource(`/api/analyze/stream?${params.toString()}`);
+
+        eventSource.onmessage = (event) => {
+            if (!isMounted) return;
+            const payload = JSON.parse(event.data);
+
+            if (payload.error) {
+                setError(payload.error);
+                setLoading(false);
+                eventSource.close();
+            } else if (payload.stage === "complete") {
+                setData(payload.data);
+                setLoading(false);
+                eventSource.close();
+            } else {
+                setProgress({ stage: payload.stage, message: payload.message });
+            }
+        };
+
+        eventSource.onerror = (err) => {
+            if (!isMounted) return;
+            console.error("EventSource failed:", err);
+            setError("Connection lost. Analysis interrupted.");
             setLoading(false);
-        }
-    }
-    fetchData();
+            eventSource.close();
+        };
+
+        return () => {
+            eventSource.close();
+        };
+    };
+
+    const cleanup = fetchData();
+    return () => {
+        isMounted = false;
+        if (cleanup) cleanup();
+    };
   }, [repoPath, branch, window, maxCommits, aiEnabled, aiProvider, aiApiKey]);
 
-  if (loading) return (
-    <div className="max-w-6xl mx-auto space-y-10 animate-pulse">
-        <div className="h-40 bg-card/50 rounded-xl" />
-        <div className="grid gap-8 md:grid-cols-4">
-            {[1,2,3,4].map(i => <div key={i} className="h-32 bg-card/50 rounded-lg" />)}
-        </div>
-        <div className="h-96 bg-card/50 rounded-xl" />
-    </div>
-  );
+  if (loading) return <Loading message={progress.message} stage={progress.stage} />;
 
   if (error) return (
     <div className="max-w-6xl mx-auto p-12 text-center bg-card rounded-xl shadow-neumo-convex">
@@ -134,7 +155,9 @@ export default function DashboardPage() {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="bg-background/20 m-6 rounded-lg shadow-neumo-pressed p-6">
-                    <ChurnChart data={churn} />
+                    <ErrorBoundary name="ChurnChart">
+                        <ChurnChart data={churn} />
+                    </ErrorBoundary>
                 </CardContent>
             </Card>
         </div>
@@ -145,7 +168,9 @@ export default function DashboardPage() {
                     <CardTitle className="text-sm font-black uppercase tracking-[0.2em] text-primary">Repository Health Radar</CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col items-center">
-                    <HealthRadar data={health} />
+                    <ErrorBoundary name="HealthRadar">
+                        <HealthRadar data={health} />
+                    </ErrorBoundary>
                     <div className="grid grid-cols-2 gap-4 w-full mt-6">
                         {Object.entries(health).map(([key, val]: any) => (
                             <div key={key} className="p-3 rounded-lg bg-background/30 shadow-neumo-pressed">
