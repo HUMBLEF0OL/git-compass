@@ -1,6 +1,6 @@
 {
   "name": "git-compass",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Git repository analytics from your terminal",
   "keywords": [
     "git",
