@@ -1,6 +1,6 @@
 {
   "name": "@git-compass/web",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Local-first Git analytics dashboard",
   "bin": {
     "git-compass-web": "./bin/git-compass-web.js"
