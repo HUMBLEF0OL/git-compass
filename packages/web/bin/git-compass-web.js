@@ -8,6 +8,7 @@ import net from 'net';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const packageRoot = path.resolve(__dirname, '..');
 
 // Standalone server location - Support both standard and monorepo structures
 const possiblePaths = [
@@ -70,7 +71,8 @@ async function startServer() {
     // Start the standalone server
     const server = spawn('node', [serverPath], {
       stdio: 'inherit',
-      env: process.env
+      env: process.env,
+      cwd: packageRoot
     });
 
     server.on('error', (err) => {
