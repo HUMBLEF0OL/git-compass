@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Compass Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-background text-foreground overflow-x-hidden">
+    <div id="loading-overlay" class="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-md transition-opacity duration-500">
+        <div class="flex flex-col items-center">
+            <div class="h-12 w-12 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p class="text-sm font-black uppercase tracking-widest text-primary animate-pulse">Initializing Compass...</p>
+        </div>
+    </div>
+
+    <header class="sticky top-0 z-40 w-full bg-card/90 backdrop-blur-md border-b border-border px-6 py-4 shadow-neumo-flat">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+                <div class="p-3 bg-primary rounded-xl neumo-convex text-primary-foreground transform hover:rotate-3 transition-transform">
+                    <i data-lucide="compass" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest-extra text-primary mb-1">
+                        <div class="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></div>
+                        Project Analytics
+                    </div>
+                    <h1 id="repo-name" class="text-2xl font-black tracking-tight">-</h1>
+                    <p id="repo-meta" class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">-</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <div class="flex flex-col items-end border-r border-border pr-6">
+                    <span class="text-[10px] font-black uppercase text-muted-foreground tracking-widest">Health Score</span>
+                    <span id="health-score" class="text-3xl font-black text-primary">--%</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <select id="branch-select" class="bg-card border-border rounded-lg px-4 py-2 text-xs font-bold neumo-pressed outline-none cursor-pointer min-w-[140px]">
+                        <option value="HEAD">HEAD</option>
+                    </select>
+                    <button id="settings-toggle" class="p-2.5 rounded-lg bg-card neumo-convex hover:scale-110 active:scale-90 transition-all">
+                        <i data-lucide="settings" class="w-5 h-5 text-muted-foreground"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6 md:p-8 space-y-10">
+        <!-- Metric Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="metric-card p-6 rounded-2xl bg-card neumo-flat">
+                <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">Files Changed</p>
+                <div id="metric-files" class="text-3xl font-black tracking-tighter">--</div>
+                <div class="mt-2 text-[9px] font-bold text-muted-foreground bg-background/50 px-2 py-1 rounded neumo-pressed w-fit">Last window</div>
+            </div>
+            <div class="metric-card p-6 rounded-2xl bg-card neumo-flat">
+                <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">Active Authors</p>
+                <div id="metric-authors" class="text-3xl font-black tracking-tighter">--</div>
+                <div class="mt-2 text-[9px] font-bold text-muted-foreground bg-background/50 px-2 py-1 rounded neumo-pressed w-fit">Collaborating</div>
+            </div>
+            <div class="metric-card p-6 rounded-2xl bg-card neumo-flat">
+                <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">Churn Index</p>
+                <div id="metric-churn" class="text-3xl font-black tracking-tighter">--</div>
+                <div class="mt-2 text-[9px] font-bold text-muted-foreground bg-background/50 px-2 py-1 rounded neumo-pressed w-fit">Lines impacted</div>
+            </div>
+            <div class="metric-card p-6 rounded-2xl bg-card neumo-flat">
+                <p class="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">Risk Level</p>
+                <div id="metric-risk" class="text-3xl font-black tracking-tighter text-primary">--</div>
+                <div class="mt-2 text-[9px] font-bold text-muted-foreground bg-background/50 px-2 py-1 rounded neumo-pressed w-fit">Avg Score</div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <!-- Left Column: AI & Temporal Churn -->
+            <div class="lg:col-span-2 space-y-10">
+                <!-- AI Summary Card -->
+                <section class="p-8 rounded-3xl bg-gradient-to-br from-primary/10 to-transparent border border-primary/20 neumo-flat relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity">
+                        <i data-lucide="sparkles" class="w-8 h-8 text-primary animate-pulse"></i>
+                    </div>
+                    <h3 class="flex items-center gap-2 text-sm font-black uppercase tracking-widest-extra text-primary mb-6">
+                        <i data-lucide="bot" class="w-5 h-5"></i>
+                        Intelligence Insight
+                    </h3>
+                    <div id="ai-summary-content" class="text-lg font-medium leading-relaxed text-foreground/90 first-letter:text-4xl first-letter:font-black first-letter:text-primary">
+                        Analyzing repository data... AI insights will appear here once analysis is complete.
+                    </div>
+                </section>
+
+                <!-- Activity Chart -->
+                <section class="p-8 rounded-3xl bg-card neumo-flat">
+                    <div class="flex items-center justify-between mb-8">
+                        <div>
+                            <h3 class="text-sm font-black uppercase tracking-widest-extra text-foreground">Temporal Stability</h3>
+                            <p class="text-[10px] font-bold text-muted-foreground mt-1 uppercase">Churn velocity over time</p>
+                        </div>
+                        <div class="flex items-center gap-2 text-[8px] font-black uppercase">
+                            <span class="flex items-center gap-1"><span class="h-2 w-2 rounded-full bg-primary"></span> Added</span>
+                            <span class="flex items-center gap-1"><span class="h-2 w-2 rounded-full bg-destructive"></span> Deleted</span>
+                        </div>
+                    </div>
+                    <div class="relative h-[300px] bg-background/20 m-6 rounded-lg neumo-pressed p-6">
+                        <canvas id="churn-chart"></canvas>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Health & Risks -->
+            <div class="space-y-10">
+                <section class="p-8 rounded-3xl bg-card neumo-convex">
+                    <h3 class="text-xs font-black uppercase tracking-widest-extra text-primary mb-8 text-center">Repository Health Radar</h3>
+                    <div class="relative flex justify-center">
+                        <canvas id="health-radar" width="300" height="300"></canvas>
+                    </div>
+                    <div id="health-legend" class="grid grid-cols-2 gap-4 mt-8">
+                        <!-- Legend items injected by JS -->
+                    </div>
+                </section>
+
+                <section class="space-y-4">
+                    <h3 class="text-[10px] font-black uppercase tracking-widest-extra text-muted-foreground px-2">Critical Risk Areas</h3>
+                    <div id="risk-list" class="space-y-4">
+                        <!-- Risk items injected by JS -->
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Natural Language Query -->
+        <section class="pt-8">
+            <div class="p-8 rounded-3xl bg-card neumo-convex border border-border relative group">
+                <div class="flex flex-col md:flex-row items-center gap-4">
+                    <div class="p-3 bg-secondary rounded-xl neumo-pressed text-primary">
+                        <i data-lucide="search" class="w-6 h-6"></i>
+                    </div>
+                    <input id="query-input" type="text" placeholder="Ask anything about this repo... (e.g. 'Who is the main contributor to server.js?')" 
+                           class="flex-1 bg-background/50 border-none rounded-xl px-6 py-4 text-sm font-medium neumo-pressed focus:ring-2 focus:ring-primary outline-none transition-all">
+                    <button id="query-btn" class="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-black text-xs uppercase tracking-widest neumo-convex hover:scale-105 active:scale-95 transition-all">
+                        Consult AI
+                    </button>
+                </div>
+                <div id="query-response" class="mt-6 hidden p-6 rounded-2xl bg-background/50 border border-border animate-in fade-in slide-in-from-bottom-4">
+                    <div class="flex items-start gap-4">
+                        <div class="p-2 bg-primary/20 rounded-lg">
+                            <i data-lucide="message-square" class="w-4 h-4 text-primary"></i>
+                        </div>
+                        <div id="query-text" class="text-sm font-medium leading-relaxed prose max-w-none"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Settings Sidebar (Overlay) -->
+    <div id="settings-sidebar" class="fixed inset-y-0 right-0 w-full md:w-80 bg-card/95 backdrop-blur-xl shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 p-8 border-l border-border">
+        <div class="flex items-center justify-between mb-10">
+            <h2 class="text-lg font-black uppercase tracking-widest">Settings</h2>
+            <button id="settings-close" class="p-2 rounded-lg hover:bg-muted transition-all">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <form id="settings-form" class="space-y-8">
+            <div class="space-y-2">
+                <label class="text-[10px] font-black uppercase text-muted-foreground group">Repository Path</label>
+                <input name="repoPath" type="text" placeholder="./" class="w-full bg-background/50 border-none rounded-lg px-4 py-3 text-xs font-bold shadow-neumo-pressed outline-none focus:ring-1 focus:ring-primary">
+            </div>
+            
+            <div class="space-y-2">
+                <label class="text-[10px] font-black uppercase text-muted-foreground">Analysis Window</label>
+                <select name="window" class="w-full bg-background/50 border-none rounded-lg px-4 py-3 text-xs font-bold shadow-neumo-pressed outline-none focus:ring-1 focus:ring-primary">
+                    <option value="7d">Last 7 Days</option>
+                    <option value="30d">Last 30 Days</option>
+                    <option value="90d">Last quarter</option>
+                    <option value="all">Full History</option>
+                </select>
+            </div>
+
+            <div class="pt-4 border-t border-border">
+                <div class="flex items-center justify-between mb-4">
+                    <label class="text-[10px] font-black uppercase text-muted-foreground">AI Intelligence</label>
+                    <input name="aiEnabled" type="checkbox" class="accent-primary h-4 w-4">
+                </div>
+                
+                <div class="space-y-4 ai-settings hidden">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase text-muted-foreground">Provider</label>
+                        <select name="aiProvider" class="w-full bg-background/50 border-none rounded-lg px-4 py-3 text-xs font-bold shadow-neumo-pressed outline-none">
+                            <option value="openai">OpenAI</option>
+                            <option value="anthropic">Anthropic</option>
+                            <option value="google">Google Gemini</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase text-muted-foreground">API Key</label>
+                        <input name="aiApiKey" type="password" placeholder="sk-..." class="w-full bg-background/50 border-none rounded-lg px-4 py-3 text-xs font-bold shadow-neumo-pressed outline-none">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full py-4 bg-primary text-primary-foreground rounded-xl font-black text-xs uppercase tracking-widest shadow-neumo-convex hover:shadow-neumo-pressed transition-all">
+                Save & Refresh
+            </button>
+        </form>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
