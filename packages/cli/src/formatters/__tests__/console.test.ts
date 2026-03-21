@@ -19,7 +19,21 @@ describe("Console Formatter", () => {
     coupling: [],
     knowledge: [],
     impact: [],
-    rot: []
+    rot: [],
+    health: {
+      stability: 80,
+      velocity: 70,
+      simplicity: 90,
+      coverage: 60,
+      decoupling: 85
+    },
+    compass: {
+      essentials: [
+        { path: "src/index.ts", priority: 1, reason: "Entry point", changeCount: 10, type: "entry-point" }
+      ],
+      components: [],
+      documentation: "Test docs"
+    }
   };
 
   it("should output basic report structure", () => {

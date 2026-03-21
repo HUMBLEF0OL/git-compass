@@ -4,11 +4,11 @@ import { extractFilesFromDiff } from "../utils/index.js";
 /**
  * Calculates "Blast Radius": the average number of files affected when a specific file is changed.
  */
-export function analyzeImpact(commits: RawCommit[]): FileImpact[] {
+export function analyzeImpact(commits: RawCommit[], excludePatterns?: string[]): FileImpact[] {
   const fileStats = new Map<string, { totalFilesChanged: number; totalCommits: number; maxBlast: number }>();
 
   for (const commit of commits) {
-    const files = extractFilesFromDiff(commit.diff);
+    const files = extractFilesFromDiff(commit.diff, excludePatterns);
     if (files.length === 0) continue;
 
     const blastRadius = files.length - 1;

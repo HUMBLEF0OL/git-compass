@@ -5,11 +5,11 @@ import { extractFilesFromDiff } from "../utils/index.js";
 /**
  * Identifies knowledge silos where a single person owns the vast majority of a file's history.
  */
-export function analyzeKnowledge(commits: RawCommit[]): KnowledgeSilo[] {
+export function analyzeKnowledge(commits: RawCommit[], excludePatterns?: string[]): KnowledgeSilo[] {
   const fileAuthorMap = new Map<string, Map<string, number>>();
 
   for (const commit of commits) {
-    const files = extractFilesFromDiff(commit.diff);
+    const files = extractFilesFromDiff(commit.diff, excludePatterns);
 
     for (const file of files) {
       const authorMap = fileAuthorMap.get(file) ?? new Map<string, number>();

@@ -77,7 +77,8 @@ const server = http.createServer(async (req, res) => {
           maxCommits = 500, 
           ai = true,
           aiProvider = "openai",
-          aiApiKey = ""
+          aiApiKey = "",
+          excludePatterns = []
         } = payload;
 
         const parser = createGitParser(repoPath);
@@ -91,23 +92,24 @@ const server = http.createServer(async (req, res) => {
 
         const commits = await getCommits(parser, { branch, window, maxCount: maxCommits });
         
-        const hotspots = analyzeHotspots(commits, window);
+        const hotspots = analyzeHotspots(commits, window, excludePatterns);
         const riskScores = computeRiskScores(hotspots);
         const hotspotsWithScores = hotspots.map(h => {
           const rs = riskScores.find(s => s.path === h.path);
           return { ...h, riskScore: rs?.score ?? 0, riskLevel: rs?.level ?? "low" };
         });
 
-        const churn = analyzeChurn(commits, window);
+        const churn = analyzeChurn(commits, window, excludePatterns);
         const contributors = analyzeContributors(commits);
         const contributorTimeline = analyzeContributorTimeline(commits);
         const burnout = analyzeBurnout(commits);
-        const coupling = analyzeCoupling(commits);
-        const knowledge = analyzeKnowledge(commits);
-        const impact = analyzeImpact(commits);
-        const rot = analyzeRot(commits);
-        const compass = analyzeCompass(commits);
+        const coupling = analyzeCoupling(commits, excludePatterns);
+        const knowledge = analyzeKnowledge(commits, excludePatterns);
+        const impact = analyzeImpact(commits, excludePatterns);
+        const rot = analyzeRot(commits, excludePatterns);
+        const compass = analyzeCompass(commits, excludePatterns);
         const health = analyzeHealth(commits, churn, coupling);
+
 
         const analysisResult = {
           meta: { repoPath, branch, window, commitCount: commits.length, generatedAt: new Date() },
