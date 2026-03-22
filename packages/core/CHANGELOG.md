@@ -1,5 +1,15 @@
 # @grotto/core
 
+## 2.0.0
+
+### Major Changes
+
+- d2fff33: Refactor of web package
+
+### Minor Changes
+
+- b81e979: Linting fix
+
 ## 1.0.0
 
 ### Major Changes
