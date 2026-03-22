@@ -1,5 +1,14 @@
 # @grotto/cli
 
+## 1.1.1
+
+### Patch Changes
+
+- 28f1fd0: Code refactor
+- 116c217: Build Fix
+- Updated dependencies [28f1fd0]
+  - @git-compass/core@2.0.1
+
 ## 1.1.0
 
 ### Minor Changes

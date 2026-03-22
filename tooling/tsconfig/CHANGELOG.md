@@ -1,5 +1,12 @@
 # @grotto/tsconfig
 
+## 0.2.1
+
+### Patch Changes
+
+- 28f1fd0: Code refactor
+- 116c217: Build Fix
+
 ## 0.2.0
 
 ### Minor Changes

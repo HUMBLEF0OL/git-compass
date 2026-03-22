@@ -1,5 +1,11 @@
 # @grotto/core
 
+## 2.0.1
+
+### Patch Changes
+
+- 28f1fd0: Code refactor
+
 ## 2.0.0
 
 ### Major Changes

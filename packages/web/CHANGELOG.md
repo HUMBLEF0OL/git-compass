@@ -1,5 +1,18 @@
 # @git-compass/web
 
+## 2.2.0
+
+### Minor Changes
+
+- 3005e00: Loader styling fix
+- 9274d1b: Build fix
+
+### Patch Changes
+
+- 28f1fd0: Code refactor
+- Updated dependencies [28f1fd0]
+  - @git-compass/core@2.0.1
+
 ## 2.1.0
 
 ### Minor Changes
