@@ -22,7 +22,9 @@ import {
   AIProviderType,
   generateSummary,
   getBranches,
-  queryAnalysis
+  queryAnalysis,
+  maskKey,
+  decodeKey
 } from "@git-compass/core";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -81,6 +83,8 @@ const server = http.createServer(async (req, res) => {
           excludePatterns = []
         } = payload;
 
+        const decodedApiKey = decodeKey(aiApiKey);
+
         const parser = createGitParser(repoPath);
         const isValid = await isValidRepo(parser);
 
@@ -92,22 +96,25 @@ const server = http.createServer(async (req, res) => {
 
         const commits = await getCommits(parser, { branch, window, maxCount: maxCommits });
         
-        const hotspots = analyzeHotspots(commits, window, excludePatterns);
+        // Use undefined when no patterns provided so core defaults apply
+        const effectivePatterns = excludePatterns && excludePatterns.length > 0 ? excludePatterns : undefined;
+        
+        const hotspots = analyzeHotspots(commits, window, effectivePatterns);
         const riskScores = computeRiskScores(hotspots);
         const hotspotsWithScores = hotspots.map(h => {
           const rs = riskScores.find(s => s.path === h.path);
           return { ...h, riskScore: rs?.score ?? 0, riskLevel: rs?.level ?? "low" };
         });
 
-        const churn = analyzeChurn(commits, window, excludePatterns);
+        const churn = analyzeChurn(commits, window, effectivePatterns);
         const contributors = analyzeContributors(commits);
         const contributorTimeline = analyzeContributorTimeline(commits);
         const burnout = analyzeBurnout(commits);
-        const coupling = analyzeCoupling(commits, excludePatterns);
-        const knowledge = analyzeKnowledge(commits, excludePatterns);
-        const impact = analyzeImpact(commits, excludePatterns);
-        const rot = analyzeRot(commits, excludePatterns);
-        const compass = analyzeCompass(commits, excludePatterns);
+        const coupling = analyzeCoupling(commits, effectivePatterns);
+        const knowledge = analyzeKnowledge(commits, effectivePatterns);
+        const impact = analyzeImpact(commits, effectivePatterns);
+        const rot = analyzeRot(commits, effectivePatterns);
+        const compass = analyzeCompass(commits, effectivePatterns);
         const health = analyzeHealth(commits, churn, coupling);
 
 
@@ -128,7 +135,7 @@ const server = http.createServer(async (req, res) => {
         };
 
         let aiSummary = null;
-        const finalApiKey = aiApiKey || process.env.OPENAI_API_KEY;
+        const finalApiKey = decodedApiKey || process.env.OPENAI_API_KEY;
         if (ai && finalApiKey) {
           try {
             const providerType = aiProvider === "anthropic" ? AIProviderType.ANTHROPIC : 
@@ -138,7 +145,7 @@ const server = http.createServer(async (req, res) => {
             const result = await generateSummary(provider, analysisResult);
             aiSummary = result.digest;
           } catch (e) {
-            console.error("AI summarization failed:", e);
+            console.error(`AI summarization failed (key: ${maskKey(finalApiKey)}):`, e);
           }
         }
 
@@ -159,7 +166,8 @@ const server = http.createServer(async (req, res) => {
     req.on('end', async () => {
       try {
         const { query, analysisContext, aiProvider = "openai", aiApiKey = "" } = JSON.parse(body);
-        const finalApiKey = aiApiKey || process.env.OPENAI_API_KEY;
+        const decodedApiKey = decodeKey(aiApiKey);
+        const finalApiKey = decodedApiKey || process.env.OPENAI_API_KEY;
         
         if (!finalApiKey) {
           res.writeHead(401, { 'Content-Type': 'application/json' });

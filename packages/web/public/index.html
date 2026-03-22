@@ -77,57 +77,54 @@
       </div>
     </div>
 
-    <!-- ── 2. AI + Churn | Health + Risk ── -->
-    <div class="main-grid">
-      <div class="main-left">
-        <!-- AI Summary -->
-        <div class="ai-card">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
-            <h3 class="ai-card-title" style="margin:0;"><i data-lucide="bot"></i> Intelligence Insight</h3>
-            <div id="ai-pulse" class="ai-pulse"></div>
-          </div>
-          <p id="ai-summary-content" class="ai-content">
-            Analyzing repository data… AI insights will appear here once analysis is complete.
-          </p>
-          <div id="ai-suggest" class="ai-suggest" style="display:none; margin-top:1rem; padding-top:1rem; border-top:1px dashed var(--border);">
-            <p style="font-size:0.8rem; color:var(--text-muted);">Enable AI in Settings for deep behavioral insights.</p>
-          </div>
+    <!-- ── 2. AI Summary + Health Radar ── -->
+    <div class="overview-grid">
+      <div class="ai-card">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
+          <h3 class="ai-card-title" style="margin:0;"><i data-lucide="bot"></i> Intelligence Insight</h3>
+          <div id="ai-pulse" class="ai-pulse"></div>
         </div>
-
-
-        <!-- Churn Chart -->
-        <div class="card">
-          <div class="chart-header">
-            <div>
-              <p class="section-title" style="margin-bottom:0.2rem;">Temporal Stability</p>
-              <p class="section-subtitle">Churn velocity over time</p>
-            </div>
-            <div class="chart-legend">
-              <span class="legend-dot"><span style="background:var(--primary)"></span> Added</span>
-              <span class="legend-dot"><span style="background:var(--destructive)"></span> Removed</span>
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="churn-chart"></canvas>
-          </div>
+        <p id="ai-summary-content" class="ai-content">
+          Analyzing repository data… AI insights will appear here once analysis is complete.
+        </p>
+        <div id="ai-suggest" class="ai-suggest" style="display:none; margin-top:1rem; padding-top:1rem;">
+          <p style="font-size:0.8rem; color:var(--text-muted);">Enable AI in Settings for deep behavioral insights.</p>
         </div>
       </div>
 
-      <div class="main-right">
-        <!-- Health Radar -->
-        <div class="card-convex">
-          <h3 class="section-title" style="justify-content:center;margin-bottom:1.5rem;">Repository Health</h3>
-          <div class="radar-center">
-            <canvas id="health-radar" width="280" height="280"></canvas>
-          </div>
-          <div id="health-legend" class="health-legend-grid"></div>
+      <div class="card-convex">
+        <h3 class="section-title" style="justify-content:center;margin-bottom:1.5rem;">Repository Health</h3>
+        <div class="radar-center">
+          <canvas id="health-radar" width="280" height="280"></canvas>
         </div>
+        <div id="health-legend" class="health-legend-grid"></div>
+      </div>
+    </div>
 
-        <!-- Risk List -->
-        <div>
-          <p class="section-label" style="display:block;margin-bottom:0.75rem;">Critical Risk Areas</p>
-          <div id="risk-list" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
+    <!-- ── 3. Churn Chart + Risk Areas ── -->
+    <div class="churn-risk-grid">
+      <div class="card">
+        <div class="chart-header">
+          <div>
+            <p class="section-title" style="margin-bottom:0.2rem;">Temporal Stability</p>
+            <p class="section-subtitle">Churn velocity over time</p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-dot"><span style="background:var(--primary)"></span> Added</span>
+            <span class="legend-dot"><span style="background:var(--destructive)"></span> Removed</span>
+          </div>
         </div>
+        <div class="chart-wrap">
+          <canvas id="churn-chart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-header">
+          <h3 class="section-title"><i data-lucide="alert-triangle"></i> Critical Risk Areas</h3>
+          <p class="section-subtitle">Highest risk files by impact score</p>
+        </div>
+        <div id="risk-list" style="display:flex;flex-direction:column;gap:0.75rem;"></div>
       </div>
     </div>
 
@@ -139,7 +136,7 @@
       </div>
 
       <div id="compass-doc" class="compass-doc" style="margin-bottom:1.5rem;"></div>
-      
+
       <div class="section-label" style="margin-bottom:0.75rem;">Component Maturity</div>
       <div id="compass-components" class="maturity-grid" style="margin-bottom:2rem;"></div>
 
@@ -239,7 +236,7 @@
       </div>
 
       <div class="compass-heatmap-wrap" style="background:none; border:none; padding:0;">
-        <div id="compass-heatmap" class="compass-heatmap"></div>
+        <div id="compass-heatmap" class="compass-heatmap gh-heatmap-container"></div>
         <div class="heatmap-legend">
           <span class="legend-label">Dormant</span>
           <div class="legend-cells">
@@ -259,7 +256,7 @@
       <div class="query-row">
         <div class="query-icon"><i data-lucide="search"></i></div>
         <input id="query-input" type="text" class="query-input"
-          placeholder="Ask anything about this repo… e.g. 'Who owns server.js?'">
+          placeholder="Ask anything about this repo… e.g. 'Who has the most commits?'">
         <button id="query-btn" class="query-btn">Consult AI</button>
       </div>
       <div id="query-response" class="query-response hidden">
@@ -295,7 +292,18 @@
 
       <div class="form-group">
         <label class="form-label">Exclude Patterns</label>
-        <textarea name="excludePatterns" class="form-input" placeholder="e.g. node_modules/**, *.lock" style="height:60px;"></textarea>
+        <textarea name="excludePatterns" class="form-input" placeholder="e.g. node_modules/**, *.lock"
+          style="height:80px;font-size:0.7rem;font-family:'Inter',monospace;"></textarea>
+        <span style="font-size:0.55rem; color:var(--muted-fg); margin-top:0.2rem;">Comma-separated glob patterns. Clear
+          to disable exclusions.</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Max Commits</label>
+        <input name="maxCommits" type="number" class="form-input" min="50" max="5000" step="50" value="500"
+          placeholder="500">
+        <span style="font-size:0.55rem; color:var(--muted-fg); margin-top:0.2rem;">Number of commits to analyze
+          (50–5000)</span>
       </div>
 
 

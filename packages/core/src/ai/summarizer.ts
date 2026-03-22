@@ -30,7 +30,7 @@ export function buildSummaryPrompt(analysis: AnalysisResult): string {
 
 STRICT FORMATTING RULES:
 1. NO MARKDOWN: Do not use asterisks (**), hashes (###), or underscores (_).
-2. HEADERS: Use ALL CAPS for headers followed by a line of dashes (e.g., ARCHITECTURAL RISK).
+2. HEADERS: Use ALL CAPS for headers (e.g., ARCHITECTURAL RISK).
 3. BULLETS: Use simple dashes (-) for bullet points.
 4. TERMINAL FRIENDLY: Ensure it looks professional in a fixed-width terminal.
 
