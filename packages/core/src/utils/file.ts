@@ -26,9 +26,13 @@ export const DEFAULT_EXCLUDE_PATTERNS = [
  */
 export function shouldExclude(path: string, patterns?: string[]): boolean {
   // Always include default patterns; user patterns are additive
-  const effectivePatterns = patterns && patterns.length > 0
-    ? [...DEFAULT_EXCLUDE_PATTERNS, ...patterns.filter(p => !DEFAULT_EXCLUDE_PATTERNS.includes(p))]
-    : DEFAULT_EXCLUDE_PATTERNS;
+  const effectivePatterns =
+    patterns && patterns.length > 0
+      ? [
+          ...DEFAULT_EXCLUDE_PATTERNS,
+          ...patterns.filter((p) => !DEFAULT_EXCLUDE_PATTERNS.includes(p)),
+        ]
+      : DEFAULT_EXCLUDE_PATTERNS;
 
   return effectivePatterns.some((pattern) => {
     // Basic glob-like support:
@@ -55,9 +59,7 @@ export function extractFilesFromDiff(diff: unknown, excludePatterns?: string[]):
   const diffObj = diff as { files?: Array<{ file: string }> };
   if (!diffObj.files) return [];
 
-  return diffObj.files
-    .map((f) => f.file)
-    .filter((path) => !shouldExclude(path, excludePatterns));
+  return diffObj.files.map((f) => f.file).filter((path) => !shouldExclude(path, excludePatterns));
 }
 
 export interface FileDiffImpact {
@@ -69,7 +71,10 @@ export interface FileDiffImpact {
 /**
  * Extracts per-file insertions and deletions from a simple-git diff object.
  */
-export function extractImpactsFromDiff(diff: unknown, excludePatterns?: string[]): FileDiffImpact[] {
+export function extractImpactsFromDiff(
+  diff: unknown,
+  excludePatterns?: string[],
+): FileDiffImpact[] {
   if (!diff || typeof diff !== "object") return [];
 
   const diffObj = diff as { files?: Array<FileDiffImpact> };
@@ -90,17 +95,3 @@ export function extractImpactsFromDiff(diff: unknown, excludePatterns?: string[]
 export function normalizePath(path: string): string {
   return path.replace(/\\/g, "/");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

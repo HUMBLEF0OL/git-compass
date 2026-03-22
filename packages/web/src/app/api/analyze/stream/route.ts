@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { 
-  createGitParser, 
+import {
+  createGitParser,
   isValidRepo,
   getCommits,
-  analyzeHotspots, 
-  computeRiskScores, 
-  analyzeChurn, 
-  analyzeContributors, 
+  analyzeHotspots,
+  computeRiskScores,
+  analyzeChurn,
+  analyzeContributors,
   analyzeContributorTimeline,
   analyzeBurnout,
   analyzeCoupling,
@@ -17,10 +17,10 @@ import {
   analyzeHealth,
   getAIProvider,
   AIProviderType,
-  generateSummary
+  generateSummary,
 } from "@git-compass/core";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -54,12 +54,12 @@ export async function GET(req: NextRequest) {
 
         send({ stage: "commits", message: "Fetching commits..." });
         const commits = await getCommits(parser, { branch, window, maxCount: maxCommits });
-        
+
         send({ stage: "hotspots", message: "Analyzing hotspots and risk..." });
         const hotspots = analyzeHotspots(commits, window as any);
         const riskScores = computeRiskScores(hotspots);
-        const hotspotsWithScores = hotspots.map(h => {
-          const rs = riskScores.find(s => s.path === h.path);
+        const hotspotsWithScores = hotspots.map((h) => {
+          const rs = riskScores.find((s) => s.path === h.path);
           return { ...h, riskScore: rs?.score ?? 0, riskLevel: rs?.level ?? "low" };
         });
 
@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
         const churn = analyzeChurn(commits, window as any);
         const contributors = analyzeContributors(commits);
         const contributorTimeline = analyzeContributorTimeline(commits);
-        
+
         send({ stage: "advanced", message: "Performing advanced analysis..." });
         const burnout = analyzeBurnout(commits);
         const coupling = analyzeCoupling(commits);
@@ -97,9 +97,12 @@ export async function GET(req: NextRequest) {
           send({ stage: "ai", message: "Generating AI summary..." });
           try {
             const finalApiKey = aiApiKey || process.env.OPENAI_API_KEY;
-            const providerType = aiProvider === "anthropic" ? AIProviderType.ANTHROPIC : 
-                               aiProvider === "google" ? AIProviderType.GEMINI : 
-                               AIProviderType.OPENAI;
+            const providerType =
+              aiProvider === "anthropic"
+                ? AIProviderType.ANTHROPIC
+                : aiProvider === "google"
+                  ? AIProviderType.GEMINI
+                  : AIProviderType.OPENAI;
             const provider = getAIProvider(providerType, finalApiKey!);
             const result = await generateSummary(provider, analysisResult as any);
             (analysisResult as any).aiSummary = result.digest;
@@ -120,9 +123,9 @@ export async function GET(req: NextRequest) {
 
   return new Response(stream, {
     headers: {
-      'Content-Type': 'text/event-stream',
-      'Cache-Control': 'no-cache',
-      'Connection': 'keep-alive',
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
     },
   });
 }

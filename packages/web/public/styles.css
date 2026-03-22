@@ -60,9 +60,8 @@
   padding: 0;
 }
 
-
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: "Inter", system-ui, sans-serif;
   background: var(--background);
   color: var(--foreground);
   line-height: 1.5;
@@ -147,7 +146,9 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .brand-icon:hover {
@@ -234,7 +235,9 @@ header {
   outline: none;
   cursor: pointer;
   min-width: 8rem;
-  transition: box-shadow 0.15s, transform 0.15s;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .branch-select:hover {
@@ -257,7 +260,10 @@ header {
   align-items: center;
   justify-content: center;
   color: var(--muted-fg);
-  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    background 0.15s;
 }
 
 .icon-btn:hover {
@@ -358,7 +364,9 @@ main {
   border: 2px solid var(--foreground);
   box-shadow: var(--shadow-md);
   padding: 1.5rem;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .metric-card:hover {
@@ -533,7 +541,7 @@ main {
 }
 
 .ai-content .ai-list li::before {
-  content: '→';
+  content: "→";
   position: absolute;
   left: -1.25rem;
   color: var(--primary);
@@ -541,7 +549,7 @@ main {
 }
 
 .ai-content code {
-  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
   font-size: 0.75rem;
   background: var(--surface-2);
   border: 1px solid var(--border);
@@ -647,7 +655,9 @@ main {
   border: 2px solid var(--border);
   border-left: 3px solid var(--destructive);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
   cursor: default;
 }
 
@@ -722,7 +732,10 @@ main {
   background: var(--surface);
   border: 2px solid var(--border);
   box-shadow: var(--shadow-sm);
-  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s,
+    border-color 0.15s;
 }
 
 .compass-item:hover {
@@ -820,7 +833,9 @@ main {
   height: 14px;
   background: var(--border);
   border: 1px solid rgba(0, 0, 0, 0.05);
-  transition: transform 0.1s, border-color 0.1s;
+  transition:
+    transform 0.1s,
+    border-color 0.1s;
 }
 
 .heat-box:hover {
@@ -938,7 +953,6 @@ main {
   border: none;
 }
 
-
 /* Grids */
 .three-col-grid {
   display: grid;
@@ -952,7 +966,7 @@ main {
   }
 }
 
-.three-col-grid>.card {
+.three-col-grid > .card {
   max-height: 520px;
   overflow-y: auto;
 }
@@ -1059,7 +1073,7 @@ main {
 }
 
 .compass-doc::before {
-  content: 'ARCHITECTURAL BLUEPRINT';
+  content: "ARCHITECTURAL BLUEPRINT";
   position: absolute;
   top: -0.65rem;
   left: 1rem;
@@ -1186,7 +1200,6 @@ main {
   margin-top: 0.25rem;
   font-weight: 500;
 }
-
 
 /* --- Web Badge --- */
 
@@ -1517,7 +1530,9 @@ tbody td.num {
   letter-spacing: 0.15em;
   cursor: pointer;
   white-space: nowrap;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .query-btn:hover {
@@ -1624,7 +1639,9 @@ tbody td.num {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .sidebar-close:hover {
@@ -1711,7 +1728,9 @@ tbody td.num {
   text-transform: uppercase;
   letter-spacing: 0.18em;
   cursor: pointer;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .form-submit:hover {
@@ -1732,7 +1751,6 @@ tbody td.num {
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     opacity: 1;

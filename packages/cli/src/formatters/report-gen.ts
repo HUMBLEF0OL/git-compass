@@ -8,10 +8,3 @@ export async function exportJson(result: AnalysisResult, outputPath: string) {
   await fs.writeFile(fullPath, JSON.stringify(result, null, 2), "utf-8");
   return fullPath;
 }
-
-
-
-
-
-
-

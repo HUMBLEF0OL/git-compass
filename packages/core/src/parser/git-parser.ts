@@ -67,17 +67,3 @@ export async function getBranches(git: SimpleGit): Promise<string[]> {
   const result = await git.branchLocal();
   return result.all;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -22,13 +22,17 @@ graph TD
 ## Packages
 
 ### 1. `@git-compass/core`
+
 The "brain" of the project. It handles all raw data processing and insight generation.
+
 - **Git Parser**: Leverages `simple-git` to extract commit history, diffs, and metadata.
 - **Analyzers**: Pure functions that compute metrics like hotspots, churn, and temporal coupling.
 - **AI Clients**: Interfaces for interacting with LLMs to generate summaries and answer queries.
 
 ### 2. `git-compass`
+
 The primary user interface. Built with `commander`.
+
 - **Commands**: `analyze`, `watch`, `query`, and `config`.
 - **Formatters**: Converts core `AnalysisResult` data into human-readable console output, JSON, or HTML.
 - **State Management**: Uses `conf` to store persistent configurations like API keys.
@@ -46,5 +50,3 @@ The primary user interface. Built with `commander`.
 - **Separation of Concerns**: UI logic stays in `cli`, while business logic stays in `core`.
 - **Pure Functions**: Most analyzers are pure, making them easy to test and reason about.
 - **Plug-and-Play**: The AI client is designed to be swappable, supporting different models or providers in the future.
-
-

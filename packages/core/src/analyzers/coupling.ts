@@ -1,7 +1,6 @@
 import type { RawCommit, CouplingLink } from "../types.js";
 import { extractFilesFromDiff } from "../utils/index.js";
 
-
 /**
  * Identifies "Temporal Coupling": files that consistently change together.
  * Higher coupling suggests hidden logical dependencies.
@@ -15,7 +14,7 @@ export function analyzeCoupling(commits: RawCommit[], excludePatterns?: string[]
     if (files.length < 2 || files.length > 50) continue; // Skip huge commits or single-file commits
 
     // Update individual file counts
-    files.forEach(f => {
+    files.forEach((f) => {
       fileChangeCounts.set(f, (fileChangeCounts.get(f) || 0) + 1);
     });
 
@@ -42,30 +41,16 @@ export function analyzeCoupling(commits: RawCommit[], excludePatterns?: string[]
     // Use Jaccard Index as the coupling score
     const coupling = sharedCount / (countA + countB - sharedCount);
 
-    if (coupling > 0.3) { // Threshold for "strong" coupling
+    if (coupling > 0.3) {
+      // Threshold for "strong" coupling
       results.push({
         head: fileA,
         tail: fileB,
         coupling: parseFloat(coupling.toFixed(2)),
-        sharedCommits: sharedCount
+        sharedCommits: sharedCount,
       });
     }
   }
 
   return results.sort((a, b) => b.coupling - a.coupling);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

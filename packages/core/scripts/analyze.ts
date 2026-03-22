@@ -8,7 +8,7 @@ import {
   analyzeCoupling,
   analyzeKnowledge,
   analyzeImpact,
-  analyzeRot
+  analyzeRot,
 } from "../src/analyzers/index.js";
 import type { FileImpact } from "../src/types.js";
 
@@ -38,27 +38,29 @@ async function runAnalysis() {
     console.log("\n=> ANALYSIS SUMMARY");
     console.log("-------------------");
     console.log(`=> Hotspots: ${hotspots.length} files`);
-    console.log(`=> High Risk Files: ${risk.filter(r => r.level === 'high' || r.level === 'critical').length}`);
+    console.log(
+      `=> High Risk Files: ${risk.filter((r) => r.level === "high" || r.level === "critical").length}`,
+    );
     console.log(`=> Total Churn Days: ${churn.length}`);
     console.log(`=> Contributors: ${contributors.length}`);
     console.log(`=> Burnout Flags: ${burnout.flags.length}`);
     console.log(`=> Temporal Coupling: ${coupling.length} strong links`);
     console.log(`=> Knowledge Silos: ${knowledge.length} files`);
-    console.log(`=> Avg Blast Radius: ${impact.length > 0 ? (impact.reduce((acc: number, i: FileImpact) => acc + i.blastRadius, 0) / impact.length).toFixed(2) : 0} files`);
+    console.log(
+      `=> Avg Blast Radius: ${impact.length > 0 ? (impact.reduce((acc: number, i: FileImpact) => acc + i.blastRadius, 0) / impact.length).toFixed(2) : 0} files`,
+    );
     console.log(`=> Abandoned Files (Rot): ${rot.length}`);
-
-
 
     if (coupling.length > 0) {
       console.log("\n=> TOP TEMPORAL COUPLING:");
-      coupling.slice(0, 5).forEach(c => {
+      coupling.slice(0, 5).forEach((c) => {
         console.log(`  - ${c.head} <-> ${c.tail} (${(c.coupling * 100).toFixed(0)}% coupling)`);
       });
     }
 
     if (knowledge.length > 0) {
       console.log("\n=> KNOWLEDGE SILOS:");
-      knowledge.slice(0, 5).forEach(k => {
+      knowledge.slice(0, 5).forEach((k) => {
         console.log(`  - ${k.path} (${k.mainContributor}: ${k.authorshipPercent}%)`);
       });
     }
@@ -72,17 +74,3 @@ async function runAnalysis() {
 }
 
 runAnalysis();
-
-
-
-
-
-
-
-
-
-
-
-
-
-

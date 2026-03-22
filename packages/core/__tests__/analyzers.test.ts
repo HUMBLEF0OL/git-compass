@@ -10,7 +10,6 @@ import { analyzeImpact } from "../src/analyzers/impact.js";
 import { analyzeRot } from "../src/analyzers/rot.js";
 import type { RawCommit } from "../src/types.js";
 
-
 // Use fixed dates for deterministic testing
 const jan1 = new Date("2024-01-01T10:00:00Z"); // Monday
 const jan2 = new Date("2024-01-02T10:00:00Z"); // Tuesday
@@ -114,7 +113,6 @@ const mockCommits: RawCommit[] = [
   },
 ];
 
-
 describe("Analyzers", () => {
   it("should analyze hotspots correctly", () => {
     const hotspots = analyzeHotspots(mockCommits, "all");
@@ -122,7 +120,6 @@ describe("Analyzers", () => {
     expect(hotspots.find((h) => h.path === "src/index.ts")?.changeCount).toBe(6);
     expect(hotspots.find((h) => h.path === "INIT.md")).toBeDefined();
   });
-
 
   it("should compute risk scores correctly", () => {
     const hotspots = analyzeHotspots(mockCommits, "all");
@@ -147,7 +144,6 @@ describe("Analyzers", () => {
     expect(alice?.activeDays).toBe(3);
   });
 
-
   it("should analyze burnout correctly", () => {
     const burnout = analyzeBurnout(mockCommits);
     expect(burnout.afterHoursCommits).toBe(1); // Bob's commit c2
@@ -156,12 +152,12 @@ describe("Analyzers", () => {
     expect(bob?.afterHoursPercent).toBe(100);
   });
 
-
   it("should analyze coupling correctly", () => {
     const coupling = analyzeCoupling(mockCommits);
-    const link = coupling.find(l =>
-      (l.head === "src/index.ts" && l.tail === "src/utils.ts") ||
-      (l.head === "src/utils.ts" && l.tail === "src/index.ts")
+    const link = coupling.find(
+      (l) =>
+        (l.head === "src/index.ts" && l.tail === "src/utils.ts") ||
+        (l.head === "src/utils.ts" && l.tail === "src/index.ts"),
     );
 
     expect(link).toBeDefined();
@@ -170,7 +166,7 @@ describe("Analyzers", () => {
 
   it("should analyze knowledge distribution correctly", () => {
     const knowledge = analyzeKnowledge(mockCommits);
-    const silo = knowledge.find(k => k.path === "src/index.ts");
+    const silo = knowledge.find((k) => k.path === "src/index.ts");
     expect(silo).toBeDefined();
     expect(silo?.mainContributor).toBe("Alice");
     expect(silo?.authorshipPercent).toBeGreaterThan(80);
@@ -178,7 +174,7 @@ describe("Analyzers", () => {
 
   it("should analyze blast radius correctly", () => {
     const impact = analyzeImpact(mockCommits);
-    const indexImpact = impact.find(i => i.path === "src/index.ts");
+    const indexImpact = impact.find((i) => i.path === "src/index.ts");
     expect(indexImpact).toBeDefined();
     expect(indexImpact?.blastRadius).toBeLessThan(1); // Mostly changed alone in silo commits
   });
@@ -188,19 +184,3 @@ describe("Analyzers", () => {
     expect(rot.length).toBeGreaterThan(0);
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

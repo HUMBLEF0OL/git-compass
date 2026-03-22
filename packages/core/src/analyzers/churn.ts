@@ -7,14 +7,13 @@ import { getWindowCutoff, extractImpactsFromDiff } from "../utils/index.js";
 export function analyzeChurn(
   commits: RawCommit[],
   window: AnalysisWindow = "30d",
-  excludePatterns?: string[]
+  excludePatterns?: string[],
 ): ChurnDataPoint[] {
   const cutoff = getWindowCutoff(window);
   const filtered = commits.filter((c) => c.date >= cutoff);
   const churnMap = new Map<string, { added: number; removed: number; commits: number }>();
 
   for (const commit of filtered) {
-
     if (!commit.diff || typeof commit.diff !== "object") continue;
 
     const impacts = extractImpactsFromDiff(commit.diff, excludePatterns);
@@ -25,8 +24,8 @@ export function analyzeChurn(
 
     const existing = churnMap.get(dateKey) ?? { added: 0, removed: 0, commits: 0 };
     for (const impact of impacts) {
-        existing.added += impact.insertions;
-        existing.removed += impact.deletions;
+      existing.added += impact.insertions;
+      existing.removed += impact.deletions;
     }
     existing.commits += 1;
     churnMap.set(dateKey, existing);
@@ -42,17 +41,3 @@ export function analyzeChurn(
     }))
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

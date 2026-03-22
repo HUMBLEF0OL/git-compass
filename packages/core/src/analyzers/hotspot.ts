@@ -7,7 +7,7 @@ import { getWindowCutoff, extractImpactsFromDiff } from "../utils/index.js";
 export function analyzeHotspots(
   commits: RawCommit[],
   window: AnalysisWindow = "30d",
-  excludePatterns?: string[]
+  excludePatterns?: string[],
 ): HotspotFile[] {
   const cutoff = getWindowCutoff(window);
   const filtered = commits.filter((c) => c.date >= cutoff);
@@ -28,7 +28,7 @@ export function analyzeHotspots(
       };
       existing.changeCount++;
       existing.authors.add(commit.author);
-      existing.linesImpacted += (impact.insertions + impact.deletions);
+      existing.linesImpacted += impact.insertions + impact.deletions;
       if (commit.date > existing.lastChanged) {
         existing.lastChanged = commit.date;
       }
@@ -47,18 +47,3 @@ export function analyzeHotspots(
     }))
     .sort((a, b) => b.changeCount - a.changeCount);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -25,7 +25,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error(`Uncaught error in ${this.props.name || 'Component'}:`, error, errorInfo);
+    console.error(`Uncaught error in ${this.props.name || "Component"}:`, error, errorInfo);
   }
 
   private handleReset = () => {
@@ -43,9 +43,9 @@ export class ErrorBoundary extends Component<Props, State> {
           <AlertCircle className="h-10 w-10 text-destructive mb-4" />
           <h3 className="text-lg font-black tracking-tight">Component Failed</h3>
           <p className="text-xs text-muted-foreground mt-2 max-w-[200px] mx-auto">
-            Something went wrong while rendering {this.props.name || 'this component'}.
+            Something went wrong while rendering {this.props.name || "this component"}.
           </p>
-          <button 
+          <button
             onClick={this.handleReset}
             className="mt-6 flex items-center gap-2 px-4 py-2 bg-background shadow-neumo-convex rounded-lg text-xs font-black hover:shadow-neumo-pressed transition-all"
           >

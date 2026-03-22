@@ -2,7 +2,7 @@ import type { HotspotFile, RiskScore } from "../types.js";
 
 const RISK_WEIGHTS = {
   changeFrequency: 0.3,
-  linesImpacted: 0.3,   // Churn volume factor
+  linesImpacted: 0.3, // Churn volume factor
   uniqueAuthors: 0.2,
   recency: 0.2,
 } as const;
@@ -40,7 +40,13 @@ export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
       recencyRatio * RISK_WEIGHTS.recency;
 
     const level: RiskScore["level"] =
-      totalScore >= 0.8 ? "critical" : totalScore >= 0.6 ? "high" : totalScore >= 0.4 ? "medium" : "low";
+      totalScore >= 0.8
+        ? "critical"
+        : totalScore >= 0.6
+          ? "high"
+          : totalScore >= 0.4
+            ? "medium"
+            : "low";
 
     return {
       path: file.path,
@@ -54,17 +60,3 @@ export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
     };
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

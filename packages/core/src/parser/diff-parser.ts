@@ -6,17 +6,3 @@ export function parseDiffStat(diff: string): string[] {
   if (!diff) return [];
   return diff.split("\n").filter((line) => line.trim().length > 0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,5 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { createGitParser, isValidRepo, getCommits, getCurrentBranch } from "../src/parser/git-parser.js";
+import {
+  createGitParser,
+  isValidRepo,
+  getCommits,
+  getCurrentBranch,
+} from "../src/parser/git-parser.js";
 import simpleGit from "simple-git";
 
 vi.mock("simple-git");
@@ -64,17 +69,3 @@ describe("GitParser Functions", () => {
     expect(branch).toBe("main");
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-

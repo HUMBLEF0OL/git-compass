@@ -35,7 +35,7 @@ export interface HotspotFile {
 
 export interface RiskScore {
   path: string;
-  score: number;           // 0–100
+  score: number; // 0–100
   level: "low" | "medium" | "high" | "critical";
   factors: {
     changeFrequency: number;
@@ -71,7 +71,7 @@ export interface ContributorTimelinePoint {
 
 export interface BurnoutAnalysis {
   flags: string[];
-  afterHoursCommits: number;    // commits between 22:00 and 06:00
+  afterHoursCommits: number; // commits between 22:00 and 06:00
   weekendCommits: number;
   contributors: BurnoutContributor[];
 }
@@ -85,8 +85,8 @@ export interface BurnoutContributor {
 
 export interface CompassEntry {
   path: string;
-  priority: number;         // 1 = read first
-  reason: string;           // e.g., "High centrality, touched by all contributors"
+  priority: number; // 1 = read first
+  reason: string; // e.g., "High centrality, touched by all contributors"
   changeCount: number;
   type: "entry-point" | "core" | "config" | "test";
 }
@@ -124,9 +124,9 @@ export interface AISummary {
 // ─── Deep Analytics ──────────────────────────────────────────────────────────
 
 export interface CouplingLink {
-  head: string;             // File A
-  tail: string;             // File B
-  coupling: number;         // 0–1 (percentage of shared commits)
+  head: string; // File A
+  tail: string; // File B
+  coupling: number; // 0–1 (percentage of shared commits)
   sharedCommits: number;
 }
 
@@ -139,16 +139,16 @@ export interface KnowledgeSilo {
 
 export interface FileImpact {
   path: string;
-  blastRadius: number;      // average files changed alongside this one
-  maxBlastRadius: number;   // max files changed in a single commit with this one
+  blastRadius: number; // average files changed alongside this one
+  maxBlastRadius: number; // max files changed in a single commit with this one
 }
 
 export interface RepositoryHealth {
-  stability: number;   // 0–100
-  velocity: number;    // 0–100
-  simplicity: number;  // 0–100
-  coverage: number;    // 0–100
-  decoupling: number;  // 0–100
+  stability: number; // 0–100
+  velocity: number; // 0–100
+  simplicity: number; // 0–100
+  coverage: number; // 0–100
+  decoupling: number; // 0–100
 }
 
 // ─── Full Analysis Result ────────────────────────────────────────────────────
@@ -176,18 +176,3 @@ export interface AnalysisResult {
 
   aiSummary?: AISummary | null;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

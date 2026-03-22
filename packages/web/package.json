@@ -11,8 +11,12 @@
     "server.js"
   ],
   "type": "module",
+  "private": true,
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "eslint": "^9.0.0"
   },
   "scripts": {
     "dev": "node --watch server.js",
@@ -24,8 +28,10 @@
     "@git-compass/core": "workspace:*"
   },
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "@types/node": "^20.0.0",
     "eslint": "^9.0.0",
+    "globals": "^15.0.0",
     "typescript": "^5.4.0"
   }
 }

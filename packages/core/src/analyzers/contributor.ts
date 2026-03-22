@@ -74,7 +74,7 @@ export function analyzeContributorTimeline(commits: RawCommit[]): ContributorTim
   for (const commit of commits) {
     const dateKey = commit.date.toISOString().split("T")[0];
     if (!dateKey) continue;
-    
+
     const diff = commit.diff as { insertions?: number } | null;
     const impact = diff?.insertions ?? 0;
 
@@ -86,21 +86,7 @@ export function analyzeContributorTimeline(commits: RawCommit[]): ContributorTim
   return Array.from(timelineMap.entries())
     .map(([date, impacts]) => ({
       date: new Date(date),
-      impacts
+      impacts,
     }))
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

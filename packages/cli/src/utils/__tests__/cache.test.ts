@@ -1,10 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { 
-  getCachePath, 
-  loadCache, 
-  getCachedResult, 
-  updateCache 
-} from "../cache.js";
+import { getCachePath, loadCache, getCachedResult, updateCache } from "../cache.js";
 import fs from "fs/promises";
 import path from "path";
 
@@ -29,9 +24,9 @@ describe("Cache Utils", () => {
 
   it("should retrieve cached result", () => {
     const cache = {
-      "repo": {
-        "hash1": { data: "test" } as any
-      }
+      repo: {
+        hash1: { data: "test" } as any,
+      },
     };
     const result = getCachedResult(cache, "/test/repo", "hash1");
     expect(result).toEqual({ data: "test" });
@@ -46,10 +41,3 @@ describe("Cache Utils", () => {
     }
   });
 });
-
-
-
-
-
-
-

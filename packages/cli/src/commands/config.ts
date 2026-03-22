@@ -4,8 +4,9 @@ import { config } from "../config/index.js";
 import { CONFIG_KEYS, PROJECT_NAME } from "../constants/index.js";
 import { maskKey } from "@git-compass/core";
 
-export const configCommand = new Command("config")
-  .description(`Manage ${PROJECT_NAME} configuration`);
+export const configCommand = new Command("config").description(
+  `Manage ${PROJECT_NAME} configuration`,
+);
 
 configCommand
   .command("set <key> <value>")
@@ -20,19 +21,19 @@ configCommand
   .description("Interactively configure AI provider and API key")
   .action(async () => {
     const { select, password } = await import("@inquirer/prompts");
-    
+
     const provider = await select({
       message: "Select an AI provider:",
       choices: [
         { name: "Anthropic (Claude)", value: "anthropic" },
         { name: "OpenAI (GPT-4o)", value: "openai" },
-        { name: "Google Gemini (1.5 Pro)", value: "gemini" }
-      ]
+        { name: "Google Gemini (1.5 Pro)", value: "gemini" },
+      ],
     });
 
     const apiKey = await password({
       message: `Enter your ${provider} API Key:`,
-      mask: "*"
+      mask: "*",
     });
 
     if (apiKey) {
@@ -62,12 +63,15 @@ configCommand
   .action(() => {
     const all = config.store as any;
     console.log(chalk.blue.bold(`\n--- ${PROJECT_NAME} Configuration ---`));
-    
+
     if (all.ai) {
       console.log(`${chalk.yellow("AI Provider:")} ${all.ai.provider || "not set"}`);
-      if (all.ai.anthropicKey) console.log(`${chalk.yellow("Anthropic Key:")} ${maskKey(all.ai.anthropicKey)}`);
-      if (all.ai.openaiKey) console.log(`${chalk.yellow("OpenAI Key:")} ${maskKey(all.ai.openaiKey)}`);
-      if (all.ai.geminiKey) console.log(`${chalk.yellow("Gemini Key:")} ${maskKey(all.ai.geminiKey)}`);
+      if (all.ai.anthropicKey)
+        console.log(`${chalk.yellow("Anthropic Key:")} ${maskKey(all.ai.anthropicKey)}`);
+      if (all.ai.openaiKey)
+        console.log(`${chalk.yellow("OpenAI Key:")} ${maskKey(all.ai.openaiKey)}`);
+      if (all.ai.geminiKey)
+        console.log(`${chalk.yellow("Gemini Key:")} ${maskKey(all.ai.geminiKey)}`);
     }
 
     // List other top-level keys if any
@@ -79,10 +83,3 @@ configCommand
   });
 
 // ... end of file
-
-
-
-
-
-
-

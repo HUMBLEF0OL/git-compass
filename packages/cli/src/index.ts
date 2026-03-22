@@ -22,14 +22,12 @@ program.addCommand(queryCommand);
 // Handle unknown commands gracefully
 program.on("command:*", (cmds) => {
   const unknownCommand = cmds[0];
-  const availableCommands = program.commands.map(cmd => cmd.name());
-  
-  console.error(
-    `\n${chalk.red.bold("Error:")} Unknown command ${chalk.yellow(unknownCommand)}`
-  );
+  const availableCommands = program.commands.map((cmd) => cmd.name());
+
+  console.error(`\n${chalk.red.bold("Error:")} Unknown command ${chalk.yellow(unknownCommand)}`);
 
   // Simple "did you mean" logic
-  const suggestion = availableCommands.find(c => {
+  const suggestion = availableCommands.find((c) => {
     // Basic prefix or substring match for simplicity
     return c.startsWith(unknownCommand.slice(0, 3)) || unknownCommand.includes(c);
   });
@@ -45,7 +43,7 @@ program.on("command:*", (cmds) => {
 export function run() {
   try {
     program.parse(process.argv);
-    
+
     // Show help if no arguments provided
     if (!process.argv.slice(2).length) {
       program.outputHelp();
@@ -55,10 +53,3 @@ export function run() {
     process.exit(1);
   }
 }
-
-
-
-
-
-
-

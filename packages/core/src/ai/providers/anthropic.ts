@@ -1,9 +1,4 @@
-import { 
-  AIProvider, 
-  AIProviderType, 
-  AnalysisResult, 
-  AISummary 
-} from "../../types.js";
+import { AIProvider, AIProviderType, AnalysisResult, AISummary } from "../../types.js";
 
 import { buildSummaryPrompt } from "../summarizer.js";
 import { ensurePackage } from "../../utils/pkg-installer.js";
@@ -19,7 +14,7 @@ export function createAnthropicProvider(apiKey: string): AIProvider {
       const { generateText } = await import("ai");
       // @ts-ignore - dynamically installed
       const { createAnthropic } = await import("@ai-sdk/anthropic");
-      
+
       const anthropic = createAnthropic({ apiKey });
       const prompt = buildSummaryPrompt(analysis);
 
@@ -43,7 +38,7 @@ export function createAnthropicProvider(apiKey: string): AIProvider {
       const { generateText } = await import("ai");
       // @ts-ignore - dynamically installed
       const { createAnthropic } = await import("@ai-sdk/anthropic");
-      
+
       const anthropic = createAnthropic({ apiKey });
       const context = JSON.stringify(analysis, null, 2);
 
@@ -61,16 +56,6 @@ ${context}`,
       });
 
       return text;
-    }
+    },
   };
 }
-
-
-
-
-
-
-
-
-
-

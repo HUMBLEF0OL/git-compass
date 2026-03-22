@@ -1,9 +1,4 @@
-import { 
-  AIProvider, 
-  AIProviderType, 
-  AnalysisResult, 
-  AISummary 
-} from "../types.js";
+import { AIProvider, AIProviderType, AnalysisResult, AISummary } from "../types.js";
 import { createAnthropicProvider } from "./providers/anthropic.js";
 import { createOpenAIProvider } from "./providers/openai.js";
 import { createGeminiProvider } from "./providers/gemini.js";
@@ -12,16 +7,19 @@ import { createGeminiProvider } from "./providers/gemini.js";
  * Builds the analysis prompt for the LLM with enriched context.
  */
 export function buildSummaryPrompt(analysis: AnalysisResult): string {
-  const hotspots = analysis.hotspots.slice(0, 5)
-    .map(h => `- ${h.path} (${h.changeCount} changes, Risk: ${h.riskLevel})`)
+  const hotspots = analysis.hotspots
+    .slice(0, 5)
+    .map((h) => `- ${h.path} (${h.changeCount} changes, Risk: ${h.riskLevel})`)
     .join("\n");
 
-  const silos = analysis.knowledge.filter(k => k.riskLevel === "high")
-    .map(k => `- ${k.path} (Main: ${k.mainContributor}, ${k.authorshipPercent}%)`)
+  const silos = analysis.knowledge
+    .filter((k) => k.riskLevel === "high")
+    .map((k) => `- ${k.path} (Main: ${k.mainContributor}, ${k.authorshipPercent}%)`)
     .join("\n");
 
-  const coupling = analysis.coupling.slice(0, 3)
-    .map(c => `- ${c.head} <-> ${c.tail} (${(c.coupling * 100).toFixed(0)}% related)`)
+  const coupling = analysis.coupling
+    .slice(0, 3)
+    .map((c) => `- ${c.head} <-> ${c.tail} (${(c.coupling * 100).toFixed(0)}% related)`)
     .join("\n");
 
   const health = analysis.health;
@@ -76,7 +74,10 @@ export function getAIProvider(type: AIProviderType, apiKey: string): AIProvider 
 /**
  * Generates an AI summary of the repository analysis using the given provider.
  */
-export async function generateSummary(provider: AIProvider, analysis: AnalysisResult): Promise<AISummary> {
+export async function generateSummary(
+  provider: AIProvider,
+  analysis: AnalysisResult,
+): Promise<AISummary> {
   return provider.generateSummary(analysis);
 }
 
@@ -94,17 +95,3 @@ export async function queryAnalysis(
 // Deprecated or compatibility exports if needed, but since we are refactoring, we can keep it clean.
 // Legacy createAIClient could be aliased if necessary for backward compatibility during transition.
 export const createAIClient = (apiKey: string) => createAnthropicProvider(apiKey);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
