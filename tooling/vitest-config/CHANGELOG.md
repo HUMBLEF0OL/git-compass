@@ -1,5 +1,11 @@
 # @grotto/vitest-config
 
+## 0.2.0
+
+### Minor Changes
+
+- b81e979: Linting fix
+
 ## 1.0.1
 
 ### Patch Changes

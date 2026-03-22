@@ -1,382 +1,342 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Git Compass Dashboard</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  </head>
 
-  <body>
-    <!-- Loading Overlay -->
-    <div id="loading-overlay">
-      <div style="display: flex; flex-direction: column; align-items: center">
-        <div class="loader"></div>
-        <p class="spinner-label">Initializing Compass…</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Git Compass Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <div class="spinner"></div>
+      <p class="spinner-label">Initializing Compass…</p>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <i data-lucide="compass"></i>
+        </div>
+        <div>
+          <h1 id="repo-name" class="brand-name">-</h1>
+          <p id="repo-meta" class="brand-meta">-</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <div class="health-badge">
+          <span class="health-label">Health Score</span>
+          <span id="health-score" class="health-value">--%</span>
+        </div>
+        <select id="branch-select" class="branch-select">
+          <option value="HEAD">HEAD</option>
+        </select>
+        <button id="settings-toggle" class="icon-btn" title="Settings">
+          <i data-lucide="settings"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ── 1. Metric Grid ── -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <p class="metric-label">Files Changed</p>
+        <div id="metric-files" class="metric-value">--</div>
+        <span class="metric-badge">Last window</span>
+      </div>
+      <div class="metric-card">
+        <p class="metric-label">Active Authors</p>
+        <div id="metric-authors" class="metric-value">--</div>
+        <span class="metric-badge">Collaborating</span>
+      </div>
+      <div class="metric-card">
+        <p class="metric-label">Churn Index</p>
+        <div id="metric-churn" class="metric-value">--</div>
+        <span class="metric-badge">Lines impacted</span>
+      </div>
+      <div class="metric-card">
+        <p class="metric-label">Risk Level</p>
+        <div id="metric-risk" class="metric-value">--</div>
+        <span class="metric-badge">Avg Score</span>
       </div>
     </div>
 
-    <!-- Header -->
-    <header>
-      <div class="header-inner">
-        <div class="header-brand">
-          <div class="brand-icon">
-            <i data-lucide="compass"></i>
-          </div>
-          <div>
-            <h1 id="repo-name" class="brand-name">-</h1>
-            <p id="repo-meta" class="brand-meta">-</p>
-          </div>
-        </div>
-
-        <div class="header-controls">
-          <div class="health-badge">
-            <span class="health-label">Health Score</span>
-            <span id="health-score" class="health-value">--%</span>
-          </div>
-          <select id="branch-select" class="branch-select">
-            <option value="HEAD">HEAD</option>
-          </select>
-          <button id="settings-toggle" class="icon-btn" title="Settings">
-            <i data-lucide="settings"></i>
-          </button>
-        </div>
-      </div>
-    </header>
-
-    <main>
-      <!-- ── 1. Metric Grid ── -->
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <p class="metric-label">Files Changed</p>
-          <div id="metric-files" class="metric-value">--</div>
-          <span class="metric-badge">Last window</span>
-        </div>
-        <div class="metric-card">
-          <p class="metric-label">Active Authors</p>
-          <div id="metric-authors" class="metric-value">--</div>
-          <span class="metric-badge">Collaborating</span>
-        </div>
-        <div class="metric-card">
-          <p class="metric-label">Churn Index</p>
-          <div id="metric-churn" class="metric-value">--</div>
-          <span class="metric-badge">Lines impacted</span>
-        </div>
-        <div class="metric-card">
-          <p class="metric-label">Risk Level</p>
-          <div id="metric-risk" class="metric-value">--</div>
-          <span class="metric-badge">Avg Score</span>
-        </div>
-      </div>
-
-      <!-- ── 2. AI Summary + Health Radar ── -->
-      <div class="overview-grid">
-        <div class="ai-card">
-          <div
-            style="
+    <!-- ── 2. AI Summary + Health Radar ── -->
+    <div class="overview-grid">
+      <div class="ai-card">
+        <div style="
               display: flex;
               align-items: center;
               justify-content: space-between;
               margin-bottom: 0.75rem;
-            "
-          >
-            <h3 class="ai-card-title" style="margin: 0">
-              <i data-lucide="bot"></i> Intelligence Insight
-            </h3>
-            <div id="ai-pulse" class="ai-pulse"></div>
-          </div>
-          <p id="ai-summary-content" class="ai-content">
-            Analyzing repository data… AI insights will appear here once analysis is complete.
+            ">
+          <h3 class="ai-card-title" style="margin: 0">
+            <i data-lucide="bot"></i> Intelligence Insight
+          </h3>
+          <div id="ai-pulse" class="ai-pulse"></div>
+        </div>
+        <p id="ai-summary-content" class="ai-content">
+          Analyzing repository data… AI insights will appear here once analysis is complete.
+        </p>
+        <div id="ai-suggest" class="ai-suggest" style="display: none; margin-top: 1rem; padding-top: 1rem">
+          <p style="font-size: 0.8rem; color: var(--text-muted)">
+            Enable AI in Settings for deep behavioral insights.
           </p>
-          <div
-            id="ai-suggest"
-            class="ai-suggest"
-            style="display: none; margin-top: 1rem; padding-top: 1rem"
-          >
-            <p style="font-size: 0.8rem; color: var(--text-muted)">
-              Enable AI in Settings for deep behavioral insights.
-            </p>
-          </div>
-        </div>
-
-        <div class="card-convex">
-          <h3 class="section-title" style="justify-content: center; margin-bottom: 1.5rem">
-            Repository Health
-          </h3>
-          <div class="radar-center">
-            <canvas id="health-radar" width="280" height="280"></canvas>
-          </div>
-          <div id="health-legend" class="health-legend-grid"></div>
         </div>
       </div>
 
-      <!-- ── 3. Churn Chart + Risk Areas ── -->
-      <div class="churn-risk-grid">
-        <div class="card">
-          <div class="chart-header">
-            <div>
-              <p class="section-title" style="margin-bottom: 0.2rem">Temporal Stability</p>
-              <p class="section-subtitle">Churn velocity over time</p>
-            </div>
-            <div class="chart-legend">
-              <span class="legend-dot"><span style="background: var(--primary)"></span> Added</span>
-              <span class="legend-dot"
-                ><span style="background: var(--destructive)"></span> Removed</span
-              >
-            </div>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="churn-chart"></canvas>
-          </div>
+      <div class="card-convex">
+        <h3 class="section-title" style="justify-content: center; margin-bottom: 1.5rem">
+          Repository Health
+        </h3>
+        <div class="radar-center">
+          <canvas id="health-radar" width="280" height="280"></canvas>
         </div>
-
-        <div class="card">
-          <div class="section-header">
-            <h3 class="section-title"><i data-lucide="alert-triangle"></i> Critical Risk Areas</h3>
-            <p class="section-subtitle">Highest risk files by impact score</p>
-          </div>
-          <div id="risk-list" style="display: flex; flex-direction: column; gap: 0.75rem"></div>
-        </div>
+        <div id="health-legend" class="health-legend-grid"></div>
       </div>
-
-      <!-- ── 3. Codebase Compass ── -->
-      <div class="card">
-        <div class="section-header">
-          <h3 class="section-title"><i data-lucide="map"></i> Codebase Compass</h3>
-          <p class="section-subtitle">Recommended files and architectural blueprint</p>
-        </div>
-
-        <div id="compass-doc" class="compass-doc" style="margin-bottom: 1.5rem"></div>
-
-        <div class="section-label" style="margin-bottom: 0.75rem">Component Maturity</div>
-        <div id="compass-components" class="maturity-grid" style="margin-bottom: 2rem"></div>
-
-        <div class="section-label" style="margin-bottom: 1rem">Essential Files</div>
-        <div id="compass-list" class="compass-grid"></div>
-      </div>
-
-      <!-- ── 4. Timeline + Burnout ── -->
-      <div class="timeline-burnout-grid">
-        <div class="card">
-          <div class="section-header">
-            <h3 class="section-title"><i data-lucide="activity"></i> Contributor Timeline</h3>
-            <p class="section-subtitle">Author commit activity over time</p>
-          </div>
-          <div class="chart-wrap">
-            <canvas id="timeline-chart"></canvas>
-          </div>
-        </div>
-
-        <div class="card-convex">
-          <h3 class="section-title" style="margin-bottom: 1.25rem">
-            <i data-lucide="flame" style="color: var(--destructive)"></i> Burnout Signals
-          </h3>
-          <div id="burnout-metrics"></div>
-          <div id="burnout-list"></div>
-        </div>
-      </div>
-
-      <!-- ── 5. Knowledge Silos · Coupling · Impact + Rot ── -->
-      <div class="three-col-grid">
-        <!-- Knowledge Silos -->
-        <div class="card">
-          <div class="section-header">
-            <h3 class="section-title"><i data-lucide="brain"></i> Knowledge Silos</h3>
-            <p class="section-subtitle">Files with single-author dependency</p>
-          </div>
-          <div
-            id="knowledge-list"
-            style="display: flex; flex-direction: column; gap: 0.75rem"
-          ></div>
-        </div>
-
-        <!-- Coupling -->
-        <div class="card">
-          <div class="section-header">
-            <h3 class="section-title"><i data-lucide="link-2"></i> Structural Coupling</h3>
-            <p class="section-subtitle">Files that change together most often</p>
-          </div>
-          <div id="coupling-list" style="display: flex; flex-direction: column; gap: 0.75rem"></div>
-        </div>
-
-        <!-- Impact + Rot -->
-        <div class="card">
-          <div class="section-header">
-            <h3 class="section-title"><i data-lucide="zap"></i> Blast Radius</h3>
-            <p class="section-subtitle">Files with highest change impact</p>
-          </div>
-          <div
-            id="impact-list"
-            style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem"
-          ></div>
-
-          <h3 class="section-title" style="margin-bottom: 0.4rem">
-            <i data-lucide="archive" style="color: var(--muted-fg)"></i> Stale Files
-          </h3>
-          <p class="section-subtitle" style="margin-bottom: 0.75rem">Not recently touched (rot)</p>
-          <div id="rot-list" style="display: flex; flex-direction: column; gap: 0.4rem"></div>
-        </div>
-      </div>
-
-      <!-- ── 6. Contributors Table ── -->
-      <div class="card">
-        <div class="section-header">
-          <h3 class="section-title"><i data-lucide="users"></i> Contributor Breakdown</h3>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Author</th>
-                <th class="num">Commits</th>
-                <th class="num">Lines Added</th>
-                <th class="num">Lines Removed</th>
-                <th class="num">Files</th>
-                <th class="num">Active Days</th>
-              </tr>
-            </thead>
-            <tbody id="contributors-body"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ── 7. Web Exclusive Analyzers ── -->
-      <div
-        class="card"
-        style="border-color: var(--primary); box-shadow: 6px 6px 0 var(--foreground)"
-      >
-        <div class="section-header" style="border-bottom: none">
-          <h3 class="section-title" style="color: var(--primary)">
-            <i data-lucide="layout-grid"></i> Repository Activity Heatmap
-          </h3>
-          <p class="section-subtitle">Full repository file activity visualization</p>
-        </div>
-
-        <div class="compass-heatmap-wrap" style="background: none; border: none; padding: 0">
-          <div id="compass-heatmap" class="compass-heatmap gh-heatmap-container"></div>
-          <div class="heatmap-legend">
-            <span class="legend-label">Dormant</span>
-            <div class="legend-cells">
-              <div class="heat-box heat-lvl-0"></div>
-              <div class="heat-box heat-lvl-1"></div>
-              <div class="heat-box heat-lvl-2"></div>
-              <div class="heat-box heat-lvl-3"></div>
-              <div class="heat-box heat-lvl-4"></div>
-            </div>
-            <span class="legend-label">High Activity</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── 8. AI Query ── -->
-      <div class="query-card">
-        <div class="query-row">
-          <div class="query-icon"><i data-lucide="search"></i></div>
-          <input
-            id="query-input"
-            type="text"
-            class="query-input"
-            placeholder="Ask anything about this repo… e.g. 'Who has the most commits?'"
-          />
-          <button id="query-btn" class="query-btn">Consult AI</button>
-        </div>
-        <div id="query-response" class="query-response hidden">
-          <div class="query-response-icon"><i data-lucide="message-square"></i></div>
-          <div id="query-text" class="query-text"></div>
-        </div>
-      </div>
-    </main>
-
-    <!-- Settings Sidebar -->
-    <div id="settings-sidebar">
-      <div class="sidebar-header">
-        <h2 class="sidebar-title">Settings</h2>
-        <button id="settings-close" class="sidebar-close"><i data-lucide="x"></i></button>
-      </div>
-
-      <form id="settings-form" class="settings-form">
-        <div class="form-group">
-          <label class="form-label">Repository Path</label>
-          <input name="repoPath" type="text" class="form-input" placeholder="./" />
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Analysis Window</label>
-          <select name="window" class="form-select">
-            <option value="7d">Last 7 Days</option>
-            <option value="30d">Last 30 Days</option>
-            <option value="90d">Last Quarter</option>
-            <option value="all">Full History</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Exclude Patterns</label>
-          <textarea
-            name="excludePatterns"
-            class="form-input"
-            placeholder="e.g. node_modules/**, *.lock"
-            style="height: 80px; font-size: 0.7rem; font-family: &quot;Inter&quot;, monospace"
-          ></textarea>
-          <span style="font-size: 0.55rem; color: var(--muted-fg); margin-top: 0.2rem"
-            >Comma-separated glob patterns. Clear to disable exclusions.</span
-          >
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Max Commits</label>
-          <input
-            name="maxCommits"
-            type="number"
-            class="form-input"
-            min="50"
-            max="5000"
-            step="50"
-            value="500"
-            placeholder="500"
-          />
-          <span style="font-size: 0.55rem; color: var(--muted-fg); margin-top: 0.2rem"
-            >Number of commits to analyze (50–5000)</span
-          >
-        </div>
-
-        <div class="form-group form-divider">
-          <div class="form-toggle-row">
-            <label class="form-label">AI Intelligence</label>
-            <input
-              name="aiEnabled"
-              type="checkbox"
-              style="accent-color: var(--primary); width: 1rem; height: 1rem"
-            />
-          </div>
-          <div class="ai-fields hidden">
-            <div class="form-group">
-              <label class="form-label">Provider</label>
-              <select name="aiProvider" class="form-select">
-                <option value="openai">OpenAI</option>
-                <option value="anthropic">Anthropic</option>
-                <option value="google">Google Gemini</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="form-label">API Key</label>
-              <input name="aiApiKey" type="password" class="form-input" placeholder="sk-…" />
-            </div>
-          </div>
-        </div>
-
-        <button type="submit" class="form-submit">Save &amp; Refresh</button>
-      </form>
     </div>
 
-    <script src="app.js"></script>
-  </body>
+    <!-- ── 3. Churn Chart + Risk Areas ── -->
+    <div class="churn-risk-grid">
+      <div class="card">
+        <div class="chart-header">
+          <div>
+            <p class="section-title" style="margin-bottom: 0.2rem">Temporal Stability</p>
+            <p class="section-subtitle">Churn velocity over time</p>
+          </div>
+          <div class="chart-legend">
+            <span class="legend-dot"><span style="background: var(--primary)"></span> Added</span>
+            <span class="legend-dot"><span style="background: var(--destructive)"></span> Removed</span>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="churn-chart"></canvas>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-header">
+          <h3 class="section-title"><i data-lucide="alert-triangle"></i> Critical Risk Areas</h3>
+          <p class="section-subtitle">Highest risk files by impact score</p>
+        </div>
+        <div id="risk-list" style="display: flex; flex-direction: column; gap: 0.75rem"></div>
+      </div>
+    </div>
+
+    <!-- ── 3. Codebase Compass ── -->
+    <div class="card">
+      <div class="section-header">
+        <h3 class="section-title"><i data-lucide="map"></i> Codebase Compass</h3>
+        <p class="section-subtitle">Recommended files and architectural blueprint</p>
+      </div>
+
+      <div id="compass-doc" class="compass-doc" style="margin-bottom: 1.5rem"></div>
+
+      <div class="section-label" style="margin-bottom: 0.75rem">Component Maturity</div>
+      <div id="compass-components" class="maturity-grid" style="margin-bottom: 2rem"></div>
+
+      <div class="section-label" style="margin-bottom: 1rem">Essential Files</div>
+      <div id="compass-list" class="compass-grid"></div>
+    </div>
+
+    <!-- ── 4. Timeline + Burnout ── -->
+    <div class="timeline-burnout-grid">
+      <div class="card">
+        <div class="section-header">
+          <h3 class="section-title"><i data-lucide="activity"></i> Contributor Timeline</h3>
+          <p class="section-subtitle">Author commit activity over time</p>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="timeline-chart"></canvas>
+        </div>
+      </div>
+
+      <div class="card-convex">
+        <h3 class="section-title" style="margin-bottom: 1.25rem">
+          <i data-lucide="flame" style="color: var(--destructive)"></i> Burnout Signals
+        </h3>
+        <div id="burnout-metrics"></div>
+        <div id="burnout-list"></div>
+      </div>
+    </div>
+
+    <!-- ── 5. Knowledge Silos · Coupling · Impact + Rot ── -->
+    <div class="three-col-grid">
+      <!-- Knowledge Silos -->
+      <div class="card">
+        <div class="section-header">
+          <h3 class="section-title"><i data-lucide="brain"></i> Knowledge Silos</h3>
+          <p class="section-subtitle">Files with single-author dependency</p>
+        </div>
+        <div id="knowledge-list" style="display: flex; flex-direction: column; gap: 0.75rem"></div>
+      </div>
+
+      <!-- Coupling -->
+      <div class="card">
+        <div class="section-header">
+          <h3 class="section-title"><i data-lucide="link-2"></i> Structural Coupling</h3>
+          <p class="section-subtitle">Files that change together most often</p>
+        </div>
+        <div id="coupling-list" style="display: flex; flex-direction: column; gap: 0.75rem"></div>
+      </div>
+
+      <!-- Impact + Rot -->
+      <div class="card">
+        <div class="section-header">
+          <h3 class="section-title"><i data-lucide="zap"></i> Blast Radius</h3>
+          <p class="section-subtitle">Files with highest change impact</p>
+        </div>
+        <div id="impact-list" style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem"></div>
+
+        <h3 class="section-title" style="margin-bottom: 0.4rem">
+          <i data-lucide="archive" style="color: var(--muted-fg)"></i> Stale Files
+        </h3>
+        <p class="section-subtitle" style="margin-bottom: 0.75rem">Not recently touched (rot)</p>
+        <div id="rot-list" style="display: flex; flex-direction: column; gap: 0.4rem"></div>
+      </div>
+    </div>
+
+    <!-- ── 6. Contributors Table ── -->
+    <div class="card">
+      <div class="section-header">
+        <h3 class="section-title"><i data-lucide="users"></i> Contributor Breakdown</h3>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Author</th>
+              <th class="num">Commits</th>
+              <th class="num">Lines Added</th>
+              <th class="num">Lines Removed</th>
+              <th class="num">Files</th>
+              <th class="num">Active Days</th>
+            </tr>
+          </thead>
+          <tbody id="contributors-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── 7. Web Exclusive Analyzers ── -->
+    <div class="card" style="border-color: var(--primary); box-shadow: 6px 6px 0 var(--foreground)">
+      <div class="section-header" style="border-bottom: none">
+        <h3 class="section-title" style="color: var(--primary)">
+          <i data-lucide="layout-grid"></i> Repository Activity Heatmap
+        </h3>
+        <p class="section-subtitle">Full repository file activity visualization</p>
+      </div>
+
+      <div class="compass-heatmap-wrap" style="background: none; border: none; padding: 0">
+        <div id="compass-heatmap" class="compass-heatmap gh-heatmap-container"></div>
+        <div class="heatmap-legend">
+          <span class="legend-label">Dormant</span>
+          <div class="legend-cells">
+            <div class="heat-box heat-lvl-0"></div>
+            <div class="heat-box heat-lvl-1"></div>
+            <div class="heat-box heat-lvl-2"></div>
+            <div class="heat-box heat-lvl-3"></div>
+            <div class="heat-box heat-lvl-4"></div>
+          </div>
+          <span class="legend-label">High Activity</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 8. AI Query ── -->
+    <div class="query-card">
+      <div class="query-row">
+        <div class="query-icon"><i data-lucide="search"></i></div>
+        <input id="query-input" type="text" class="query-input"
+          placeholder="Ask anything about this repo… e.g. 'Who has the most commits?'" />
+        <button id="query-btn" class="query-btn">Consult AI</button>
+      </div>
+      <div id="query-response" class="query-response hidden">
+        <div class="query-response-icon"><i data-lucide="message-square"></i></div>
+        <div id="query-text" class="query-text"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Settings Sidebar -->
+  <div id="settings-sidebar">
+    <div class="sidebar-header">
+      <h2 class="sidebar-title">Settings</h2>
+      <button id="settings-close" class="sidebar-close"><i data-lucide="x"></i></button>
+    </div>
+
+    <form id="settings-form" class="settings-form">
+      <div class="form-group">
+        <label class="form-label">Repository Path</label>
+        <input name="repoPath" type="text" class="form-input" placeholder="./" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Analysis Window</label>
+        <select name="window" class="form-select">
+          <option value="7d">Last 7 Days</option>
+          <option value="30d">Last 30 Days</option>
+          <option value="90d">Last Quarter</option>
+          <option value="all">Full History</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Exclude Patterns</label>
+        <textarea name="excludePatterns" class="form-input" placeholder="e.g. node_modules/**, *.lock"
+          style="height: 80px; font-size: 0.7rem; font-family: &quot;Inter&quot;, monospace"></textarea>
+        <span style="font-size: 0.55rem; color: var(--muted-fg); margin-top: 0.2rem">Comma-separated glob patterns.
+          Clear to disable exclusions.</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Max Commits</label>
+        <input name="maxCommits" type="number" class="form-input" min="50" max="5000" step="50" value="500"
+          placeholder="500" />
+        <span style="font-size: 0.55rem; color: var(--muted-fg); margin-top: 0.2rem">Number of commits to analyze
+          (50–5000)</span>
+      </div>
+
+      <div class="form-group form-divider">
+        <div class="form-toggle-row">
+          <label class="form-label">AI Intelligence</label>
+          <input name="aiEnabled" type="checkbox" style="accent-color: var(--primary); width: 1rem; height: 1rem" />
+        </div>
+        <div class="ai-fields hidden">
+          <div class="form-group">
+            <label class="form-label">Provider</label>
+            <select name="aiProvider" class="form-select">
+              <option value="openai">OpenAI</option>
+              <option value="anthropic">Anthropic</option>
+              <option value="google">Google Gemini</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">API Key</label>
+            <input name="aiApiKey" type="password" class="form-input" placeholder="sk-…" />
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="form-submit">Save &amp; Refresh</button>
+    </form>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
 </html>

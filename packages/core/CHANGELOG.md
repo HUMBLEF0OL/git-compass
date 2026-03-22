@@ -1,5 +1,25 @@
 # @grotto/core
 
+## 2.0.0
+
+### Major Changes
+
+- d2fff33: Refactor of web package
+
+### Minor Changes
+
+- b81e979: Linting fix
+
+## 1.0.0
+
+### Major Changes
+
+- 91afb57: Release of git-compass web
+
+### Minor Changes
+
+- 38eb265: exclusion pattern
+
 ## 1.0.1
 
 ### Patch Changes
