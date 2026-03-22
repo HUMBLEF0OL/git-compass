@@ -13,9 +13,7 @@ export function Loading({ message = "Analyzing Repository...", stage = "starting
     <div className="max-w-6xl mx-auto space-y-10">
       <div className="flex flex-col items-center justify-center p-20 rounded-xl bg-card/30 border border-primary/10 shadow-neumo-pressed animate-pulse">
         <Activity className="h-12 w-12 text-primary mb-6 animate-spin-slow" />
-        <h2 className="text-2xl font-black tracking-tighter uppercase">
-          {message}
-        </h2>
+        <h2 className="text-2xl font-black tracking-tighter uppercase">{message}</h2>
         <div className="mt-4 flex gap-1">
           {STAGES.map((s) => (
             <div
@@ -24,8 +22,8 @@ export function Loading({ message = "Analyzing Repository...", stage = "starting
                 stage === s
                   ? "bg-primary animate-pulse"
                   : STAGES.indexOf(stage) > STAGES.indexOf(s)
-                  ? "bg-primary/40"
-                  : "bg-muted"
+                    ? "bg-primary/40"
+                    : "bg-muted"
               }`}
             />
           ))}

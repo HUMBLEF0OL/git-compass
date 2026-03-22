@@ -9,29 +9,22 @@ describe("Command Registration", () => {
     expect(configCommand.name()).toBe("config");
     expect(analyzeCommand.name()).toBe("analyze");
     expect(watchCommand.name()).toBe("watch");
-    
+
     expect(configCommand.description()).toContain("Manage");
     expect(analyzeCommand.description()).toContain("Analyze");
   });
 
   it("should have expected subcommands for config", () => {
-    const subcommands = configCommand.commands.map(cmd => cmd.name());
+    const subcommands = configCommand.commands.map((cmd) => cmd.name());
     expect(subcommands).toContain("set");
     expect(subcommands).toContain("get");
     expect(subcommands).toContain("list");
   });
 
   it("should have expected options for analyze", () => {
-    const optionFlags = analyzeCommand.options.map(opt => opt.flags);
-    expect(optionFlags.some(f => f.includes("--path"))).toBe(true);
-    expect(optionFlags.some(f => f.includes("--branch"))).toBe(true);
-    expect(optionFlags.some(f => f.includes("--output"))).toBe(true);
+    const optionFlags = analyzeCommand.options.map((opt) => opt.flags);
+    expect(optionFlags.some((f) => f.includes("--path"))).toBe(true);
+    expect(optionFlags.some((f) => f.includes("--branch"))).toBe(true);
+    expect(optionFlags.some((f) => f.includes("--output"))).toBe(true);
   });
 });
-
-
-
-
-
-
-

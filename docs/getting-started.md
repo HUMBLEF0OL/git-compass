@@ -59,12 +59,13 @@ npm test
 ## Troubleshooting
 
 ### Missing Dependencies
+
 If you see errors about missing modules, ensure you've run `pnpm install` at the root.
 
 ### `tsx` Not Found
+
 If `npx tsx` fails, ensure you are in the `packages/cli` directory or that the dependency has been installed globally.
 
 ---
+
 Need help? Open an issue or reach out to the maintainers!
-
-

@@ -32,6 +32,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "lint": "eslint .",
     "test": "vitest run",
     "test:core": "tsx scripts/analyze.ts",
     "type-check": "tsc --noEmit"
@@ -49,6 +50,7 @@
     "@git-compass/vitest-config": "workspace:*",
     "@google/generative-ai": "0.24.1",
     "ai": "^4.1.45",
+    "eslint": "^9.0.0",
     "openai": "6.31.0",
     "tsx": "^4.21.0",
     "typescript": "^5.4.0",

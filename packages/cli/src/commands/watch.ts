@@ -22,13 +22,13 @@ export const watchCommand = new Command("watch")
     // Initial run
     runAnalysis(options);
 
-    const watcher = chokidar.watch([
-      path.join(gitDir, "refs", "heads"),
-      path.join(gitDir, "index")
-    ], {
-      persistent: true,
-      ignoreInitial: true
-    });
+    const watcher = chokidar.watch(
+      [path.join(gitDir, "refs", "heads"), path.join(gitDir, "index")],
+      {
+        persistent: true,
+        ignoreInitial: true,
+      },
+    );
 
     watcher.on("change", (filePath) => {
       console.log(chalk.yellow(`\nChange detected in ${path.basename(filePath)}. Re-analyzing...`));
@@ -46,16 +46,9 @@ function runAnalysis(options: any) {
     const binPath = path.join(process.cwd(), "dist/bin/git-compass.js");
     let cmd = `node ${binPath} analyze -p "${options.path}" -b "${options.branch}" -w "${options.window}" --max-commits ${options.maxCommits}`;
     if (options.ai) cmd += " --ai";
-    
+
     execSync(cmd, { stdio: "inherit" });
   } catch (err) {
     console.error(chalk.red("Watch analysis failed. check your git state."));
   }
 }
-
-
-
-
-
-
-

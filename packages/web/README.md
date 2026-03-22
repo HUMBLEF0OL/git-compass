@@ -1,5 +1,9 @@
 # @git-compass/web
 
+[![npm version](https://img.shields.io/npm/v/@git-compass/web?color=black&style=flat-square)](https://npmjs.com/package/@git-compass/web)
+[![npm downloads](https://img.shields.io/npm/dm/@git-compass/web?color=black&style=flat-square)](https://npmjs.com/package/@git-compass/web)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-black?style=flat-square)](https://github.com/yourusername/git-compass/pulls)
+
 A local, visual dashboard for [Git Compass](https://github.com/yourusername/git-compass) that turns your repository's commit history into something you can actually read and act on. No account required. No data leaves your machine.
 
 ```bash
@@ -45,8 +49,7 @@ Ask plain-English questions about your repository and get direct answers:
 - "Which files are most likely to break this sprint?"
 - "Summarize what the team has been working on for the last 30 days."
 
-Support OpenAI, Google Gemini and Anthropic Claude. Requires an `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` or `GOOGLE_API_KEY` environment variable. Everything else in the dashboard works without it. The key is securely managed and not stored anywhere.
-
+Supports multiple AI SDKS. Requires an `{{AI_PROVIDER}}_API_KEY` environment variable. Everything else in the dashboard works without it.
 
 ---
 
@@ -71,7 +74,7 @@ The dashboard will open automatically at `http://localhost:4321`. Point it at a 
 |---|---|---|
 | `PORT` | `4321` | Port the server runs on |
 | `GIT_COMPASS_CWD` | current directory | Repository path to analyze on startup |
-| `ANTHROPIC_API_KEY` | none | Required for AI querying features only |
+| `{{AI_PROVIDER}}_API_KEY` | none | Required for AI querying features only |
 
 ---
 
@@ -91,3 +94,59 @@ This package is the visual layer. The rest of the ecosystem:
 - [`@git-compass/core`](https://github.com/yourusername/git-compass) — the underlying analytics engine, available separately if you want to build on top of it
 
 ---
+
+
+
+## Tag references
+
+### npm keywords
+Add these to the `keywords` array in `package.json`:
+
+```json
+"keywords": [
+  "git",
+  "analytics",
+  "dashboard",
+  "devtools",
+  "code-churn",
+  "hotspot",
+  "repository",
+  "insights",
+  "contributor",
+  "local-first",
+  "typescript",
+  "open-source",
+  "cli",
+  "ai",
+  "developer-tools"
+]
+```
+
+### GitHub topic tags
+Add these on your GitHub repository page under **About > Topics**:
+
+```
+git-analytics  devtools  code-churn  hotspot-detection  local-first
+repository-insights  typescript  open-source  ai  contributor-activity
+developer-experience  nodejs  dashboard  buildinpublic
+```
+
+### HTML meta tags
+Add these to the `<head>` of your documentation site or GitHub Pages:
+
+```html
+<meta name="description" content="A local-first Git analytics dashboard. Visualize code churn, hotspot files, contributor activity, and risk scores from your own machine. No cloud. No account required.">
+<meta name="keywords" content="git analytics, code churn, developer tools, repository insights, hotspot detection, contributor activity, local-first, open source, typescript, devtools">
+<meta name="author" content="yourusername">
+
+<!-- Open Graph -->
+<meta property="og:title" content="@git-compass/web — Local Git Analytics Dashboard">
+<meta property="og:description" content="Turn your Git history into visual intelligence. Hotspots, churn charts, contributor fatigue detection, and AI querying. Runs entirely on your machine.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://github.com/yourusername/git-compass">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="@git-compass/web">
+<meta name="twitter:description" content="Local-first Git analytics dashboard. No cloud. No account. Just insights.">
+```

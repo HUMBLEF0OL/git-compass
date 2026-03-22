@@ -7,13 +7,13 @@ const CONFIG_MAP: Record<string, string> = {
   "ai.key": "GIT_COMPASS_AI_KEY",
   "ai.anthropicKey": "ANTHROPIC_API_KEY",
   "ai.openaiKey": "OPENAI_API_KEY",
-  "ai.geminiKey": "GEMINI_API_KEY"
+  "ai.geminiKey": "GEMINI_API_KEY",
 };
 
 function findGitRoot(startDir: string): string {
   let current = path.resolve(startDir);
   const root = path.parse(current).root;
-  
+
   while (current !== root) {
     if (fs.existsSync(path.join(current, ".git"))) {
       return current;
@@ -45,15 +45,15 @@ class EnvConfig {
   set(key: string, value: string): void {
     const envKey = CONFIG_MAP[key] || key;
     let content = "";
-    
+
     if (fs.existsSync(this.envPath)) {
       content = fs.readFileSync(this.envPath, "utf-8");
     }
 
     const lines = content.split("\n");
     let found = false;
-    
-    const newLines = lines.map(line => {
+
+    const newLines = lines.map((line) => {
       if (line.trim().startsWith(`${envKey}=`)) {
         found = true;
         return `${envKey}=${value}`;
@@ -66,7 +66,7 @@ class EnvConfig {
     }
 
     fs.writeFileSync(this.envPath, newLines.join("\n").trim() + "\n", "utf-8");
-    
+
     // Update process.env for current session
     process.env[envKey] = value;
   }
@@ -75,7 +75,7 @@ class EnvConfig {
     if (fs.existsSync(this.envPath)) {
       const data = dotenv.parse(fs.readFileSync(this.envPath, "utf-8"));
       const result: any = { ai: {} };
-      
+
       // Map back to schema for compatibility
       for (const [configKey, envKey] of Object.entries(CONFIG_MAP)) {
         if (data[envKey]) {
@@ -94,10 +94,3 @@ class EnvConfig {
 }
 
 export const config = new EnvConfig();
-
-
-
-
-
-
-

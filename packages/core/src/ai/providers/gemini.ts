@@ -1,9 +1,4 @@
-import {
-  AIProvider,
-  AIProviderType,
-  AnalysisResult,
-  AISummary
-} from "../../types.js";
+import { AIProvider, AIProviderType, AnalysisResult, AISummary } from "../../types.js";
 
 import { buildSummaryPrompt } from "../summarizer.js";
 import { ensurePackage } from "../../utils/pkg-installer.js";
@@ -61,19 +56,6 @@ ${context}`,
       });
 
       return text;
-    }
+    },
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

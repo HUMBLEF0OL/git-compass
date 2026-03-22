@@ -1,16 +1,27 @@
-module.exports = {
-  parser: "@typescript-eslint/parser",
-  extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
-  ],
-  parserOptions: {
-    ecmaVersion: 2022,
-    sourceType: "module"
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import prettierPlugin from "eslint-plugin-prettier";
+import prettierConfig from "eslint-config-prettier";
+
+export default [
+  {
+    files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    languageOptions: {
+      parser: tsParser,
+      ecmaVersion: 2022,
+      sourceType: "module",
+    },
+    plugins: {
+      "@typescript-eslint": tsPlugin,
+      prettier: prettierPlugin,
+    },
+    rules: {
+      ...tsPlugin.configs.recommended.rules,
+      ...prettierConfig.rules,
+      "@typescript-eslint/explicit-function-return-type": "warn",
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "prettier/prettier": "warn",
+    },
   },
-  rules: {
-    "@typescript-eslint/explicit-function-return-type": "warn",
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "no-console": ["warn", { "allow": ["warn", "error"] }]
-  }
-};
+];

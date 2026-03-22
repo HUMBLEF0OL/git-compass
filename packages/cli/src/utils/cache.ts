@@ -35,7 +35,7 @@ export async function saveCache(cachePath: string, data: CacheData): Promise<voi
 export function getCachedResult(
   cache: CacheData,
   repoRoot: string,
-  commitHash: string
+  commitHash: string,
 ): AnalysisResult | null {
   const repoName = path.basename(repoRoot);
   return cache[repoName]?.[commitHash] || null;
@@ -45,10 +45,10 @@ export function updateCache(
   cache: CacheData,
   repoRoot: string,
   commitHash: string,
-  result: AnalysisResult
+  result: AnalysisResult,
 ): CacheData {
   const repoName = path.basename(repoRoot);
-  
+
   if (!cache[repoName]) {
     cache[repoName] = {};
   }
@@ -67,10 +67,3 @@ export function updateCache(
 
   return cache;
 }
-
-
-
-
-
-
-

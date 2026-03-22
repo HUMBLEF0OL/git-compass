@@ -37,20 +37,20 @@
 
 ### Tech Stack Summary
 
-| Layer | Technology |
-|---|---|
-| Language | TypeScript (strict mode) |
-| Runtime | Node.js Latest |
-| Monorepo | pnpm workspaces + Turborepo |
-| Git parsing | `simple-git` |
-| CLI framework | Commander.js |
-| Web dashboard | Next.js Latest (App Router) |
-| UI components | shadcn/ui + Tailwind CSS |
-| Charts | Recharts |
-| VS Code extension | VS Code Extension API |
-| Testing | Vitest |
-| Linting | ESLint + Prettier |
-| AI integration | Anthropic SDK (optional) |
+| Layer             | Technology                  |
+| ----------------- | --------------------------- |
+| Language          | TypeScript (strict mode)    |
+| Runtime           | Node.js Latest              |
+| Monorepo          | pnpm workspaces + Turborepo |
+| Git parsing       | `simple-git`                |
+| CLI framework     | Commander.js                |
+| Web dashboard     | Next.js Latest (App Router) |
+| UI components     | shadcn/ui + Tailwind CSS    |
+| Charts            | Recharts                    |
+| VS Code extension | VS Code Extension API       |
+| Testing           | Vitest                      |
+| Linting           | ESLint + Prettier           |
+| AI integration    | Anthropic SDK (optional)    |
 
 ---
 
@@ -235,6 +235,7 @@ packages/core/
 #### Key Source Files
 
 **`src/parser/git-parser.ts`**
+
 ```typescript
 import simpleGit, { SimpleGit, LogResult, DefaultLogFields } from "simple-git";
 import type { RawCommit, ParseOptions } from "../types.js";
@@ -297,17 +298,21 @@ export class GitParser {
 ```
 
 **`src/analyzers/hotspot.ts`**
+
 ```typescript
 import type { RawCommit, HotspotFile, AnalysisWindow } from "../types.js";
 
 export function analyzeHotspots(
   commits: RawCommit[],
-  window: AnalysisWindow = "30d"
+  window: AnalysisWindow = "30d",
 ): HotspotFile[] {
   const cutoff = getWindowCutoff(window);
   const filtered = commits.filter((c) => c.date >= cutoff);
 
-  const fileMap = new Map<string, { changeCount: number; authors: Set<string>; lastChanged: Date }>();
+  const fileMap = new Map<
+    string,
+    { changeCount: number; authors: Set<string>; lastChanged: Date }
+  >();
 
   for (const commit of filtered) {
     const files = extractFilesFromDiff(commit.diff);
@@ -351,6 +356,7 @@ function extractFilesFromDiff(diff: unknown): string[] {
 ```
 
 **`src/analyzers/risk.ts`**
+
 ```typescript
 import type { HotspotFile, RiskScore } from "../types.js";
 
@@ -370,7 +376,7 @@ export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
     const authorScore = file.uniqueAuthors / maxAuthors;
     const recencyScore = Math.min(
       1,
-      (now - file.lastChanged.getTime()) / (30 * 24 * 60 * 60 * 1000)
+      (now - file.lastChanged.getTime()) / (30 * 24 * 60 * 60 * 1000),
     );
     // Higher recency score = changed more recently = riskier
     const normalizedRecency = 1 - recencyScore;
@@ -381,9 +387,13 @@ export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
       normalizedRecency * WEIGHTS.recentActivity;
 
     const level: "low" | "medium" | "high" | "critical" =
-      totalScore >= 0.8 ? "critical" :
-      totalScore >= 0.6 ? "high" :
-      totalScore >= 0.4 ? "medium" : "low";
+      totalScore >= 0.8
+        ? "critical"
+        : totalScore >= 0.6
+          ? "high"
+          : totalScore >= 0.4
+            ? "medium"
+            : "low";
 
     return {
       path: file.path,
@@ -400,6 +410,7 @@ export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
 ```
 
 **`src/ai/summarizer.ts`**
+
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
 import type { AnalysisResult, AISummary } from "../types.js";
@@ -451,7 +462,10 @@ function buildPrompt(analysis: AnalysisResult): string {
 Repository data:
 - Total commits analyzed: ${analysis.meta.commitCount}
 - Time window: ${analysis.meta.window}
-- Top hotspot files: ${analysis.hotspots.slice(0, 3).map((h) => h.path).join(", ")}
+- Top hotspot files: ${analysis.hotspots
+    .slice(0, 3)
+    .map((h) => h.path)
+    .join(", ")}
 - High-risk files: ${analysis.riskScores.filter((r) => r.level === "high" || r.level === "critical").length}
 - Active contributors: ${analysis.contributors.length}
 - Burnout flags: ${analysis.burnout.flags.length > 0 ? analysis.burnout.flags.join(", ") : "none"}
@@ -523,7 +537,14 @@ packages/cli/
 import { Command } from "commander";
 import ora from "ora";
 import chalk from "chalk";
-import { GitParser, analyzeHotspots, computeRiskScores, analyzeChurn, analyzeContributors, analyzeBurnout } from "@git-compass/core";
+import {
+  GitParser,
+  analyzeHotspots,
+  computeRiskScores,
+  analyzeChurn,
+  analyzeContributors,
+  analyzeBurnout,
+} from "@git-compass/core";
 import { printConsoleReport } from "../formatters/console.js";
 import { writeJsonReport } from "../formatters/json.js";
 import { writeHtmlReport } from "../formatters/html.js";
@@ -719,11 +740,18 @@ packages/web/
 
 ```typescript
 import { NextRequest, NextResponse } from "next/server";
-import { GitParser, analyzeHotspots, computeRiskScores, analyzeChurn, analyzeContributors, analyzeBurnout } from "@git-compass/core";
+import {
+  GitParser,
+  analyzeHotspots,
+  computeRiskScores,
+  analyzeChurn,
+  analyzeContributors,
+  analyzeBurnout,
+} from "@git-compass/core";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json() as {
+    const body = (await req.json()) as {
       repoPath: string;
       branch?: string;
       window?: string;
@@ -892,14 +920,10 @@ packages/vscode/
       { "command": "Git Compass.clearDecorations", "title": "Git Compass: Clear Risk Decorations" }
     ],
     "viewsContainers": {
-      "activitybar": [
-        { "id": "Git Compass", "title": "Git Compass", "icon": "$(git-branch)" }
-      ]
+      "activitybar": [{ "id": "Git Compass", "title": "Git Compass", "icon": "$(git-branch)" }]
     },
     "views": {
-      "Git Compass": [
-        { "id": "Git Compass.sidebar", "name": "Insights", "type": "webview" }
-      ]
+      "Git Compass": [{ "id": "Git Compass.sidebar", "name": "Insights", "type": "webview" }]
     },
     "configuration": {
       "title": "Git Compass",
@@ -966,7 +990,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (config.get("enableDecorations")) {
         decorationProvider.refresh();
       }
-    })
+    }),
   );
 }
 
@@ -984,14 +1008,18 @@ const execFileAsync = promisify(execFile);
 
 export async function runAnalysis(
   repoPath: string,
-  options: { branch?: string; window?: string; maxCommits?: number } = {}
+  options: { branch?: string; window?: string; maxCommits?: number } = {},
 ): Promise<AnalysisResult> {
   const args = [
     "analyze",
-    "--path", repoPath,
-    "--output", "/tmp/Git Compass-result.json",
-    "--branch", options.branch ?? "HEAD",
-    "--window", options.window ?? "30d",
+    "--path",
+    repoPath,
+    "--output",
+    "/tmp/Git Compass-result.json",
+    "--branch",
+    options.branch ?? "HEAD",
+    "--window",
+    options.window ?? "30d",
   ];
 
   await execFileAsync("Git Compass", args);
@@ -1044,7 +1072,7 @@ export interface HotspotFile {
 
 export interface RiskScore {
   path: string;
-  score: number;           // 0–100
+  score: number; // 0–100
   level: "low" | "medium" | "high" | "critical";
   factors: {
     changeFrequency: number;
@@ -1075,7 +1103,7 @@ export interface ContributorStats {
 
 export interface BurnoutAnalysis {
   flags: string[];
-  afterHoursCommits: number;    // commits between 22:00 and 06:00
+  afterHoursCommits: number; // commits between 22:00 and 06:00
   weekendCommits: number;
   contributors: BurnoutContributor[];
 }
@@ -1089,8 +1117,8 @@ export interface BurnoutContributor {
 
 export interface CompassEntry {
   path: string;
-  priority: number;         // 1 = read first
-  reason: string;           // e.g., "High centrality, touched by all contributors"
+  priority: number; // 1 = read first
+  reason: string; // e.g., "High centrality, touched by all contributors"
   changeCount: number;
   type: "entry-point" | "core" | "config" | "test";
 }
@@ -1132,6 +1160,7 @@ The Next.js web dashboard exposes these API routes (also usable by the VS Code e
 Run a fresh analysis on a local repository.
 
 **Request body:**
+
 ```json
 {
   "repoPath": "/Users/you/projects/myapp",
@@ -1150,6 +1179,7 @@ Run a fresh analysis on a local repository.
 Ask a natural language question about the repository.
 
 **Request body:**
+
 ```json
 {
   "question": "Who changed the auth module most last month?",
@@ -1158,6 +1188,7 @@ Ask a natural language question about the repository.
 ```
 
 **Response:**
+
 ```json
 {
   "answer": "The auth module was primarily changed by Jane Smith (12 commits) and Bob Lee (7 commits) in the last 30 days..."
@@ -1245,16 +1276,21 @@ function scoreForOnboarding(
   path: string,
   authorCount: number,
   changes: number,
-  type: CompassEntry["type"]
+  type: CompassEntry["type"],
 ): number {
-  const typeBonus = { "entry-point": 40, "core": 20, "config": 10, "test": 5 }[type];
+  const typeBonus = { "entry-point": 40, core: 20, config: 10, test: 5 }[type];
   const authorBonus = Math.min(authorCount * 5, 30);
   const changeBonus = Math.min(changes * 2, 30);
   return typeBonus + authorBonus + changeBonus;
 }
 
 function buildReason(type: CompassEntry["type"], authors: number, changes: number): string {
-  const typeLabel = { "entry-point": "Entry point", "core": "Core module", "config": "Config file", "test": "Test file" }[type];
+  const typeLabel = {
+    "entry-point": "Entry point",
+    core: "Core module",
+    config: "Config file",
+    test: "Test file",
+  }[type];
   return `${typeLabel} · ${authors} contributor${authors !== 1 ? "s" : ""} · ${changes} changes`;
 }
 
@@ -1274,7 +1310,7 @@ function extractFiles(diff: unknown): string[] {
 import type { RawCommit, BurnoutAnalysis, BurnoutContributor } from "../types.js";
 
 const AFTER_HOURS_START = 22; // 10 PM
-const AFTER_HOURS_END = 6;    // 6 AM
+const AFTER_HOURS_END = 6; // 6 AM
 
 export function analyzeBurnout(commits: RawCommit[]): BurnoutAnalysis {
   const byAuthor = groupByAuthor(commits);
@@ -1290,8 +1326,11 @@ export function analyzeBurnout(commits: RawCommit[]): BurnoutAnalysis {
     const weekendPercent = Math.round((weekend / total) * 100);
 
     const riskLevel =
-      afterHoursPercent > 40 || weekendPercent > 50 ? "high" :
-      afterHoursPercent > 20 || weekendPercent > 25 ? "medium" : "low";
+      afterHoursPercent > 40 || weekendPercent > 50
+        ? "high"
+        : afterHoursPercent > 20 || weekendPercent > 25
+          ? "medium"
+          : "low";
 
     contributors.push({ author, afterHoursPercent, weekendPercent, riskLevel });
 
@@ -1378,7 +1417,13 @@ import type { HotspotFile } from "../src/types.js";
 
 const mockHotspots: HotspotFile[] = [
   { path: "src/auth.ts", changeCount: 50, uniqueAuthors: 8, lastChanged: new Date(), riskScore: 0 },
-  { path: "src/utils.ts", changeCount: 5, uniqueAuthors: 2, lastChanged: new Date(Date.now() - 60 * 86400000), riskScore: 0 },
+  {
+    path: "src/utils.ts",
+    changeCount: 5,
+    uniqueAuthors: 2,
+    lastChanged: new Date(Date.now() - 60 * 86400000),
+    riskScore: 0,
+  },
 ];
 
 describe("computeRiskScores", () => {
@@ -1420,8 +1465,10 @@ describe("Git Compass analyze", () => {
     const { stdout } = await exec("node", [
       "packages/cli/dist/index.js",
       "analyze",
-      "--path", process.cwd(),
-      "--output", "/tmp/test-report.json",
+      "--path",
+      process.cwd(),
+      "--output",
+      "/tmp/test-report.json",
     ]);
     expect(stdout).toContain("Analysis complete");
   });
@@ -1492,6 +1539,7 @@ jobs:
 Work through these phases sequentially. Each phase produces something working and usable.
 
 ### Phase 1 — Foundation (Week 1–2)
+
 - [ ] Initialize monorepo: `pnpm init`, workspace setup, Turborepo config
 - [ ] Create shared `tsconfig` and ESLint config in `tooling/`
 - [ ] Scaffold `@git-compass/core` package structure
@@ -1502,6 +1550,7 @@ Work through these phases sequentially. Each phase produces something working an
 - [ ] Configure GitHub Actions CI
 
 ### Phase 2 — Analytics Engine (Week 3–5)
+
 - [ ] Implement `analyzeHotspots()`
 - [ ] Implement `analyzeChurn()`
 - [ ] Implement `computeRiskScores()`
@@ -1512,6 +1561,7 @@ Work through these phases sequentially. Each phase produces something working an
 - [ ] Export clean public API from `index.ts`
 
 ### Phase 3 — CLI (Week 6–7)
+
 - [ ] Scaffold `@git-compass/cli` with Commander.js
 - [ ] Implement `analyze` command
 - [ ] Implement `report` command (JSON + HTML output)
@@ -1523,6 +1573,7 @@ Work through these phases sequentially. Each phase produces something working an
 - [ ] Publish to npm
 
 ### Phase 4 — Web Dashboard (Week 8–9)
+
 - [ ] Scaffold Next.js app in `@git-compass/web`
 - [ ] Install and configure shadcn/ui + Tailwind
 - [ ] Build `POST /api/analyze` route
@@ -1536,6 +1587,7 @@ Work through these phases sequentially. Each phase produces something working an
 - [ ] Compass Mode page (`/compass`)
 
 ### Phase 5 — VS Code Extension (Week 10–12)
+
 - [ ] Scaffold extension in `@git-compass/vscode`
 - [ ] Configure webpack bundler
 - [ ] Implement `SidebarProvider` (webview panel)
@@ -1546,6 +1598,7 @@ Work through these phases sequentially. Each phase produces something working an
 - [ ] Package and publish to VS Code Marketplace
 
 ### Phase 6 — AI & Advanced (Week 13+)
+
 - [ ] Implement `AISummarizer` with Anthropic SDK
 - [ ] Implement `nl-query.ts` for natural language questions
 - [ ] Add `--ai` flag to CLI `analyze` command
@@ -1580,6 +1633,4 @@ pnpm test
 
 ---
 
-*This document was generated for Git Compass v0.1.0. Update version numbers and model strings as the project evolves.*
-
-
+_This document was generated for Git Compass v0.1.0. Update version numbers and model strings as the project evolves._

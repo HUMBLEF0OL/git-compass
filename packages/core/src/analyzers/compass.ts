@@ -19,15 +19,15 @@ export function analyzeCompass(commits: RawCommit[], excludePatterns?: string[])
   for (const commit of commits) {
     const files = extractFilesFromDiff(commit.diff, excludePatterns);
     for (const file of files) {
-      const parts = file.split('/');
+      const parts = file.split("/");
       // Skip hidden files/folders and root files for component mapping
-      if (parts[0] && !parts[0].startsWith('.')) {
+      if (parts[0] && !parts[0].startsWith(".")) {
         const component = parts[0];
         const stats = componentMap.get(component) ?? { lastChanged: commit.date, churn: 0 };
-        
+
         if (commit.date > stats.lastChanged) stats.lastChanged = commit.date;
         if (commit.date > thirtyDaysAgo) stats.churn++;
-        
+
         componentMap.set(component, stats);
       }
 
@@ -39,10 +39,10 @@ export function analyzeCompass(commits: RawCommit[], excludePatterns?: string[])
   }
 
   // Map components to maturity levels
-  const components: ComponentMaturity[] = Array.from(componentMap.entries())
-    .map(([name, stats]) => {
+  const components: ComponentMaturity[] = Array.from(componentMap.entries()).map(
+    ([name, stats]) => {
       let maturity: "Stable" | "Evolving" | "Legacy" = "Stable";
-      
+
       if (stats.lastChanged < ninetyDaysAgo) {
         maturity = "Legacy";
       } else if (stats.churn > 20) {
@@ -50,7 +50,8 @@ export function analyzeCompass(commits: RawCommit[], excludePatterns?: string[])
       }
 
       return { name, maturity };
-    });
+    },
+  );
 
   // Identify essential files
   const essentials: CompassEntry[] = Array.from(fileTouchpoints.entries())
@@ -58,34 +59,23 @@ export function analyzeCompass(commits: RawCommit[], excludePatterns?: string[])
       path,
       priority: 1,
       reason: `Touched by ${authors.size} unique contributors`,
-      changeCount: commits.filter(c => extractFilesFromDiff(c.diff, excludePatterns).includes(path)).length,
-      type: (path.includes('index') || path.includes('main') || path.includes('App')) ? "entry-point" as const : "core" as const,
+      changeCount: commits.filter((c) =>
+        extractFilesFromDiff(c.diff, excludePatterns).includes(path),
+      ).length,
+      type:
+        path.includes("index") || path.includes("main") || path.includes("App")
+          ? ("entry-point" as const)
+          : ("core" as const),
     }))
     .sort((a, b) => b.changeCount - a.changeCount)
     .slice(0, 5);
 
-  const mainComponents = components
-    .filter(c => c.maturity === "Stable")
-    .map(c => c.name);
+  const mainComponents = components.filter((c) => c.maturity === "Stable").map((c) => c.name);
 
-  const documentation = mainComponents.length > 0 
-    ? `The codebase is primarily built around the ${mainComponents.join(', ')} components. For onboarding, focus on the identified essential files which represent the most active and central parts of the architecture.`
-    : `This repository is currently in an evolving state. Focus on the hotspots and high-risk files to understand the current areas of active development and potential technical debt.`;
+  const documentation =
+    mainComponents.length > 0
+      ? `The codebase is primarily built around the ${mainComponents.join(", ")} components. For onboarding, focus on the identified essential files which represent the most active and central parts of the architecture.`
+      : `This repository is currently in an evolving state. Focus on the hotspots and high-risk files to understand the current areas of active development and potential technical debt.`;
 
   return { essentials, components, documentation };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

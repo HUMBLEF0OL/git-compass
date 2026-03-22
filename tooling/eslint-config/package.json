@@ -2,7 +2,11 @@
   "name": "@git-compass/eslint-config",
   "version": "0.1.0",
   "main": "index.js",
+  "type": "module",
   "private": true,
+  "peerDependencies": {
+    "eslint": "^9.0.0"
+  },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",

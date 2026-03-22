@@ -20,4 +20,3 @@ node packages/cli/dist/bin/git-compass.js analyze
 ```
 
 For more details, see the [Getting Started guide](./docs/getting-started.md).
-

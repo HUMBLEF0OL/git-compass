@@ -1,9 +1,4 @@
-import { 
-  AIProvider, 
-  AIProviderType, 
-  AnalysisResult, 
-  AISummary 
-} from "../../types.js";
+import { AIProvider, AIProviderType, AnalysisResult, AISummary } from "../../types.js";
 
 import { buildSummaryPrompt } from "../summarizer.js";
 import { ensurePackage } from "../../utils/pkg-installer.js";
@@ -19,7 +14,7 @@ export function createOpenAIProvider(apiKey: string): AIProvider {
       const { generateText } = await import("ai");
       // @ts-ignore - dynamically installed
       const { createOpenAI } = await import("@ai-sdk/openai");
-      
+
       const openai = createOpenAI({ apiKey });
       const prompt = buildSummaryPrompt(analysis);
 
@@ -43,7 +38,7 @@ export function createOpenAIProvider(apiKey: string): AIProvider {
       const { generateText } = await import("ai");
       // @ts-ignore - dynamically installed
       const { createOpenAI } = await import("@ai-sdk/openai");
-      
+
       const openai = createOpenAI({ apiKey });
       const context = JSON.stringify(analysis, null, 2);
 
@@ -61,20 +56,6 @@ ${context}`,
       });
 
       return text;
-    }
+    },
   };
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

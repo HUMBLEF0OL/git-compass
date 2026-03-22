@@ -6,7 +6,7 @@ import path from "path";
  */
 export async function ensureGitIgnore(repoRoot: string, entries: string[]): Promise<void> {
   const gitIgnorePath = path.join(repoRoot, ".gitignore");
-  
+
   try {
     let content = "";
     try {
@@ -19,7 +19,7 @@ export async function ensureGitIgnore(repoRoot: string, entries: string[]): Prom
     let modified = false;
 
     for (const entry of entries) {
-      if (!lines.some(line => line.trim() === entry)) {
+      if (!lines.some((line) => line.trim() === entry)) {
         lines.push(entry);
         modified = true;
       }

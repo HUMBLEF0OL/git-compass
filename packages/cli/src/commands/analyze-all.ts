@@ -21,7 +21,7 @@ import {
   getAIProvider,
   generateSummary,
   type AnalysisResult,
-  AIProviderType
+  AIProviderType,
 } from "@git-compass/core";
 import { config } from "../config/index.js";
 import { CONFIG_KEYS, ENV_VARS } from "../constants/index.js";
@@ -30,7 +30,7 @@ import {
   loadCache,
   getCachedResult,
   updateCache,
-  saveCache
+  saveCache,
 } from "../utils/cache.js";
 import { ensureGitIgnore } from "../utils/gitignore.js";
 
@@ -66,7 +66,7 @@ export const analyzeAllCommand = new Command("analyze-all")
           const topLevel = await git.revparse(["--show-toplevel"]);
           const repoRoot = path.resolve(topLevel);
           const latestCommit = await git.revparse(["HEAD"]);
-          
+
           // Ensure .git-compass is ignored
           await ensureGitIgnore(repoRoot, [".git-compass"]);
 
@@ -82,14 +82,14 @@ export const analyzeAllCommand = new Command("analyze-all")
           } else {
             const commits = await getCommits(git, {
               maxCount: parseInt(options.maxCommits, 10),
-              since: options.window !== "all" ? options.window : undefined
+              since: options.window !== "all" ? options.window : undefined,
             });
             const hotspots = analyzeHotspots(commits, options.window as any);
             const riskScores = computeRiskScores(hotspots);
 
             const churn = analyzeChurn(commits, options.window as any);
             const coupling = analyzeCoupling(commits);
-            
+
             result = {
               meta: {
                 repoPath: repoRoot,
@@ -109,7 +109,7 @@ export const analyzeAllCommand = new Command("analyze-all")
               impact: analyzeImpact(commits),
               rot: analyzeRot(commits),
               compass: analyzeCompass(commits),
-              health: analyzeHealth(commits, churn, coupling)
+              health: analyzeHealth(commits, churn, coupling),
             };
 
             if (options.ai) {
@@ -118,15 +118,21 @@ export const analyzeAllCommand = new Command("analyze-all")
               const providerType = envProvider || configProvider || AIProviderType.ANTHROPIC;
 
               let apiKey: string | undefined;
-              if (providerType === "openai") apiKey = process.env[ENV_VARS.OPENAI_API_KEY] || config.get("ai.openaiKey");
-              else if (providerType === "gemini") apiKey = process.env[ENV_VARS.GEMINI_API_KEY] || config.get("ai.geminiKey");
-              else apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY] || config.get("ai.anthropicKey") || config.get(CONFIG_KEYS.AI_KEY);
+              if (providerType === "openai")
+                apiKey = process.env[ENV_VARS.OPENAI_API_KEY] || config.get("ai.openaiKey");
+              else if (providerType === "gemini")
+                apiKey = process.env[ENV_VARS.GEMINI_API_KEY] || config.get("ai.geminiKey");
+              else
+                apiKey =
+                  process.env[ENV_VARS.ANTHROPIC_API_KEY] ||
+                  config.get("ai.anthropicKey") ||
+                  config.get(CONFIG_KEYS.AI_KEY);
 
               if (apiKey) {
                 try {
                   const aiProvider = getAIProvider(providerType, apiKey);
                   result.aiSummary = await generateSummary(aiProvider, result);
-                } catch (e) { }
+                } catch (e) {}
               }
             }
 
@@ -134,16 +140,22 @@ export const analyzeAllCommand = new Command("analyze-all")
             await saveCache(cachePath, updatedCache);
           }
 
-          const highRiskCount = result.riskScores.filter(r => r.level === "high" || r.level === "critical").length;
+          const highRiskCount = result.riskScores.filter(
+            (r) => r.level === "high" || r.level === "critical",
+          ).length;
 
           summaries.push({
             name: repoName,
             commits: result.meta.commitCount,
             hotspots: result.hotspots.length,
-            highRisk: highRiskCount
+            highRisk: highRiskCount,
           });
 
-          repoSpinner.succeed(chalk.cyan(`${repoName}: ${result.meta.commitCount} commits, ${highRiskCount} high-risk files.`));
+          repoSpinner.succeed(
+            chalk.cyan(
+              `${repoName}: ${result.meta.commitCount} commits, ${highRiskCount} high-risk files.`,
+            ),
+          );
         } catch (err) {
           repoSpinner.fail(chalk.red(`Failed to analyze ${repoName}: ${(err as Error).message}`));
         }
@@ -151,7 +163,6 @@ export const analyzeAllCommand = new Command("analyze-all")
 
       console.log("\n" + chalk.bold.underline("Organization Summary:"));
       console.table(summaries);
-
     } catch (err) {
       spinner.fail(chalk.red(`Scan failed: ${(err as Error).message}`));
     }
@@ -164,7 +175,7 @@ async function findGitRepos(dir: string, depth = 0, maxDepth = 3): Promise<strin
     const entries = await fs.readdir(dir, { withFileTypes: true });
 
     // Check if current dir is a git repo
-    if (entries.some(e => e.isDirectory() && e.name === ".git")) {
+    if (entries.some((e) => e.isDirectory() && e.name === ".git")) {
       return [dir];
     }
 
@@ -182,10 +193,3 @@ async function findGitRepos(dir: string, depth = 0, maxDepth = 3): Promise<strin
 
   return repos;
 }
-
-
-
-
-
-
-

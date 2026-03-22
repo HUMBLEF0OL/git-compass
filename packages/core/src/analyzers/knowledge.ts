@@ -1,11 +1,13 @@
 import type { RawCommit, KnowledgeSilo } from "../types.js";
 import { extractFilesFromDiff } from "../utils/index.js";
 
-
 /**
  * Identifies knowledge silos where a single person owns the vast majority of a file's history.
  */
-export function analyzeKnowledge(commits: RawCommit[], excludePatterns?: string[]): KnowledgeSilo[] {
+export function analyzeKnowledge(
+  commits: RawCommit[],
+  excludePatterns?: string[],
+): KnowledgeSilo[] {
   const fileAuthorMap = new Map<string, Map<string, number>>();
 
   for (const commit of commits) {
@@ -37,33 +39,17 @@ export function analyzeKnowledge(commits: RawCommit[], excludePatterns?: string[
     const authorshipPercent = Math.round((maxChanges / totalChanges) * 100);
 
     if (authorshipPercent >= 70) {
-      const riskLevel: KnowledgeSilo["riskLevel"] = 
-        authorshipPercent >= 90 ? "high" : 
-        authorshipPercent >= 80 ? "medium" : "low";
+      const riskLevel: KnowledgeSilo["riskLevel"] =
+        authorshipPercent >= 90 ? "high" : authorshipPercent >= 80 ? "medium" : "low";
 
       results.push({
         path,
         mainContributor,
         authorshipPercent,
-        riskLevel
+        riskLevel,
       });
     }
   }
 
   return results.sort((a, b) => b.authorshipPercent - a.authorshipPercent);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

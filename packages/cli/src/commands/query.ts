@@ -1,13 +1,13 @@
 import { Command } from "commander";
 import ora from "ora";
 import chalk from "chalk";
-import { 
-  createGitParser, 
-  getCommits, 
-  analyzeHotspots, 
-  computeRiskScores, 
-  analyzeChurn, 
-  analyzeContributors, 
+import {
+  createGitParser,
+  getCommits,
+  analyzeHotspots,
+  computeRiskScores,
+  analyzeChurn,
+  analyzeContributors,
   analyzeBurnout,
   analyzeCoupling,
   analyzeKnowledge,
@@ -16,15 +16,15 @@ import {
   createAIClient,
   queryAnalysis,
   getAIProvider,
-  AIProviderType
+  AIProviderType,
 } from "@git-compass/core";
 import { config } from "../config/index.js";
-import { 
-  DEFAULT_BRANCH, 
-  DEFAULT_MAX_COMMITS, 
+import {
+  DEFAULT_BRANCH,
+  DEFAULT_MAX_COMMITS,
   DEFAULT_WINDOW,
-  CONFIG_KEYS, 
-  ENV_VARS 
+  CONFIG_KEYS,
+  ENV_VARS,
 } from "../constants/index.js";
 import dotenv from "dotenv";
 import path from "path";
@@ -45,10 +45,10 @@ export const queryCommand = new Command("query")
 
     try {
       const git = createGitParser(repoPath);
-      const commits = await getCommits(git, { 
-        branch: options.branch, 
+      const commits = await getCommits(git, {
+        branch: options.branch,
         maxCount: parseInt(options.maxCommits, 10),
-        since: options.window !== "all" ? options.window : undefined
+        since: options.window !== "all" ? options.window : undefined,
       });
 
       if (commits.length === 0) {
@@ -67,11 +67,11 @@ export const queryCommand = new Command("query")
         coupling: analyzeCoupling(commits),
         knowledge: analyzeKnowledge(commits),
         impact: analyzeImpact(commits),
-        rot: analyzeRot(commits)
+        rot: analyzeRot(commits),
       };
 
       spinner.text = "Consulting AI...";
-      
+
       // Determine provider
       const envProvider = process.env[ENV_VARS.AI_PROVIDER] as AIProviderType;
       const configProvider = config.get(CONFIG_KEYS.AI_PROVIDER) as AIProviderType;
@@ -88,12 +88,19 @@ export const queryCommand = new Command("query")
           break;
         case AIProviderType.ANTHROPIC:
         default:
-          apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY] || config.get("ai.anthropicKey") || config.get(CONFIG_KEYS.AI_KEY);
+          apiKey =
+            process.env[ENV_VARS.ANTHROPIC_API_KEY] ||
+            config.get("ai.anthropicKey") ||
+            config.get(CONFIG_KEYS.AI_KEY);
           break;
       }
 
       if (!apiKey) {
-        spinner.fail(chalk.red(`No API key found for ${providerType}. Use 'Git Compass config set' to configure.`));
+        spinner.fail(
+          chalk.red(
+            `No API key found for ${providerType}. Use 'Git Compass config set' to configure.`,
+          ),
+        );
         return;
       }
 
@@ -102,16 +109,8 @@ export const queryCommand = new Command("query")
 
       spinner.succeed(chalk.green("AI Query Complete."));
       console.log(`\n${chalk.magenta.bold("Git Compass AI:")} ${answer}\n`);
-
     } catch (err) {
       spinner.fail(chalk.red("Query failed: " + (err as Error).message));
       console.error(err);
     }
   });
-
-
-
-
-
-
-

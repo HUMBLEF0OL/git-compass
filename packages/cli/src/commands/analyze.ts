@@ -1,43 +1,43 @@
 import { Command } from "commander";
 import ora from "ora";
 import chalk from "chalk";
-import { 
-  createGitParser, 
-  getCommits, 
-  analyzeHotspots, 
-  computeRiskScores, 
-  analyzeChurn, 
-  analyzeContributors, 
+import {
+  createGitParser,
+  getCommits,
+  analyzeHotspots,
+  computeRiskScores,
+  analyzeChurn,
+  analyzeContributors,
   analyzeContributorTimeline,
-  analyzeBurnout, 
-  analyzeCoupling, 
-  analyzeKnowledge, 
-  analyzeImpact, 
-  analyzeRot, 
+  analyzeBurnout,
+  analyzeCoupling,
+  analyzeKnowledge,
+  analyzeImpact,
+  analyzeRot,
   analyzeCompass,
   analyzeHealth,
-  getAIProvider, 
-  generateSummary, 
+  getAIProvider,
+  generateSummary,
   type AnalysisResult,
-  AIProviderType
+  AIProviderType,
 } from "@git-compass/core";
 
 import { printConsoleReport } from "../formatters/console.js";
 import { exportJson } from "../formatters/report-gen.js";
 import { config } from "../config/index.js";
-import { 
-  DEFAULT_BRANCH, 
-  DEFAULT_MAX_COMMITS, 
-  DEFAULT_WINDOW, 
-  CONFIG_KEYS, 
-  ENV_VARS 
+import {
+  DEFAULT_BRANCH,
+  DEFAULT_MAX_COMMITS,
+  DEFAULT_WINDOW,
+  CONFIG_KEYS,
+  ENV_VARS,
 } from "../constants/index.js";
-import { 
-  getCachePath, 
-  loadCache, 
-  getCachedResult, 
-  updateCache, 
-  saveCache 
+import {
+  getCachePath,
+  loadCache,
+  getCachedResult,
+  updateCache,
+  saveCache,
 } from "../utils/cache.js";
 import dotenv from "dotenv";
 import path from "path";
@@ -61,7 +61,7 @@ export const analyzeCommand = new Command("analyze")
 
     try {
       const git = createGitParser(repoPath);
-      
+
       // Find repo root to place .git-compass folder
       let repoRoot = repoPath;
       try {
@@ -75,7 +75,7 @@ export const analyzeCommand = new Command("analyze")
       await ensureGitIgnore(repoRoot, [".git-compass"]);
 
       spinner.text = `Fetching commits from ${options.branch}...`;
-      
+
       // Get latest commit hash for caching
       let latestCommit = "";
       try {
@@ -99,14 +99,18 @@ export const analyzeCommand = new Command("analyze")
           }
           return;
         }
-        spinner.info(chalk.blue(`Found cached analysis for ${latestCommit.slice(0, 7)}, but AI summary is missing. Generating now...`));
+        spinner.info(
+          chalk.blue(
+            `Found cached analysis for ${latestCommit.slice(0, 7)}, but AI summary is missing. Generating now...`,
+          ),
+        );
       }
 
-      const commits = cachedResult 
+      const commits = cachedResult
         ? [] // We won't re-fetch commits if we have a cached result and just need AI
-        : await getCommits(git, { 
-            branch: options.branch, 
-            maxCount: parseInt(options.maxCommits, 10) 
+        : await getCommits(git, {
+            branch: options.branch,
+            maxCount: parseInt(options.maxCommits, 10),
           });
 
       if (!cachedResult && commits.length === 0) {
@@ -132,8 +136,12 @@ export const analyzeCommand = new Command("analyze")
         impact: analyzeImpact(commits),
         rot: analyzeRot(commits),
         compass: analyzeCompass(commits),
-        health: analyzeHealth(commits, analyzeChurn(commits, options.window as any), analyzeCoupling(commits)),
-        contributorTimeline: analyzeContributorTimeline(commits)
+        health: analyzeHealth(
+          commits,
+          analyzeChurn(commits, options.window as any),
+          analyzeCoupling(commits),
+        ),
+        contributorTimeline: analyzeContributorTimeline(commits),
       };
 
       // Re-calculate hotspots/risk if we don't have cached result (above logic is a bit messy, let's fix)
@@ -158,7 +166,7 @@ export const analyzeCommand = new Command("analyze")
 
       if (options.ai) {
         spinner.text = "Generating AI insights...";
-        
+
         // Resolve provider and key
         const envProvider = process.env[ENV_VARS.AI_PROVIDER] as AIProviderType;
         const configProvider = config.get(CONFIG_KEYS.AI_PROVIDER) as AIProviderType;
@@ -175,13 +183,24 @@ export const analyzeCommand = new Command("analyze")
             break;
           case AIProviderType.ANTHROPIC:
           default:
-            apiKey = process.env[ENV_VARS.ANTHROPIC_API_KEY] || config.get("ai.anthropicKey") || config.get(CONFIG_KEYS.AI_KEY);
+            apiKey =
+              process.env[ENV_VARS.ANTHROPIC_API_KEY] ||
+              config.get("ai.anthropicKey") ||
+              config.get(CONFIG_KEYS.AI_KEY);
             break;
         }
 
         if (!apiKey) {
-          spinner.warn(chalk.yellow(`AI summary requested but no API key found for ${providerType}. Skipping AI layer.`));
-          spinner.info(chalk.blue(`Run 'git-compass config set ai.provider <type>' to configure your preferred provider.`));
+          spinner.warn(
+            chalk.yellow(
+              `AI summary requested but no API key found for ${providerType}. Skipping AI layer.`,
+            ),
+          );
+          spinner.info(
+            chalk.blue(
+              `Run 'git-compass config set ai.provider <type>' to configure your preferred provider.`,
+            ),
+          );
         } else {
           try {
             const aiProvider = getAIProvider(providerType as any, apiKey);
@@ -193,7 +212,7 @@ export const analyzeCommand = new Command("analyze")
       }
 
       spinner.succeed(chalk.green(`Analysis complete for ${commits.length} commits.`));
-      
+
       // Update cache
       if (latestCommit) {
         const updatedCache = updateCache(cache, repoRoot, latestCommit, result);
@@ -205,7 +224,6 @@ export const analyzeCommand = new Command("analyze")
       } else {
         printConsoleReport(result, options.detailLevel, !!options.ai);
       }
-
     } catch (err) {
       spinner.fail(chalk.red("Analysis failed: " + (err as Error).message));
       console.error(err);
@@ -220,11 +238,11 @@ function generateReportFilename(repoPath: string, branch: string, format: string
 }
 
 async function handleReportExport(
-  result: AnalysisResult, 
-  repoPath: string, 
-  repoRoot: string, 
-  options: any, 
-  spinner: any
+  result: AnalysisResult,
+  repoPath: string,
+  repoRoot: string,
+  options: any,
+  spinner: any,
 ) {
   const gitCompassDirPath = path.join(repoRoot, ".git-compass");
   let finalPath = path.resolve(options.output);
@@ -235,7 +253,7 @@ async function handleReportExport(
   } else if (!path.isAbsolute(options.output)) {
     finalPath = path.resolve(gitCompassDirPath, options.output);
   }
-  
+
   // Ensure .git-compass directory exists
   await fs.mkdir(gitCompassDirPath, { recursive: true });
 
@@ -248,8 +266,8 @@ async function handleReportExport(
       await fs.mkdir(path.dirname(finalPath), { recursive: true });
     }
   } catch (err) {
-     spinner.fail(chalk.red("Failed to prepare output directory: " + (err as Error).message));
-     return;
+    spinner.fail(chalk.red("Failed to prepare output directory: " + (err as Error).message));
+    return;
   }
 
   spinner.start(`Exporting report...`);
@@ -260,10 +278,3 @@ async function handleReportExport(
     spinner.fail(chalk.red("Export failed: " + (err as Error).message));
   }
 }
-
-
-
-
-
-
-
