@@ -1,5 +1,11 @@
 # @git-compass/web
 
+## 2.1.0
+
+### Minor Changes
+
+- e029741: PUblishing web on npm
+
 ## 2.0.0
 
 ### Major Changes
