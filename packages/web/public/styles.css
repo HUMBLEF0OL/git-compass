@@ -94,13 +94,84 @@ body {
   opacity: 0;
 }
 
-.spinner {
-  width: 2.5rem;
-  height: 2.5rem;
-  border: 3px solid var(--primary);
-  border-top-color: transparent;
-  animation: spin 0.9s linear infinite;
-  margin-bottom: 0.75rem;
+.loader {
+  width: 9px;
+  height: 9px;
+  background: var(--primary);
+  color: var(--primary);
+  box-shadow: 
+    -18px -9px, 0 -9px, 18px -9px,
+    -18px  0  ,        18px  0  ,
+    -18px  9px, 0  9px, 18px  9px,
+    -18px 18px, 0 18px, 18px 18px;
+  animation: l30 2s infinite;
+  margin-bottom: 2rem;
+}
+
+@keyframes l30 {
+  10% {
+   box-shadow: 
+     -18px -9px, 0 -9px, 18px -9px,
+     -18px  0  ,        18px  0  ,
+     -18px  9px 0 2px, 0  9px, 18px  9px 0 2px,
+     -18px 18px, 0 18px, 18px 18px;
+  }
+  20% {
+   box-shadow: 
+     -18px -9px, 0 -9px, 18px -9px,
+     -18px  0  ,        18px  0  ,
+     -18px  9px, 0  9px, 18px  9px 0 2px,
+     -18px 18px 0 2px, 0 18px, 18px 18px;
+  }
+  30% {
+   box-shadow: 
+     -18px -9px, 0 -9px, 18px -9px,
+     -18px  0   0 2px,       18px  0  ,
+     -18px  9px, 0  9px 0 2px, 18px  9px,
+     -18px 18px 0 2px, 0 18px, 18px 18px 0 2px;
+  }
+  40% {
+   box-shadow: 
+     -18px -9px, 0 -9px , 18px -9px,
+     -18px  0  0 2px,        18px  0 0 2px,
+     -18px  9px, 0  9px, 18px  9px,
+     -18px 18px, 0 18px, 18px 18px  0 2px;
+  }
+  50% {
+   box-shadow: 
+     -18px -9px, 0 -9px, 18px -9px,
+     -18px  0  ,        18px  0  0 2px,
+     -18px  9px 0 2px, 0  9px, 18px  9px,
+     -18px 18px, 0 18px, 18px 18px;
+  }
+  60% {
+   box-shadow: 
+     -18px -9px, 0 -9px 0 2px, 18px -9px,
+     -18px  0  ,        18px  0  ,
+     -18px  9px 0 2px, 0  9px, 18px  9px,
+     -18px 18px 0 2px, 0 18px, 18px 18px;
+  }
+  70% {
+   box-shadow: 
+     -18px -9px, 0 -9px 0 2px, 18px -9px 0 2px,
+     -18px  0  ,        18px  0  ,
+     -18px  9px, 0  9px, 18px  9px,
+     -18px 18px 0 2px, 0 18px, 18px 18px;
+  }
+  80% {
+   box-shadow: 
+     -18px -9px 0 2px, 0 -9px, 18px -9px,
+     -18px  0  ,        18px  0  ,
+     -18px  9px, 0  9px, 18px  9px,
+     -18px 18px, 0 18px, 18px 18px 0 2px;
+  }
+  90% {
+   box-shadow: 
+     -18px -9px 0 2px, 0 -9px, 18px -9px,
+     -18px  0  ,        18px  0  ,
+     -18px  9px, 0  9px 0 2px, 18px  9px,
+     -18px 18px, 0 18px, 18px 18px 0 2px;
+  }
 }
 
 .spinner-label {
