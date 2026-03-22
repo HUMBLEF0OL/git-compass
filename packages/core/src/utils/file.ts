@@ -24,8 +24,13 @@ export const DEFAULT_EXCLUDE_PATTERNS = [
 /**
  * Checks if a file path should be excluded based on patterns.
  */
-export function shouldExclude(path: string, patterns: string[] = DEFAULT_EXCLUDE_PATTERNS): boolean {
-  return patterns.some((pattern) => {
+export function shouldExclude(path: string, patterns?: string[]): boolean {
+  // Always include default patterns; user patterns are additive
+  const effectivePatterns = patterns && patterns.length > 0
+    ? [...DEFAULT_EXCLUDE_PATTERNS, ...patterns.filter(p => !DEFAULT_EXCLUDE_PATTERNS.includes(p))]
+    : DEFAULT_EXCLUDE_PATTERNS;
+
+  return effectivePatterns.some((pattern) => {
     // Basic glob-like support:
     // ** matches any directory
     // * matches any characters except /

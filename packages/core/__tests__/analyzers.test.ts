@@ -69,7 +69,7 @@ const mockCommits: RawCommit[] = [
     diff: {
       insertions: 10,
       deletions: 0,
-      files: [{ file: "README.md" }],
+      files: [{ file: "docs/setup.md" }],
     },
   },
   {
@@ -143,7 +143,7 @@ describe("Analyzers", () => {
     expect(contributors).toHaveLength(2);
     const alice = contributors.find((c) => c.author === "Alice");
     expect(alice?.commitCount).toBe(7);
-    expect(alice?.filesChanged).toBe(4); // INIT.md, src/index.ts, src/utils.ts, README.md
+    expect(alice?.filesChanged).toBe(4); // INIT.md, src/index.ts, src/utils.ts, docs/setup.md
     expect(alice?.activeDays).toBe(3);
   });
 

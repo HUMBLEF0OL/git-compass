@@ -2,6 +2,7 @@ import { Command } from "commander";
 import chalk from "chalk";
 import { config } from "../config/index.js";
 import { CONFIG_KEYS, PROJECT_NAME } from "../constants/index.js";
+import { maskKey } from "@git-compass/core";
 
 export const configCommand = new Command("config")
   .description(`Manage ${PROJECT_NAME} configuration`);
@@ -77,10 +78,7 @@ configCommand
     }
   });
 
-function maskKey(key: string): string {
-  if (key.length <= 8) return "****";
-  return `${key.slice(0, 7)}...${key.slice(-4)}`;
-}
+// ... end of file
 
 
 
