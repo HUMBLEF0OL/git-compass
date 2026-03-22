@@ -7,8 +7,8 @@ import { spawn } from "child_process";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Standalone server location
-const serverPath = path.resolve(__dirname, "../.next/standalone/server.js");
+// Custom server location
+const serverPath = path.resolve(__dirname, "../server.js");
 
 async function startServer() {
   try {

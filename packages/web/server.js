@@ -31,11 +31,21 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PUBLIC_DIR = path.join(__dirname, "public");
 
+// Global error handlers
+process.on("uncaughtException", (err) => {
+  console.error("FATAL: Uncaught Exception:", err);
+});
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("FATAL: Unhandled Rejection at:", promise, "reason:", reason);
+});
+
 /**
  * Simple Node.js server for Git Compass dashboard
  */
 const server = http.createServer(async (req, res) => {
-  const url = new URL(req.url, `http://${req.headers.host}`);
+  try {
+    const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+    console.log(`[${new Date().toISOString()}] ${req.method} ${url.pathname}`);
 
   // CORS Headers
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -240,6 +250,13 @@ const server = http.createServer(async (req, res) => {
       res.end(content, "utf-8");
     }
   });
+  } catch (err) {
+    console.error("CRITICAL: Server callback error:", err);
+    if (!res.writableEnded) {
+      res.writeHead(500, { "Content-Type": "text/plain" });
+      res.end("Internal Server Error: " + err.message);
+    }
+  }
 });
 
 const PORT = process.env.PORT || 4321;
