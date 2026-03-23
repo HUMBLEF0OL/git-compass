@@ -2,6 +2,7 @@ import chalk from "chalk";
 import boxen from "boxen";
 import { table, getBorderCharacters } from "table";
 import type { AnalysisResult } from "@git-compass/core";
+import { HEALTH_THRESHOLDS } from "../constants/index.js";
 
 export function printConsoleReport(
   result: AnalysisResult,
@@ -36,7 +37,11 @@ export function printConsoleReport(
         5,
     );
     const healthColor =
-      healthScore > 70 ? chalk.green : healthScore > 40 ? chalk.yellow : chalk.red;
+      healthScore > HEALTH_THRESHOLDS.GOOD
+        ? chalk.green
+        : healthScore > HEALTH_THRESHOLDS.WARNING
+          ? chalk.yellow
+          : chalk.red;
 
     console.log(
       boxen(
@@ -86,7 +91,7 @@ export function printConsoleReport(
     }
 
     if (isSummary) {
-      printHealthIndicators(health, impact, rot, !!result.aiSummary);
+      printHealthIndicators(health, impact, rot, result.churn, !!result.aiSummary);
       return;
     }
 
@@ -129,8 +134,13 @@ export function printConsoleReport(
         const riskLevel = fileRisk?.level || "low";
         const riskColor = getRiskColor(riskLevel);
 
+        // Explanatory factors
+        const factors = fileRisk?.factors
+          ? `(${chalk.gray(`freq:${fileRisk.factors.changeFrequency},auth:${fileRisk.factors.uniqueAuthors},rec:${fileRisk.factors.recentActivity}`)})`
+          : "";
+
         hotspotData.push([
-          chalk.white(h.path),
+          chalk.white(h.path) + (factors ? "\n" + factors : ""),
           chalk.cyan(h.changeCount.toString()),
           chalk.magenta(h.uniqueAuthors.toString()),
           chalk.hex(riskColor).bold(riskLevel.toUpperCase()),
@@ -209,6 +219,16 @@ export function printConsoleReport(
         });
       }
 
+      const highImpact = [...(impact || [])].sort((a, b) => b.blastRadius - a.blastRadius);
+      if (highImpact.length > 0) {
+        insightsData.push([chalk.bold("High Blast Radius (Impact)")]);
+        highImpact.slice(0, 5).forEach((i) => {
+          insightsData.push([
+            `  ${chalk.white(i.path)}\n  ${chalk.gray("Avg Change Ripple: ")}${chalk.yellow(i.blastRadius.toFixed(1) + " files")}`,
+          ]);
+        });
+      }
+
       if (insightsData.length > 0) {
         console.log(chalk.blue.bold("\nDeep Architecture Insights"));
         console.log(table(insightsData, { border: getBorderCharacters("ramac") }));
@@ -216,13 +236,13 @@ export function printConsoleReport(
     }
 
     // 7. Health Indicators & Footer Tip
-    printHealthIndicators(health, impact, rot, showAI);
+    printHealthIndicators(health, impact, rot, result.churn, showAI);
   } catch (err) {
     console.error(chalk.red("\nError printing report:"), err);
   }
 }
 
-function printHealthIndicators(health: any, impact: any[], rot: any[], showAI: boolean) {
+function printHealthIndicators(health: any, impact: any[], rot: any[], churn: any[], showAI: boolean) {
   const avgImpact =
     impact.length > 0
       ? (impact.reduce((acc: number, i: any) => acc + i.blastRadius, 0) / impact.length).toFixed(2)
@@ -234,10 +254,25 @@ function printHealthIndicators(health: any, impact: any[], rot: any[], showAI: b
     `${chalk.white("Stability:   ")} ${chalk.cyan(health.stability + "%")}`,
     `${chalk.white("Velocity:    ")} ${chalk.cyan(health.velocity + "%")}`,
     `${chalk.white("Complexity:  ")} ${chalk.cyan(health.simplicity + "%")}`,
+    `${chalk.white("Coverage:    ")} ${chalk.cyan(health.coverage + "%")}`,
     `${chalk.white("Decoupling:  ")} ${chalk.cyan(health.decoupling + "%")}`,
     `${chalk.white("Blast Radius:")} ${chalk.yellow(avgImpact + " files")}`,
     `${chalk.white("Code Rot:    ")} ${chalk.red(rot.length + " abandoned files")}`,
   ];
+
+  // Churn trend summary
+  if (churn && churn.length > 0) {
+    const sortedChurn = [...churn].sort(
+      (a: any, b: any) => b.linesAdded + b.linesRemoved - (a.linesAdded + a.linesRemoved),
+    );
+    const peak = sortedChurn[0];
+    const peakDate = new Date(peak.date).toLocaleDateString();
+    footerContent.splice(
+      2,
+      0,
+      `${chalk.white("Peak Churn:  ")} ${chalk.magenta(peakDate)} ${chalk.gray(`(${peak.linesAdded + peak.linesRemoved} lines)`)}`,
+    );
+  }
 
   if (!showAI) {
     footerContent.push("");

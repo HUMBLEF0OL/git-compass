@@ -41,6 +41,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
+    "cli": "tsx src/bin/git-compass.ts",
     "lint": "eslint .",
     "test": "vitest run"
   },
