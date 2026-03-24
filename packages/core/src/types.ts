@@ -108,10 +108,30 @@ export enum AIProviderType {
   GEMINI = "gemini",
 }
 
+export interface AIProviderOptions {
+  model?: string;
+}
+
+export interface AIInvokeOptions {
+  /** Override the default model for this specific call */
+  model?: string;
+  /** Custom instructions to prepend to the default prompt */
+  systemInstructions?: string;
+  /** Replace the entire default prompt with this custom one */
+  customPrompt?: string;
+  /** Maximum number of tokens to generate */
+  maxTokens?: number;
+  /** Sampling temperature (0-2) */
+  temperature?: number;
+}
+
 export interface AIProvider {
-  type: AIProviderType;
-  generateSummary: (analysis: AnalysisResult) => Promise<AISummary>;
-  query: (question: string, analysis: AnalysisResult) => Promise<string>;
+  readonly type: AIProviderType;
+  readonly model: string;
+  generateSummary: (analysis: AnalysisResult, options?: AIInvokeOptions) => Promise<AISummary>;
+  query: (question: string, analysis: AnalysisResult, options?: AIInvokeOptions) => Promise<string>;
+  /** Generic text generation for specialized prompts (e.g., insight packs, PR context) */
+  generateText: (prompt: string, options?: AIInvokeOptions) => Promise<string>;
 }
 
 export interface AISummary {

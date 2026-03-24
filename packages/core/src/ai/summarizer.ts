@@ -1,4 +1,4 @@
-import { AIProvider, AIProviderType, AnalysisResult, AISummary } from "../types.js";
+import { AIProvider, AIProviderType, AnalysisResult, AISummary, AIProviderOptions } from "../types.js";
 import { createAnthropicProvider } from "./providers/anthropic.js";
 import { createOpenAIProvider } from "./providers/openai.js";
 import { createGeminiProvider } from "./providers/gemini.js";
@@ -58,16 +58,52 @@ Provide a sharp, professional assessment with actionable feedback.`;
 /**
  * Factory function to create an AI provider.
  */
-export function getAIProvider(type: AIProviderType, apiKey: string): AIProvider {
+export function getAIProvider(type: AIProviderType, apiKey: string, options?: AIProviderOptions): AIProvider {
   switch (type) {
     case AIProviderType.ANTHROPIC:
-      return createAnthropicProvider(apiKey);
+      return createAnthropicProvider(apiKey, options);
     case AIProviderType.OPENAI:
-      return createOpenAIProvider(apiKey);
+      return createOpenAIProvider(apiKey, options);
     case AIProviderType.GEMINI:
-      return createGeminiProvider(apiKey);
+      return createGeminiProvider(apiKey, options);
     default:
       throw new Error(`Unsupported AI provider: ${type}`);
+  }
+}
+
+/**
+ * Resolves the best available AI provider based on options or environment variables.
+ */
+export function resolveProvider(options?: { 
+  provider?: AIProvider, 
+  providerType?: AIProviderType, 
+  apiKey?: string 
+}): AIProvider {
+  if (options?.provider) return options.provider;
+
+  const type = options?.providerType || detectProviderType();
+  const apiKey = options?.apiKey || getEnvApiKey(type);
+
+  if (!apiKey) {
+    throw new Error(`No API key found for AI provider: ${type}. Please provide it via options or environment variables.`);
+  }
+
+  return getAIProvider(type, apiKey);
+}
+
+function detectProviderType(): AIProviderType {
+  if (process.env.ANTHROPIC_API_KEY) return AIProviderType.ANTHROPIC;
+  if (process.env.OPENAI_API_KEY) return AIProviderType.OPENAI;
+  if (process.env.GOOGLE_GENAI_API_KEY) return AIProviderType.GEMINI;
+  return AIProviderType.ANTHROPIC; // Default fallback
+}
+
+function getEnvApiKey(type: AIProviderType): string | undefined {
+  switch (type) {
+    case AIProviderType.ANTHROPIC: return process.env.ANTHROPIC_API_KEY;
+    case AIProviderType.OPENAI: return process.env.OPENAI_API_KEY;
+    case AIProviderType.GEMINI: return process.env.GOOGLE_GENAI_API_KEY;
+    default: return undefined;
   }
 }
 
@@ -95,3 +131,21 @@ export async function queryAnalysis(
 // Deprecated or compatibility exports if needed, but since we are refactoring, we can keep it clean.
 // Legacy createAIClient could be aliased if necessary for backward compatibility during transition.
 export const createAIClient = (apiKey: string) => createAnthropicProvider(apiKey);
+
+import { PromptTemplate } from "../types/ai.js";
+import { resolveTemplateInstructions } from "./utils.js";
+
+/**
+ * Thin wrapper. Calls the existing summary function but injects templated instructions.
+ */
+export async function summarizeWithTemplate(
+  provider: AIProvider,
+  analysis: AnalysisResult,
+  template: PromptTemplate
+): Promise<AISummary> {
+  const instructions = resolveTemplateInstructions(template);
+  // Rule 5.5: pass template instructions as systemInstructions to the provider
+  return provider.generateSummary(analysis, { 
+    systemInstructions: instructions 
+  });
+}

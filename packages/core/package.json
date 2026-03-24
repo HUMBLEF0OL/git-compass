@@ -49,6 +49,7 @@
     "@git-compass/tsconfig": "workspace:*",
     "@git-compass/vitest-config": "workspace:*",
     "@google/generative-ai": "0.24.1",
+    "@vitest/coverage-v8": "^4.1.1",
     "ai": "^4.1.45",
     "eslint": "^9.0.0",
     "openai": "6.31.0",

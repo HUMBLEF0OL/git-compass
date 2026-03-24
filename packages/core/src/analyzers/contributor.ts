@@ -1,4 +1,5 @@
 import type { RawCommit, ContributorStats, ContributorTimelinePoint } from "../types.js";
+import type { DeduplicationResult, CanonicalContributor } from '../types/signal.js';
 
 export function analyzeContributors(commits: RawCommit[]): ContributorStats[] {
   const contributorMap = new Map<
@@ -90,3 +91,56 @@ export function analyzeContributorTimeline(commits: RawCommit[]): ContributorTim
     }))
     .sort((a, b) => a.date.getTime() - b.date.getTime());
 }
+
+/**
+ * Deduplicates contributors by email and identifies bots.
+ */
+export function deduplicateContributors(
+  contributors: ContributorStats[],
+  options: { identityMap?: Record<string, string> } = {}
+): DeduplicationResult {
+  const identityMap = options.identityMap ?? {};
+  const groups = new Map<string, { nameCounts: Record<string, number>; emails: Set<string> }>();
+
+  for (const c of contributors) {
+    const email = c.email.toLowerCase();
+    const canonicalEmail = (identityMap[email] || identityMap[c.email] || email).toLowerCase();
+
+    const group = groups.get(canonicalEmail) ?? { nameCounts: {}, emails: new Set() };
+    group.emails.add(c.email);
+    group.nameCounts[c.author] = (group.nameCounts[c.author] || 0) + 1;
+    groups.set(canonicalEmail, group);
+  }
+
+  const canonical: CanonicalContributor[] = [];
+  const botsRemoved: string[] = [];
+
+  for (const [canonicalEmail, group] of groups.entries()) {
+    // Pick canonical name: most frequent, then first alphabetically
+    const name = Object.entries(group.nameCounts)
+      .sort(([nameA, countA], [nameB, countB]) => {
+        if (countB !== countA) return countB - countA;
+        return nameA.localeCompare(nameB);
+      })[0]![0];
+
+    const isBot =
+      name.toLowerCase().endsWith('[bot]') ||
+      canonicalEmail.includes('bot@') ||
+      canonicalEmail.includes('noreply@') ||
+      canonicalEmail.includes('dependabot') ||
+      canonicalEmail.includes('renovate');
+
+    if (isBot) {
+      botsRemoved.push(...Array.from(group.emails));
+    } else {
+      canonical.push({
+        canonicalEmail,
+        canonicalName: name,
+        aliases: Array.from(group.emails).filter(e => e.toLowerCase() !== canonicalEmail),
+      });
+    }
+  }
+
+  return { canonical, botsRemoved };
+}
+
