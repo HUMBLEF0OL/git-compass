@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Compass | Analytics Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- External Libraries -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="glass-header">
+        <div class="header-content">
+            <div class="logo">
+                <i data-lucide="git-branch" class="logo-icon"></i>
+                <div class="repo-info-stack">
+                    <span class="app-title">Git Compass</span>
+                    <div class="repo-summary">
+                        <span class="summary-item"><strong>1.2k</strong> Commits</span>
+                        <span class="summary-item"><strong>45</strong> Authors</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="control-group">
+                    <select id="branch-select" class="boxy-select">
+                        <option value="main">main</option>
+                        <option value="develop">develop</option>
+                        <option value="feature/ui-update">feature/ui-update</option>
+                    </select>
+                </div>
+                <button class="icon-button" title="Settings">
+                    <i data-lucide="settings"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">Commit Distribution</div>
+                <canvas id="commitChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">Author Activity</div>
+                <canvas id="authorChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

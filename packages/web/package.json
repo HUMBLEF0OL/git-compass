@@ -1,0 +1,13 @@
+{
+  "name": "@git-compass/web",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@git-compass/core": "workspace:*"
+  }
+}
