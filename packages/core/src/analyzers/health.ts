@@ -1,50 +1,55 @@
-import type { RawCommit, RepositoryHealth, ChurnDataPoint, CouplingLink } from "../types.js";
-import { extractFilesFromDiff } from "../utils/index.js";
+import type { GitCommit } from "../types/signal.js";
+import type { HealthReport } from "../types/extended.js";
+import type { Score } from "../types/insights.js";
 
 /**
- * Computes a holistic "Health Score" for the repository across 5 dimensions.
+ * Computes a holistic "Health Report" for the repository across 4 dimensions.
+ * Pure function.
  */
-export function analyzeHealth(
-  commits: RawCommit[],
-  churn: ChurnDataPoint[],
-  coupling: CouplingLink[],
-): RepositoryHealth {
-  // 1. Stability: Inverse of churn intensity relative to commit volume
-  const totalAdded = churn.reduce((sum, d) => sum + d.linesAdded, 0);
-  const totalRemoved = churn.reduce((sum, d) => sum + d.linesRemoved, 0);
-  const churnIntensity = (totalAdded + totalRemoved) / (commits.length || 1);
-  // Scale: 0 churn = 100, 500 lines/commit = 50, 1000+ lines/commit = 20
-  const stability = Math.max(20, Math.min(100, 100 - churnIntensity / 10));
+export function analyzeHealth(commits: GitCommit[]): HealthReport {
+  if (commits.length === 0) {
+    return {
+      overallHealth: 0,
+      stability: 0,
+      velocity: 0,
+      simplicity: 0,
+      coverage: 0,
+      generatedAt: new Date().toISOString(),
+    };
+  }
 
-  // 2. Velocity: Commit frequency over the window
-  // Assuming the window is roughly 30 days for this simple heuristic
-  const velocity = Math.min(100, (commits.length / 30) * 10);
+  // 1. Stability: Inverse of commit noise/churn proxy
+  // For now, we'll use a simple proxy: average files per commit vs a baseline.
+  const avgFiles = commits.reduce((sum, c) => sum + c.files.length, 0) / commits.length;
+  const stability: Score = Math.max(20, Math.min(100, 100 - avgFiles * 5));
 
-  // 3. Simplicity: Proxy via average file impact per commit
-  const avgFilesChanged =
-    commits.reduce((sum, c) => sum + extractFilesFromDiff(c.diff).length, 0) /
-    (commits.length || 1);
-  const simplicity = Math.max(30, Math.min(100, 100 - avgFilesChanged * 5));
+  // 2. Velocity: Commit frequency (assumed 30-day window for normalization)
+  const velocity: Score = Math.min(100, (commits.length / 30) * 10);
+
+  // 3. Simplicity: Proxy via average files changed (lower is simpler)
+  const simplicity: Score = Math.max(30, Math.min(100, 100 - avgFiles * 4));
 
   // 4. Coverage: Test file presence heuristic
-  const allFiles = new Set(commits.flatMap((c) => extractFilesFromDiff(c.diff)));
+  const allFiles = new Set(commits.flatMap((c) => c.files));
   const testFiles = Array.from(allFiles).filter(
     (f) =>
       f.toLowerCase().includes("test") ||
       f.toLowerCase().includes("spec") ||
       f.includes("__tests__"),
   );
-  const coverage = Math.min(100, (testFiles.length / (allFiles.size || 1)) * 400); // 25% tests = 100%
+  const coverage: Score = Math.min(100, (testFiles.length / (allFiles.size || 1)) * 400);
 
-  // 5. Decoupling: Inverse of strong temporal couplings
-  const strongCouplings = coupling.filter((c) => c.coupling > 0.6).length;
-  const decoupling = Math.max(10, Math.min(100, 100 - strongCouplings * 4));
+  const overallHealth: Score = Math.round(
+    (stability + velocity + simplicity + coverage) / 4
+  );
 
   return {
+    overallHealth,
     stability: Math.round(stability),
     velocity: Math.round(velocity),
     simplicity: Math.round(simplicity),
     coverage: Math.round(coverage),
-    decoupling: Math.round(decoupling),
+    generatedAt: new Date().toISOString(),
   };
 }
+

@@ -1,29 +1,36 @@
-import type { RawCommit } from "../types.js";
-import { extractFilesFromDiff } from "../utils/index.js";
+import type { GitCommit } from "../types/signal.js";
+import type { RotReport } from "../types/extended.js";
 
 /**
- * Identifies "Abandoned Code" or "Rot": files that haven't been touched in a long time.
- * Also calculates "Complexity Rot" if we had line counts, but here we focus on time.
+ * Detects code rot by identifying files that haven't been touched in a long time.
+ * Pure function.
  */
-export function analyzeRot(commits: RawCommit[], excludePatterns?: string[]): string[] {
-  const lastTouched = new Map<string, Date>();
+export function analyzeRot(commits: GitCommit[]): RotReport {
+  if (commits.length === 0) {
+    return { staleFiles: [], analyzedAt: new Date().toISOString() };
+  }
+
+  const fileMap = new Map<string, Date>();
   const now = new Date();
-  const threshold = 180; // 180 days
+  const ninetyDaysAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
 
   for (const commit of commits) {
-    const files = extractFilesFromDiff(commit.diff, excludePatterns);
-    for (const file of files) {
-      const existing = lastTouched.get(file);
-      if (!existing || commit.date > existing) {
-        lastTouched.set(file, commit.date);
+    const commitDate = new Date(commit.date);
+    for (const file of commit.files) {
+      const existing = fileMap.get(file);
+      if (!existing || commitDate > existing) {
+        fileMap.set(file, commitDate);
       }
     }
   }
 
-  return Array.from(lastTouched.entries())
-    .filter(([_, date]) => {
-      const diffDays = (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
-      return diffDays > threshold;
-    })
-    .map(([path]) => path);
+  const staleFiles = Array.from(fileMap.entries())
+    .filter(([_, lastDate]) => lastDate < ninetyDaysAgo)
+    .map(([path, _]) => path)
+    .sort();
+
+  return {
+    staleFiles,
+    analyzedAt: new Date().toISOString(),
+  };
 }

@@ -14,10 +14,10 @@ import type {
 export function analyzeBranchLifecycles(
   branches: BranchInfo[],
   commits: GitCommit[],
-  options: { staleThresholdDays?: number; defaultBranch?: string } = {}
+  options: { staleThresholdDays?: number; defaultBranch?: string; now?: number } = {}
 ): BranchLifecycle[] {
-  const { staleThresholdDays = 90, defaultBranch = 'main' } = options;
-  const now = Date.now();
+  const { staleThresholdDays = 90, defaultBranch = 'main', now = Date.now() } = options;
+
 
   return branches.map((branch) => {
     // Find commits for this branch's author within the time range of this branch's activity
@@ -26,8 +26,9 @@ export function analyzeBranchLifecycles(
     const authorCommits = commits
       .filter((c) => c && c.author && c.author.email === branch.lastCommitAuthor)
       .sort((a, b) => {
-        if (!a || !b) return 0;
-        return new Date(a.date).getTime() - new Date(b.date).getTime()
+        const da = a?.date ? new Date(a.date).getTime() : 0;
+        const db = b?.date ? new Date(b.date).getTime() : 0;
+        return da - db;
       });
 
     // firstCommitDate: the earliest commit date found for this branch author in the window.
@@ -37,7 +38,7 @@ export function analyzeBranchLifecycles(
     // daysToMerge: scan commits for a merge commit whose message contains the branch name.
     let daysToMerge: number | null = null;
     const mergeCommit = commits.find((c) => {
-      const msg = c.message.toLowerCase();
+      const msg = (c?.message || '').toLowerCase();
       return (
         (msg.startsWith('merge branch') || msg.startsWith('merge pull request')) &&
         msg.includes(branch.name.toLowerCase())
@@ -79,10 +80,10 @@ export function analyzeBranchLifecycles(
  */
 export function detectStaleBranches(
   branches: BranchInfo[],
-  options: { thresholdDays?: number } = {}
+  options: { thresholdDays?: number; now?: number } = {}
 ): StaleBranch[] {
-  const { thresholdDays = 90 } = options;
-  const now = Date.now();
+  const { thresholdDays = 90, now = Date.now() } = options;
+
 
   return branches
     .map((branch) => {
@@ -110,9 +111,10 @@ export function computeMergeFrequency(
   const { defaultBranch = 'main' } = options;
 
   // Scan commits for merge commits
-  const mergeCommits = commits.filter((c) => 
-    c.message.startsWith('Merge branch') || c.message.startsWith('Merge pull request')
-  );
+  const mergeCommits = commits.filter((c) => {
+    const msg = c?.message || '';
+    return msg.startsWith('Merge branch') || msg.startsWith('Merge pull request');
+  });
 
   const mergesByBranch: Record<string, string[]> = {};
 

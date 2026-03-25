@@ -1,5 +1,5 @@
-export * from "./types.js";
 export * from "./parser/index.js";
+
 export * from "./analyzers/index.js";
 export * from "./ai/index.js";
 export * from "./utils/index.js";
@@ -9,7 +9,7 @@ export { classifyCommit, isLockfileOnlyCommit } from './parser/commitClassifier.
 export { classifyFile } from './parser/fileClassifier.js';
 export { createFilterPipeline } from './parser/filterPipeline.js';
 export { computeSignalIntegrity } from './analyzers/signalIntegrity.js';
-export { deduplicateContributors } from './analyzers/contributor.js';
+export { analyzeContributors, deduplicateContributors } from './analyzers/contributors.js';
 export type {
   CommitType,
   NoiseReason,
@@ -17,6 +17,7 @@ export type {
   FileCategory,
   ClassifiedFile,
   FilterPipelineOptions,
+
   FilterPipeline,
   NoiseSummary,
   SignalIntegrityReport,
@@ -24,6 +25,32 @@ export type {
   DeduplicationResult,
   GitCommit,
 } from './types/signal.js';
+
+export { analyzeHotspots } from './analyzers/hotspots.js';
+export { analyzeRisk } from './analyzers/risk.js';
+export { analyzeBurnout } from './analyzers/burnout.js';
+export { analyzeCompass } from './analyzers/compass.js';
+export { analyzeImpact } from './analyzers/impact.js';
+export { analyzeRot } from './analyzers/rot.js';
+export { analyzeHealth } from './analyzers/health.js';
+export type {
+  HotspotEntry,
+  HotspotReport,
+  RiskLevel,
+  FileRisk,
+  RiskReport,
+  BurnoutContributor,
+  BurnoutReport,
+  CompassEntry,
+  ComponentMaturity,
+  CompassReport,
+  ImpactEntry,
+  ImpactReport,
+  RotReport,
+  HealthReport,
+  ContributorDetail,
+  ContributorReport,
+} from './types/extended.js';
 
 // Analytics — P1
 export { getBranches } from './parser/git-parser.js';
@@ -113,6 +140,7 @@ export type {
   ReviewHealthScore,
   ReviewDebtReport,
 } from './types/insights.js';
+
 // AI Engine — P3
 export { generateInsightPack, buildInsightPackPrompt, parseInsightPackResponse } from './ai/insightPack.js';
 export { generatePRContext, buildPRFileSummaries, buildPRContextPrompt, parsePRContextResponse } from './ai/prContext.js';
@@ -170,3 +198,4 @@ export type {
   SnapshotCorruptionError,
   SnapshotVersionError,
 } from './types/infrastructure.js';
+

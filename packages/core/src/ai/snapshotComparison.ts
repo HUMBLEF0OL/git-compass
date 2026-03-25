@@ -1,7 +1,7 @@
-import { AnalyticsSnapshot, Regression, SnapshotDelta, PromptTemplate, AIParseError } from '../types/ai.js';
+import { AnalyticsSnapshot, Regression, SnapshotDelta, PRFileSummary, PRContextBrief, PromptTemplate, AIParseError, AIProvider, AIProviderType } from '../types/ai.js';
 import { resolveTemplateInstructions } from './utils.js';
-import { AIProvider, AIProviderType } from '../types.js';
 import { getAIProvider, resolveProvider } from './summarizer.js';
+
 
 const HIGHER_IS_WORSE = new Set([
   'riskScoreAvg',

@@ -2,18 +2,18 @@ import { GitCommit, SignalIntegrityReport, NoiseSummary, NoiseReason } from '../
 import { classifyCommit } from '../parser/commitClassifier.js';
 
 const ANALYZER_SENSITIVITY: Record<string, string[]> = {
-  bot_author:      ['hotspots', 'contributors', 'burnout', 'knowledgeSilos'],
-  merge_commit:    ['churn', 'temporalCoupling'],
-  revert_commit:   ['churn', 'riskScoring'],
-  release_commit:  ['churn', 'contributors'],
-  lockfile_only:   ['hotspots', 'temporalCoupling', 'blastRadius'],
+  bot_author:      ['hotspots', 'contributors', 'burnout', 'ownershipDrift'],
+  merge_commit:    ['hotspots', 'dependencyChurn'],
+  revert_commit:   ['hotspots', 'risk'],
+  release_commit:  ['hotspots', 'contributors'],
+  lockfile_only:   ['hotspots', 'dependencyChurn', 'impact'],
 };
 
 /**
  * Computes a report on signal integrity after filtering.
  */
-export function computeSignalIntegrity(rawCommits: GitCommit[], filteredCommits: GitCommit[]): SignalIntegrityReport {
-  const totalCommits = rawCommits.length;
+export function computeSignalIntegrity(unfilteredCommits: GitCommit[], cleanCommitsList: GitCommit[]): SignalIntegrityReport {
+  const totalCommits = unfilteredCommits.length;
   if (totalCommits === 0) {
     return {
       totalCommits: 0,
@@ -25,13 +25,14 @@ export function computeSignalIntegrity(rawCommits: GitCommit[], filteredCommits:
     };
   }
 
-  const cleanCommits = filteredCommits.length;
+  const cleanCommits = cleanCommitsList.length;
   const filteredOut = totalCommits - cleanCommits;
   const noiseRatio = filteredOut / totalCommits;
 
   // Track filtered commits by hash
-  const filteredHashes = new Set(filteredCommits.map(c => c.hash));
-  const removedCommits = rawCommits.filter(c => !filteredHashes.has(c.hash));
+  const cleanHashes = new Set(cleanCommitsList.map(c => c.hash));
+  const removedCommits = unfilteredCommits.filter(c => !cleanHashes.has(c.hash));
+
 
   const reasonCounts: Record<string, number> = {};
   const botOffenders: Record<string, number> = {};

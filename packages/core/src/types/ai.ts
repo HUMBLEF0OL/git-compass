@@ -1,5 +1,6 @@
-import type { ISODateString } from './analytics.js';
-import type { Score } from './insights.js';
+import type { ISODateString, WindowDays, VelocityReport } from './analytics.js';
+import type { Score, OwnershipDriftReport, DependencyChurnReport, OnboardingReport, ReviewDebtReport } from './insights.js';
+import type { HotspotReport, RiskReport, BurnoutReport, CompassReport, HealthReport, ContributorReport } from './extended.js';
 
 // ─── Shared ───────────────────────────────────────────────────────────────────
 
@@ -25,6 +26,65 @@ export interface Insight {
   readonly evidence: string[];
   /** Concrete next step for the team */
   readonly recommendation: string;
+}
+
+// ─── AI Provider Core ──────────────────────────────────────────────────────────
+
+export enum AIProviderType {
+  ANTHROPIC = 'anthropic',
+  OPENAI = 'openai',
+  GEMINI = 'gemini',
+}
+
+export interface AIProviderOptions {
+  readonly model?: string;
+  readonly temperature?: number;
+  readonly maxTokens?: number;
+}
+
+export interface AIInvokeOptions extends AIProviderOptions {
+  readonly systemInstructions?: string;
+  readonly customPrompt?: string;
+}
+
+export interface AISummary {
+  readonly digest: string;
+  readonly generatedAt: Date;
+  readonly model: string;
+  readonly provider: AIProviderType;
+}
+
+/**
+ * Unified bundle of all analysis reports for AI processing.
+ */
+export interface AnalysisResult {
+  readonly hotspots: HotspotReport;
+  readonly risk: RiskReport;
+  readonly burnout: BurnoutReport;
+  readonly compass: CompassReport;
+  readonly velocity: VelocityReport;
+  readonly insights: {
+    readonly ownershipDrift: OwnershipDriftReport;
+    readonly dependencyChurn: DependencyChurnReport;
+    readonly onboarding: OnboardingReport;
+    readonly reviewDebt: ReviewDebtReport;
+  };
+  readonly health: HealthReport;
+  readonly contributors: ContributorReport;
+  readonly meta: {
+    readonly repoPath: string;
+    readonly branch: string;
+    readonly commitCount: number;
+    readonly windowDays: WindowDays;
+  };
+}
+
+export interface AIProvider {
+  readonly type: AIProviderType;
+  readonly model: string;
+  generateSummary(analysis: AnalysisResult, options?: AIInvokeOptions): Promise<AISummary>;
+  query(question: string, analysis: AnalysisResult, options?: AIInvokeOptions): Promise<string>;
+  generateText(prompt: string, options?: AIInvokeOptions): Promise<string>;
 }
 
 // ─── Insight Pack ─────────────────────────────────────────────────────────────
@@ -118,3 +178,4 @@ export interface PromptTemplate {
 export interface TemplatedSummarizerOptions {
   readonly template: PromptTemplate;
 }
+

@@ -178,9 +178,10 @@ export function computeOwnershipTransitions(commits: GitCommit[]): OwnershipTran
 export function detectOrphanedFiles(
   commits: GitCommit[], 
   knownActiveEmails: string[], 
-  options: { inactivityThresholdDays?: number } = {}
+  options: { inactivityThresholdDays?: number; now?: number } = {}
 ): OrphanedFile[] {
-  const { inactivityThresholdDays = 180 } = options;
+  const { inactivityThresholdDays = 180, now = Date.now() } = options;
+
   const fileCommits: Record<string, GitCommit[]> = {};
   
   let minDate = Infinity;
@@ -203,7 +204,7 @@ export function detectOrphanedFiles(
 
   const range = maxDate - minDate;
   const earlyThreshold = minDate + range * 0.2;
-  const now = Date.now();
+
 
   return Object.entries(fileCommits)
     .map(([filePath, commitsForFile]) => {

@@ -4,10 +4,13 @@ import { GitCommit, ClassifiedCommit, ClassifiedFile } from '../types/signal.js'
  * Classifies a commit based on its metadata and message.
  */
 export function classifyCommit(commit: GitCommit, customBotPatterns: string[] = []): ClassifiedCommit {
-  const { message, author, parents } = commit;
-  const lowerMessage = message.trim();
-  const lowerEmail = author.email.toLowerCase();
-  const lowerName = author.name.toLowerCase();
+  if (!commit) {
+    return { commit: {} as any, type: 'unknown', isNoise: false, noiseReason: null };
+  }
+  const { message = '', author = { name: '', email: '' }, parents = [] } = commit;
+  const lowerMessage = (message || '').trim();
+  const lowerEmail = (author?.email || '').toLowerCase();
+  const lowerName = (author?.name || '').toLowerCase();
 
   // 1. Merge detection
   if (
@@ -24,7 +27,7 @@ export function classifyCommit(commit: GitCommit, customBotPatterns: string[] = 
     lowerEmail.includes('noreply@') ||
     lowerEmail.includes('dependabot') ||
     lowerEmail.includes('renovate[bot]') ||
-    author.name.endsWith('[bot]') ||
+    (author?.name || '').endsWith('[bot]') ||
     customBotPatterns.some(pattern => {
       const p = pattern.toLowerCase();
       return lowerEmail.includes(p) || lowerName.includes(p);

@@ -1,66 +1,69 @@
-import type { RawCommit, BurnoutAnalysis, BurnoutContributor } from "../types.js";
+import type { GitCommit } from "../types/signal.js";
+import type { BurnoutReport, BurnoutContributor } from "../types/extended.js";
 
 /**
  * Detects burnout risk patterns based on commit times and intensity.
+ * Pure function.
  */
-export function analyzeBurnout(commits: RawCommit[]): BurnoutAnalysis {
-  let globalAfterHours = 0;
-  let globalWeekend = 0;
-  const authorCommits = new Map<string, RawCommit[]>();
+export function analyzeBurnout(commits: GitCommit[]): BurnoutReport {
+  let totalAfterHours = 0;
+  let totalWeekend = 0;
+  
+  const authorCommits = new Map<string, { name: string, commits: GitCommit[] }>();
 
   for (const commit of commits) {
-    const hours = commit.date.getHours();
-    const day = commit.date.getDay();
+    const date = new Date(commit.date);
+    const hours = date.getHours();
+    const day = date.getDay();
     const isAfterHours = hours >= 22 || hours <= 6;
     const isWeekend = day === 0 || day === 6;
 
-    if (isAfterHours) globalAfterHours++;
-    if (isWeekend) globalWeekend++;
+    if (isAfterHours) totalAfterHours++;
+    if (isWeekend) totalWeekend++;
 
-    const existing = authorCommits.get(commit.author) ?? [];
-    existing.push(commit);
-    authorCommits.set(commit.author, existing);
+    const existing = authorCommits.get(commit.author.email) ?? { name: commit.author.name, commits: [] };
+    existing.commits.push(commit);
+    authorCommits.set(commit.author.email, existing);
   }
 
   const contributors: BurnoutContributor[] = Array.from(authorCommits.entries()).map(
-    ([author, history]) => {
-      const afterHours = history.filter((c) => {
-        const h = c.date.getHours();
+    ([email, data]) => {
+      const history = data.commits;
+      const afterHoursCount = history.filter((c) => {
+        const h = new Date(c.date).getHours();
         return h >= 22 || h <= 6;
       }).length;
 
-      const weekend = history.filter((c) => {
-        const d = c.date.getDay();
+      const weekendCount = history.filter((c) => {
+        const d = new Date(c.date).getDay();
         return d === 0 || d === 6;
       }).length;
 
-      const afterHoursPercent = Math.round((afterHours / history.length) * 100);
-      const weekendPercent = Math.round((weekend / history.length) * 100);
+      const afterHoursRatio = history.length === 0 ? 0 : afterHoursCount / history.length;
+      const weekendRatio = history.length === 0 ? 0 : weekendCount / history.length;
 
       const riskLevel: BurnoutContributor["riskLevel"] =
-        afterHoursPercent > 40 || weekendPercent > 40
+        afterHoursRatio > 0.4 || weekendRatio > 0.4
           ? "high"
-          : afterHoursPercent > 20 || weekendPercent > 20
+          : afterHoursRatio > 0.2 || weekendRatio > 0.2
             ? "medium"
             : "low";
 
       return {
-        author,
-        afterHoursPercent,
-        weekendPercent,
+        email,
+        name: data.name,
+        afterHoursRatio,
+        weekendRatio,
         riskLevel,
       };
     },
   );
 
-  const flags = contributors
-    .filter((c) => c.riskLevel !== "low")
-    .map((c) => `${c.author} is at ${c.riskLevel} burnout risk`);
-
   return {
-    flags,
-    afterHoursCommits: globalAfterHours,
-    weekendCommits: globalWeekend,
     contributors,
+    totalAfterHoursCommits: totalAfterHours,
+    totalWeekendCommits: totalWeekend,
+    analyzedAt: new Date().toISOString(),
   };
 }
+

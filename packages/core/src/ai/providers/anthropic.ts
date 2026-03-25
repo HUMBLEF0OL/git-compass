@@ -1,4 +1,5 @@
-import { AIProvider, AIProviderType, AnalysisResult, AISummary, AIProviderOptions, AIInvokeOptions } from "../../types.js";
+import { AIProvider, AIProviderType, AnalysisResult, AISummary, AIProviderOptions, AIInvokeOptions } from "../../types/ai.js";
+
 
 import { buildSummaryPrompt } from "../summarizer.js";
 import { ensurePackage } from "../../utils/pkg-installer.js";

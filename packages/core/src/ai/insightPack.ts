@@ -1,7 +1,7 @@
-import { InsightPack, PromptTemplate, AIParseError } from '../types/ai.js';
+import { InsightPack, PromptTemplate, AIParseError, AIProvider, AIProviderType, AnalysisResult } from '../types/ai.js';
 import { resolveTemplateInstructions } from './utils.js';
-import { AIProvider, AIProviderType } from '../types.js';
 import { getAIProvider, resolveProvider } from './summarizer.js';
+
 
 /**
  * Pure function. Builds the prompt string.
@@ -68,10 +68,11 @@ export function parseInsightPackResponse(raw: string): InsightPack {
  * Async layer. Calls the AI engine.
  */
 export async function generateInsightPack(
-  analyticsResult: object, 
+  analysis: AnalysisResult, 
   options?: { template?: PromptTemplate, apiKey?: string, provider?: AIProvider, providerType?: AIProviderType }
 ): Promise<InsightPack> {
-  const serialized = JSON.stringify(analyticsResult, null, 2);
+  const serialized = JSON.stringify(analysis, null, 2);
+
   const prompt = buildInsightPackPrompt(serialized, options?.template);
 
   const provider = resolveProvider(options);

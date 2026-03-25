@@ -1,11 +1,8 @@
-export * from "./hotspot.js";
+export * from "./hotspots.js";
 export * from "./risk.js";
-export * from "./churn.js";
-export * from "./contributor.js";
+export * from "./contributors.js";
 export * from "./burnout.js";
 export * from "./compass.js";
-export * from "./coupling.js";
-export * from "./knowledge.js";
 export * from "./impact.js";
 export * from "./rot.js";
 export * from "./health.js";
@@ -17,3 +14,4 @@ export * from "./ownershipDrift.js";
 export * from "./reviewDebt.js";
 export * from "./signalIntegrity.js";
 export * from "./velocity.js";
+

@@ -1,7 +1,7 @@
-import { PRFileSummary, PRContextBrief, PromptTemplate, AIParseError } from '../types/ai.js';
+import { PRFileSummary, PRContextBrief, PromptTemplate, AIParseError, AIProvider, AIProviderType } from '../types/ai.js';
 import { resolveTemplateInstructions } from './utils.js';
-import { AIProvider, AIProviderType } from '../types.js';
 import { getAIProvider, resolveProvider } from './summarizer.js';
+
 
 interface PRAnalyticsInput {
   changedFiles: string[];

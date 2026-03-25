@@ -1,7 +1,15 @@
 import { simpleGit, SimpleGit } from "simple-git";
-import type { RawCommit, ParseOptions } from "../types.js";
-import type { BranchInfo } from "../types/analytics.js";
+import type { BranchInfo, WindowDays } from "../types/analytics.js";
 import type { GitCommit } from "../types/signal.js";
+
+export interface ParseOptions {
+  branch?: string;
+  window?: WindowDays;
+  maxCount?: number;
+  since?: string;
+  until?: string;
+  excludePatterns?: string[];
+}
 
 /**
  * Creates and initializes a SimpleGit instance for a given repository path.
@@ -23,32 +31,7 @@ export async function isValidRepo(git: SimpleGit): Promise<boolean> {
 }
 
 /**
- * Retrieves commit history for a repository.
- */
-export async function getCommits(git: SimpleGit, options: ParseOptions = {}): Promise<RawCommit[]> {
-  const { branch = "HEAD", since, until, maxCount = 500 } = options;
-
-  const log = await git.log({
-    [branch]: null,
-    "--max-count": maxCount,
-    "--stat": "4096",
-    ...(since ? { "--since": since } : {}),
-    ...(until ? { "--until": until } : {}),
-  } as any);
-
-  return log.all.map((commit: any) => ({
-    hash: commit.hash,
-    author: commit.author_name,
-    email: commit.author_email,
-    date: new Date(commit.date),
-    message: commit.message,
-    body: commit.body,
-    diff: commit.diff ?? null,
-  }));
-}
-
-/**
- * Retrieves the diff for a specific commit.
+ * Retrieves the diff for a specific commit hash (filenames only).
  */
 export async function getFileDiff(git: SimpleGit, commitHash: string): Promise<string> {
   return git.show([commitHash, "--stat", "--name-only"]);
@@ -103,48 +86,6 @@ export async function getBranches(git: SimpleGit): Promise<BranchInfo[]> {
 }
 
 /**
- * Retrieves enhanced commit data for analytical modules.
- */
-export async function getEnhancedCommits(git: SimpleGit, options: ParseOptions = {}): Promise<GitCommit[]> {
-  const { branch = "HEAD", maxCount = 500 } = options;
-
-  const log = await git.log({
-    [branch]: null,
-    "--max-count": maxCount,
-    "--stat": "4096",
-    format: {
-      hash: "%H",
-      parents: "%P",
-      authorName: "%an",
-      authorEmail: "%ae",
-      date: "%aI",
-      message: "%B",
-    }
-  } as any);
-
-  return log.all.map((commit: any) => {
-    // Extract files from diff object if available
-    const files = commit.diff ? commit.diff.files.map((f: any) => f.file) : [];
-
-    return {
-      hash: commit.hash,
-      message: commit.message,
-      author: { 
-        name: commit.authorName, 
-        email: commit.authorEmail 
-      },
-      date: commit.date,
-      parents: commit.parents ? commit.parents.split(' ').filter((p: string) => p !== '') : [],
-      files,
-      // Carry over raw fields for P1 compatibility via any casting
-      email: commit.authorEmail,
-      dateObj: new Date(commit.date),
-      diff: commit.diff
-    } as any;
-  });
-}
-
-/**
  * Retrieves commits since a specific point in history.
  */
 export async function getCommitsSince(
@@ -189,9 +130,7 @@ export async function getCommitsSince(
       date: commit.date,
       parents: commit.parents ? commit.parents.split(' ').filter((p: string) => p !== '') : [],
       files,
-      email: commit.authorEmail,
-      dateObj: new Date(commit.date),
-      diff: commit.diff
-    } as any;
+    };
   });
 }
+

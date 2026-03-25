@@ -71,9 +71,9 @@ export function computeOnboardingScore(
  */
 export function generateLearningPath(
   commits: GitCommit[], 
-  options: { maxFiles?: number } = {}
+  options: { maxFiles?: number; now?: number } = {}
 ): LearningPathEntry[] {
-  const { maxFiles = 20 } = options;
+  const { maxFiles = 20, now = Date.now() } = options;
   const fileStats: Record<string, { 
     commitCount: number; 
     authors: Set<string>; 
@@ -84,7 +84,6 @@ export function generateLearningPath(
   let maxCommitCount = 0;
   let maxUniqueAuthors = 0;
   let maxPathDepth = 0;
-  const now = Date.now();
 
   commits.forEach((c) => {
     c.files.forEach((f) => {
@@ -107,6 +106,7 @@ export function generateLearningPath(
       if (stats.depth > maxPathDepth) maxPathDepth = stats.depth;
     });
   });
+
 
   const entries: LearningPathEntry[] = Object.entries(fileStats)
     .filter(([f]) => {
