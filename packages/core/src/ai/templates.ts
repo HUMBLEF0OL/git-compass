@@ -1,4 +1,4 @@
-import type { PromptTemplate } from '../types/ai.js';
+import type { PromptTemplate, AnalysisResult } from '../types/ai.js';
 import { generateInsightPack } from './insightPack.js';
 
 /**
@@ -7,7 +7,7 @@ import { generateInsightPack } from './insightPack.js';
  */
 export function createSummarizerWithTemplate(template: PromptTemplate) {
   return {
-    summarize: async (analyticsResult: object) => {
+    summarize: async (analyticsResult: AnalysisResult) => {
       return generateInsightPack(analyticsResult, { template });
     },
   };

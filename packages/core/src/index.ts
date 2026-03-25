@@ -1,10 +1,6 @@
-export * from "./parser/index.js";
+// Main entry point for @git-compass/core
 
-export * from "./analyzers/index.js";
-export * from "./ai/index.js";
-export * from "./utils/index.js";
-
-// Signal Quality — P0
+export { createGitParser, isValidRepo, getBranches, getCommitsSince } from './parser/git-parser.js';
 export { classifyCommit, isLockfileOnlyCommit } from './parser/commitClassifier.js';
 export { classifyFile } from './parser/fileClassifier.js';
 export { createFilterPipeline } from './parser/filterPipeline.js';
@@ -53,7 +49,6 @@ export type {
 } from './types/extended.js';
 
 // Analytics — P1
-export { getBranches } from './parser/git-parser.js';
 export {
   analyzeBranchLifecycles,
   detectStaleBranches,
@@ -152,8 +147,11 @@ export {
   ONBOARDING_TEMPLATE,
 } from './ai/templates.js';
 export { resolveTemplateInstructions } from './ai/utils.js';
-export { summarizeWithTemplate } from './ai/summarizer.js';
+export { getAIProvider, generateSummary, queryAnalysis, summarizeWithTemplate } from './ai/summarizer.js';
+export { maskKey, decodeKey } from './utils/security.js';
+export { AIProviderType } from './types/ai.js';
 export type {
+  AnalysisResult,
   AIParseError,
   InsightSeverity,
   Insight,
@@ -171,7 +169,6 @@ export type {
 } from './types/ai.js';
 
 // Infrastructure — P4
-export { getCommitsSince } from './parser/git-parser.js';
 export {
   createIncrementalContext,
   mergeBaselines,

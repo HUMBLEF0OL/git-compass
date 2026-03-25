@@ -91,46 +91,49 @@ export async function getBranches(git: SimpleGit): Promise<BranchInfo[]> {
 export async function getCommitsSince(
   git: SimpleGit, 
   since: string, 
-  options: { maxCount?: number } = {}
+  options: { maxCount?: number; branch?: string } = {}
 ): Promise<GitCommit[]> {
-  const { maxCount = 10000 } = options;
-  const isSha = /^[0-9a-f]{4,40}$/i.test(since);
+  const { maxCount = 10000, branch = "HEAD" } = options;
+  const isPureNumber = /^\d+$/.test(since.toString());
+  // It's a SHA if it matches hex string and isn't purely numeric (or if it's purely numeric but exactly 40 chars)
+  const isSha = /^[0-9a-f]{4,40}$/i.test(since) && (!isPureNumber || since.length === 40);
   
-  const logOptions: any = {
-    "--max-count": maxCount,
-    "--stat": "4096",
-    format: {
-      hash: "%H",
-      parents: "%P",
-      authorName: "%an",
-      authorEmail: "%ae",
-      date: "%aI",
-      message: "%B",
-    }
-  };
+  const args: string[] = [
+    `--max-count=${maxCount}`,
+    "--stat=4096",
+  ];
 
-  if (isSha) {
-    logOptions.from = since;
-    logOptions.to = "HEAD";
-  } else {
-    logOptions["--after"] = since;
+  if (since && since !== 'all') {
+    if (isSha) {
+       args.push(since);
+       args.push("HEAD");
+    } else {
+      const days = parseInt(since, 10);
+      if (isPureNumber && !isNaN(days)) {
+        args.push(`--since=${days} days ago`);
+      } else {
+        args.push(`--since=${since}`);
+      }
+    }
   }
 
-  const log = await git.log(logOptions);
+  if (!isSha && branch) {
+    args.push(branch);
+  }
 
-  return log.all.map((commit: any) => {
-    const files = commit.diff ? commit.diff.files.map((f: any) => f.file) : [];
+  const logResult = await git.log(args);
+  
+  return logResult.all.map((commit: any) => {
     return {
       hash: commit.hash,
-      message: commit.message,
-      author: { 
-        name: commit.authorName, 
-        email: commit.authorEmail 
+      parents: commit.parents || [],
+      author: {
+        name: commit.author_name || 'Unknown',
+        email: commit.author_email || 'unknown@example.com'
       },
       date: commit.date,
-      parents: commit.parents ? commit.parents.split(' ').filter((p: string) => p !== '') : [],
-      files,
-    };
+      message: commit.message,
+      files: commit.diff ? commit.diff.files.map((f: any) => f.file).filter(Boolean) : []
+    } as GitCommit;
   });
 }
-
