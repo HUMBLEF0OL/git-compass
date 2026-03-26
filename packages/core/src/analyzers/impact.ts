@@ -1,39 +1,39 @@
-import type { RawCommit, FileImpact } from "../types.js";
-import { extractFilesFromDiff } from "../utils/index.js";
+import type { GitCommit } from "../types/signal.js";
+import type { ImpactReport, ImpactEntry } from "../types/extended.js";
 
 /**
  * Calculates "Blast Radius": the average number of files affected when a specific file is changed.
+ * Pure function.
  */
-export function analyzeImpact(commits: RawCommit[], excludePatterns?: string[]): FileImpact[] {
-  const fileStats = new Map<
-    string,
-    { totalFilesChanged: number; totalCommits: number; maxBlast: number }
-  >();
+export function analyzeImpact(commits: GitCommit[]): ImpactReport {
+  const fileStats = new Map<string, { totalFilesChanged: number; totalCommits: number }>();
 
   for (const commit of commits) {
-    const files = extractFilesFromDiff(commit.diff, excludePatterns);
-    if (files.length === 0) continue;
+    if (commit.files.length === 0) continue;
 
-    const blastRadius = files.length - 1;
+    const blastRadius = commit.files.length - 1;
 
-    for (const file of files) {
+    for (const file of commit.files) {
       const existing = fileStats.get(file) ?? {
         totalFilesChanged: 0,
         totalCommits: 0,
-        maxBlast: 0,
       };
       existing.totalFilesChanged += blastRadius;
       existing.totalCommits += 1;
-      if (blastRadius > existing.maxBlast) existing.maxBlast = blastRadius;
       fileStats.set(file, existing);
     }
   }
 
-  return Array.from(fileStats.entries())
+  const entries: ImpactEntry[] = Array.from(fileStats.entries())
     .map(([path, stats]) => ({
       path,
       blastRadius: parseFloat((stats.totalFilesChanged / stats.totalCommits).toFixed(2)),
-      maxBlastRadius: stats.maxBlast,
     }))
     .sort((a, b) => b.blastRadius - a.blastRadius);
+
+  return {
+    entries,
+    generatedAt: new Date().toISOString(),
+  };
 }
+

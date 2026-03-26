@@ -29,9 +29,9 @@ export function shouldExclude(path: string, patterns?: string[]): boolean {
   const effectivePatterns =
     patterns && patterns.length > 0
       ? [
-          ...DEFAULT_EXCLUDE_PATTERNS,
-          ...patterns.filter((p) => !DEFAULT_EXCLUDE_PATTERNS.includes(p)),
-        ]
+        ...DEFAULT_EXCLUDE_PATTERNS,
+        ...patterns.filter((p) => !DEFAULT_EXCLUDE_PATTERNS.includes(p)),
+      ]
       : DEFAULT_EXCLUDE_PATTERNS;
 
   return effectivePatterns.some((pattern) => {

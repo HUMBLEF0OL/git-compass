@@ -1,62 +1,77 @@
-import type { HotspotFile, RiskScore } from "../types.js";
+import type { HotspotEntry, RiskReport, FileRisk, RiskLevel } from "../types/extended.js";
+import type { Score } from "../types/insights.js";
 
 const RISK_WEIGHTS = {
-  changeFrequency: 0.3,
-  linesImpacted: 0.3, // Churn volume factor
-  uniqueAuthors: 0.2,
-  recency: 0.2,
+  changeFrequency: 0.4,
+  uniqueAuthors: 0.3,
+  recency: 0.3,
 } as const;
 
 /**
- * Computes risk scores for files based on multiple technical debt indicators.
+ * Computes risk scores for files based on technical debt indicators.
+ * Pure function.
  */
-export function computeRiskScores(files: HotspotFile[]): RiskScore[] {
-  if (files.length === 0) return [];
+export function analyzeRisk(hotspots: HotspotEntry[]): RiskReport {
+  if (hotspots.length === 0) {
+    return {
+      fileRisks: [],
+      averageScore: 0,
+      generatedAt: new Date().toISOString(),
+    };
+  }
 
-  const maxChanges = Math.max(...files.map((f) => f.changeCount), 1);
-  const maxAuthors = Math.max(...files.map((f) => f.uniqueAuthors), 1);
-  const maxImpact = Math.max(...files.map((f) => f.linesImpacted), 1);
+  const maxChanges = Math.max(...hotspots.map((f) => f.changeCount), 1);
+  const maxAuthors = Math.max(...hotspots.map((f) => f.uniqueAuthors), 1);
   const now = Date.now();
 
-  return files.map((file) => {
-    // Freq Score: Normalized change count (0-1)
+  const fileRisks: FileRisk[] = hotspots.map((file) => {
+    // Freq Score: Normalized change count (0–1)
     const frequencyScore = file.changeCount / maxChanges;
 
-    // Author Score: Normalized unique author count (0-1)
+    // Author Score: Normalized unique author count (0–1)
     const authorScore = file.uniqueAuthors / maxAuthors;
 
-    // Impact Score: Normalized churn volume (0-1)
-    const impactScore = file.linesImpacted / maxImpact;
-
-    // Recency Score: Inverse of time since last change (0-1)
+    // Recency Score: Inverse of time since last change (0–1)
     // 0 = 30+ days ago, 1 = changed just now
     const msIn30Days = 30 * 24 * 60 * 60 * 1000;
-    const recencyRatio = Math.max(0, 1 - (now - file.lastChanged.getTime()) / msIn30Days);
+    const recencyRatio = Math.max(0, 1 - (now - new Date(file.lastChanged).getTime()) / msIn30Days);
 
     const totalScore =
       frequencyScore * RISK_WEIGHTS.changeFrequency +
-      impactScore * RISK_WEIGHTS.linesImpacted +
       authorScore * RISK_WEIGHTS.uniqueAuthors +
       recencyRatio * RISK_WEIGHTS.recency;
 
-    const level: RiskScore["level"] =
-      totalScore >= 0.8
+    const score: Score = Math.round(totalScore * 100);
+
+    const level: RiskLevel =
+      score >= 80
         ? "critical"
-        : totalScore >= 0.6
+        : score >= 60
           ? "high"
-          : totalScore >= 0.4
+          : score >= 40
             ? "medium"
             : "low";
 
     return {
       path: file.path,
-      score: Math.round(totalScore * 100),
+      score,
       level,
       factors: {
-        changeFrequency: Math.round(frequencyScore * 100),
-        uniqueAuthors: Math.round(authorScore * 100),
-        recentActivity: Math.round(recencyRatio * 100),
+        frequency: Math.round(frequencyScore * 100),
+        authors: Math.round(authorScore * 100),
+        recency: Math.round(recencyRatio * 100),
       },
     };
   });
+
+  const averageScore = Math.round(
+    fileRisks.reduce((acc, r) => acc + r.score, 0) / fileRisks.length
+  );
+
+  return {
+    fileRisks,
+    averageScore,
+    generatedAt: new Date().toISOString(),
+  };
 }
+

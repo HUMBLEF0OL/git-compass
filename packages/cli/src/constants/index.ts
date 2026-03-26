@@ -15,3 +15,9 @@ export const ENV_VARS = {
   GEMINI_API_KEY: "GEMINI_API_KEY",
   AI_PROVIDER: "GIT_COMPASS_AI_PROVIDER",
 } as const;
+
+export const HEALTH_THRESHOLDS = {
+  GOOD: 70,
+  WARNING: 40,
+} as const;
+

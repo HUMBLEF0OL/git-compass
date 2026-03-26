@@ -1,36 +1,32 @@
 {
   "name": "@git-compass/web",
-  "version": "2.2.0",
-  "description": "Local-first Git analytics dashboard",
-  "bin": {
-    "git-compass-web": "./bin/git-compass-web.js"
-  },
-  "files": [
-    "public",
-    "bin",
-    "server.js"
-  ],
+  "version": "2.3.0",
+  "private": false,
   "type": "module",
-  "publishConfig": {
-    "access": "public"
+  "description": "Interactive HTML dashboard and local API server for Git Compass.",
+  "keywords": [
+    "git",
+    "analytics",
+    "dashboard",
+    "metrics",
+    "velocity",
+    "compass"
+  ],
+  "author": "git-compass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HUMBLEF0OL/git-compass.git",
+    "directory": "packages/web"
   },
-  "peerDependencies": {
-    "eslint": "^9.0.0"
+  "bin": {
+    "git-compass": "./bin/git-compass.js"
   },
   "scripts": {
-    "dev": "node --watch server.js",
-    "start": "node server.js",
-    "lint": "eslint .",
-    "test": "echo \"No tests defined\" && exit 0"
+    "dev": "node server.js",
+    "start": "node server.js"
   },
   "dependencies": {
     "@git-compass/core": "workspace:*"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.0.0",
-    "@types/node": "^20.0.0",
-    "eslint": "^9.0.0",
-    "globals": "^15.0.0",
-    "typescript": "^5.4.0"
   }
 }

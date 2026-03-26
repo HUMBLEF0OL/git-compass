@@ -111,12 +111,15 @@ export const analyzeCommand = new Command("analyze")
         : await getCommits(git, {
             branch: options.branch,
             maxCount: parseInt(options.maxCommits, 10),
+            since: options.window !== "all" ? options.window : undefined,
           });
 
       if (!cachedResult && commits.length === 0) {
         spinner.fail(chalk.red("No commits found in the specified window/branch."));
         return;
       }
+
+      spinner.text = `Performing deep analysis on ${commits.length} commits...`;
 
       const result: AnalysisResult = cachedResult || {
         meta: {
@@ -126,42 +129,38 @@ export const analyzeCommand = new Command("analyze")
           commitCount: commits.length,
           generatedAt: new Date(),
         },
-        hotspots: analyzeHotspots(commits, options.window as any),
-        riskScores: computeRiskScores(analyzeHotspots(commits, options.window as any)), // Simplified for rebuild
-        churn: analyzeChurn(commits, options.window as any),
-        contributors: analyzeContributors(commits),
-        burnout: analyzeBurnout(commits),
-        coupling: analyzeCoupling(commits),
-        knowledge: analyzeKnowledge(commits),
-        impact: analyzeImpact(commits),
-        rot: analyzeRot(commits),
-        compass: analyzeCompass(commits),
-        health: analyzeHealth(
-          commits,
-          analyzeChurn(commits, options.window as any),
-          analyzeCoupling(commits),
-        ),
-        contributorTimeline: analyzeContributorTimeline(commits),
+        hotspots: [],
+        riskScores: [],
+        churn: [],
+        contributors: [],
+        contributorTimeline: [],
+        burnout: { flags: [], afterHoursCommits: 0, weekendCommits: 0, contributors: [] },
+        coupling: [],
+        knowledge: [],
+        impact: [],
+        rot: [],
+        compass: { essentials: [], components: [] },
+        health: { stability: 0, velocity: 0, simplicity: 0, coverage: 0, decoupling: 0 },
       };
 
-      // Re-calculate hotspots/risk if we don't have cached result (above logic is a bit messy, let's fix)
       if (!cachedResult) {
-        spinner.text = `Analyzing ${commits.length} commits...`;
-        const h = analyzeHotspots(commits, options.window as any);
-        result.hotspots = h;
-        result.riskScores = computeRiskScores(h);
+        const hotspots = analyzeHotspots(commits, options.window as any);
+        const riskScores = computeRiskScores(hotspots);
         const churn = analyzeChurn(commits, options.window as any);
         const coupling = analyzeCoupling(commits);
+
+        result.hotspots = hotspots;
+        result.riskScores = riskScores;
         result.churn = churn;
-        result.contributors = analyzeContributors(commits);
-        result.burnout = analyzeBurnout(commits);
         result.coupling = coupling;
+        result.contributors = analyzeContributors(commits);
+        result.contributorTimeline = analyzeContributorTimeline(commits);
+        result.burnout = analyzeBurnout(commits);
         result.knowledge = analyzeKnowledge(commits);
         result.impact = analyzeImpact(commits);
         result.rot = analyzeRot(commits);
         result.compass = analyzeCompass(commits);
         result.health = analyzeHealth(commits, churn, coupling);
-        result.contributorTimeline = analyzeContributorTimeline(commits);
       }
 
       if (options.ai) {
