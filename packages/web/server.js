@@ -39,7 +39,8 @@ import { MIME_TYPES } from './lib/utils.js';
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = path.join(__dirname, 'public');
-const REPO_PATH = process.env.REPO_PATH || path.join(__dirname, '../../'); // Default to monorepo root
+// Dynamically resolve to the directory where the user executes the 'git-compass' command
+const REPO_PATH = process.env.REPO_PATH || process.cwd(); 
 
 const SNAPSHOTS_DIR = path.join(REPO_PATH, '.git-compass', 'snapshots');
 

@@ -3,6 +3,25 @@
   "version": "1.0.0",
   "private": false,
   "type": "module",
+  "description": "Interactive HTML dashboard and local API server for Git Compass.",
+  "keywords": [
+    "git",
+    "analytics",
+    "dashboard",
+    "metrics",
+    "velocity",
+    "compass"
+  ],
+  "author": "git-compass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HUMBLEF0OL/git-compass.git",
+    "directory": "packages/web"
+  },
+  "bin": {
+    "git-compass": "./bin/git-compass.js"
+  },
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js"
