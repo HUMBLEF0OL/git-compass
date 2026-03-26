@@ -3,20 +3,22 @@ import ora from "ora";
 import chalk from "chalk";
 import {
   createGitParser,
-  getCommits,
+  getCommitsSince,
   analyzeHotspots,
-  computeRiskScores,
-  analyzeChurn,
+  analyzeRisk,
+  analyzeDependencyChurn,
   analyzeContributors,
   analyzeBurnout,
-  analyzeCoupling,
-  analyzeKnowledge,
-  analyzeImpact,
-  analyzeRot,
-  createAIClient,
+  analyzeOwnershipDrift,
+  analyzeOnboarding,
+  analyzeReviewDebt,
+  analyzeVelocity,
+  analyzeCompass,
+  analyzeHealth,
   queryAnalysis,
   getAIProvider,
   AIProviderType,
+  type AnalysisResult,
 } from "@git-compass/core";
 import { config } from "../config/index.js";
 import {
@@ -27,7 +29,10 @@ import {
   ENV_VARS,
 } from "../constants/index.js";
 import dotenv from "dotenv";
+import fs from "fs/promises";
 import path from "path";
+import { ensureGitIgnore } from "../utils/gitignore.js";
+import { performFullAnalysis } from "../utils/orchestrator.js";
 
 dotenv.config();
 
@@ -45,10 +50,9 @@ export const queryCommand = new Command("query")
 
     try {
       const git = createGitParser(repoPath);
-      const commits = await getCommits(git, {
-        branch: options.branch,
+      const commits = await getCommitsSince(git, options.window || "30d", {
         maxCount: parseInt(options.maxCommits, 10),
-        since: options.window !== "all" ? options.window : undefined,
+        branch: options.branch
       });
 
       if (commits.length === 0) {
@@ -57,18 +61,12 @@ export const queryCommand = new Command("query")
       }
 
       spinner.text = "Analyzing repository state...";
-      const result: any = {
-        meta: { repoPath, branch: options.branch, commitCount: commits.length },
-        hotspots: analyzeHotspots(commits),
-        riskScores: computeRiskScores(analyzeHotspots(commits)),
-        churn: analyzeChurn(commits),
-        contributors: analyzeContributors(commits),
-        burnout: analyzeBurnout(commits),
-        coupling: analyzeCoupling(commits),
-        knowledge: analyzeKnowledge(commits),
-        impact: analyzeImpact(commits),
-        rot: analyzeRot(commits),
-      };
+      const result = performFullAnalysis(
+        commits,
+        repoPath,
+        options.branch || "HEAD",
+        parseInt(options.window) || 30
+      );
 
       spinner.text = "Consulting AI...";
 

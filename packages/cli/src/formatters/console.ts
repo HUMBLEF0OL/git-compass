@@ -12,30 +12,26 @@ export function printConsoleReport(
   try {
     const {
       meta,
-      hotspots,
-      riskScores,
-      contributors,
+      hotspots: hotspotReport,
+      risk,
       burnout,
-      coupling,
-      knowledge,
-      impact,
-      rot,
       compass,
+      velocity,
+      insights,
       health,
+      contributors: contributorReport,
     } = result;
+    
+    const hotspots = hotspotReport.hotspots;
+    const riskScores = risk.fileRisks;
+    const contributors = contributorReport.contributors;
+
     const isVerbose = detailLevel === "verbose";
     const isSummary = detailLevel === "summary";
     const limit = isVerbose ? 10 : 5;
 
     // 1. Header Summary (Always shown)
-    const healthScore = Math.round(
-      (health.stability +
-        health.velocity +
-        health.simplicity +
-        health.coverage +
-        health.decoupling) /
-        5,
-    );
+    const healthScore = health.overallHealth;
     const healthColor =
       healthScore > HEALTH_THRESHOLDS.GOOD
         ? chalk.green
@@ -49,7 +45,7 @@ export function printConsoleReport(
           `${chalk.gray("────────────────────────")}\n` +
           `${chalk.white.bold("Repo:   ")} ${chalk.cyan(meta.repoPath)}\n` +
           `${chalk.white.bold("Branch: ")} ${chalk.yellow(meta.branch)}\n` +
-          `${chalk.white.bold("Window: ")} ${chalk.magenta(meta.window)}\n` +
+          `${chalk.white.bold("Window: ")} ${chalk.magenta(meta.windowDays + " days")}\n` +
           `${chalk.white.bold("Commits:")} ${chalk.green(meta.commitCount)}\n` +
           `${chalk.white.bold("Health: ")} ${healthColor.bold(healthScore + "%")}`,
         {
@@ -68,14 +64,12 @@ export function printConsoleReport(
       const compassContent = [
         chalk.white.bold("Essential Files:"),
         ...compass.essentials.map(
-          (e) =>
-            `  ${chalk.cyan(e.path.padEnd(30))} ${chalk.gray("│")} ${chalk.yellow(e.type.toUpperCase().padEnd(12))} ${chalk.gray("│")} ${chalk.magenta(e.changeCount + " changes")}`,
+          (e: any) =>
+            `  ${chalk.cyan(e.path.padEnd(30))} ${chalk.gray("│")} ${chalk.yellow(e.type.toUpperCase().padEnd(12))} ${chalk.gray("│")} ${chalk.magenta(e.priority + " priority")}`,
         ),
         "",
-        chalk.white.bold("Contributor Documentation:"),
-        chalk.italic.gray(
-          compass.documentation || "No specific contributor documentation available.",
-        ),
+        chalk.white.bold("Maturity:"),
+        ...compass.components.map((c: any) => `  ${chalk.white(c.name)}: ${chalk.gray(c.status)}`),
       ].join("\n");
 
       console.log(
@@ -91,18 +85,19 @@ export function printConsoleReport(
     }
 
     if (isSummary) {
-      printHealthIndicators(health, impact, rot, result.churn, !!result.aiSummary);
+      printHealthIndicators(health, [], [], insights.dependencyChurn.couplings, !!(result as any).aiSummary);
       return;
     }
 
     // 3. AI Insights (Intuitive Format)
-    if (showAI && result.aiSummary) {
+    if (showAI && (result as any).aiSummary) {
+      const aiSummary = (result as any).aiSummary;
       console.log(
         boxen(
-          chalk.white(result.aiSummary.digest) +
+          chalk.white(aiSummary.digest) +
             "\n\n" +
             chalk.gray.italic(
-              `Provider: ${result.aiSummary.provider} | Model: ${result.aiSummary.model}`,
+              `Provider: ${aiSummary.provider} | Model: ${aiSummary.model}`,
             ),
           {
             padding: 1,
@@ -136,7 +131,7 @@ export function printConsoleReport(
 
         // Explanatory factors
         const factors = fileRisk?.factors
-          ? `(${chalk.gray(`freq:${fileRisk.factors.changeFrequency},auth:${fileRisk.factors.uniqueAuthors},rec:${fileRisk.factors.recentActivity}`)})`
+          ? `(${chalk.gray(`freq:${fileRisk.factors.frequency},auth:${fileRisk.factors.authors},rec:${fileRisk.factors.recency}`)})`
           : "";
 
         hotspotData.push([
@@ -177,12 +172,12 @@ export function printConsoleReport(
       ];
 
       contributors.slice(0, limit).forEach((c) => {
-        const burnoutInfo = burnout.contributors.find((b) => b.author === c.author);
+        const burnoutInfo = burnout.contributors.find((b) => b.email === c.email);
         const isBurnedOut =
-          burnoutInfo && (burnoutInfo.afterHoursPercent > 30 || burnoutInfo.weekendPercent > 30);
+          burnoutInfo && (burnoutInfo.riskLevel === 'high');
 
         contribData.push([
-          chalk.white(c.author),
+          chalk.white(c.name),
           chalk.green(c.commitCount.toString()),
           chalk.cyan(`${c.activeDays} days`),
           isBurnedOut ? chalk.bgRed.white.bold(" BURNOUT ") : chalk.bgGreen.black.bold(" STABLE "),
@@ -195,38 +190,28 @@ export function printConsoleReport(
     if (isVerbose) {
       const insightsData: string[][] = [];
 
+      const coupling = insights.dependencyChurn.couplings;
       if (coupling.length > 0) {
         insightsData.push([chalk.bold("Temporal Coupling")]);
         coupling.slice(0, 5).forEach((c) => {
           insightsData.push([
-            `  ${chalk.white(c.head)} ↔ ${chalk.white(c.tail)}\n  ${chalk.gray("Strength: ")}${chalk.magenta((c.coupling * 100).toFixed(0) + "%")}`,
+            `  ${chalk.white(c.fileA)} ↔ ${chalk.white(c.fileB)}\n  ${chalk.gray("Strength: ")}${chalk.magenta((c.couplingScore * 100).toFixed(0) + "%")}`,
           ]);
         });
       }
 
-      if (knowledge.length > 0) {
+      const knowledge = insights.ownershipDrift.transitions;
+      if (knowledge && knowledge.length > 0) {
         insightsData.push([chalk.bold("Knowledge Silos")]);
-        knowledge.slice(0, 5).forEach((k) => {
-          const color =
-            k.riskLevel === "high"
-              ? chalk.red
-              : k.riskLevel === "medium"
-                ? chalk.yellow
-                : chalk.white;
-          insightsData.push([
-            `  ${chalk.white(k.path)}\n  ${chalk.gray("Owner: ")}${color(k.mainContributor)} ${chalk.gray("(" + k.authorshipPercent + "%)")}`,
-          ]);
-        });
-      }
-
-      const highImpact = [...(impact || [])].sort((a, b) => b.blastRadius - a.blastRadius);
-      if (highImpact.length > 0) {
-        insightsData.push([chalk.bold("High Blast Radius (Impact)")]);
-        highImpact.slice(0, 5).forEach((i) => {
-          insightsData.push([
-            `  ${chalk.white(i.path)}\n  ${chalk.gray("Avg Change Ripple: ")}${chalk.yellow(i.blastRadius.toFixed(1) + " files")}`,
-          ]);
-        });
+        knowledge
+          .filter(t => t.periods.length > 0 && t.periods[t.periods.length - 1]!.ownershipShare > 0.8)
+          .slice(0, 5)
+          .forEach((k) => {
+            const latest = k.periods[k.periods.length - 1]!;
+            insightsData.push([
+              `  ${chalk.white(k.filePath)}\n  ${chalk.gray("Owner: ")}${chalk.red(latest.ownerEmail)} ${chalk.gray("(" + (latest.ownershipShare * 100).toFixed(0) + "%)")}`,
+            ]);
+          });
       }
 
       if (insightsData.length > 0) {
@@ -236,18 +221,13 @@ export function printConsoleReport(
     }
 
     // 7. Health Indicators & Footer Tip
-    printHealthIndicators(health, impact, rot, result.churn, showAI);
+    printHealthIndicators(health, [], [], insights.dependencyChurn.couplings, showAI);
   } catch (err) {
     console.error(chalk.red("\nError printing report:"), err);
   }
 }
 
 function printHealthIndicators(health: any, impact: any[], rot: any[], churn: any[], showAI: boolean) {
-  const avgImpact =
-    impact.length > 0
-      ? (impact.reduce((acc: number, i: any) => acc + i.blastRadius, 0) / impact.length).toFixed(2)
-      : 0;
-
   const footerContent = [
     `${chalk.bold("Overall Health Indicators")}`,
     `${chalk.gray("────────────────────────")}`,
@@ -256,8 +236,6 @@ function printHealthIndicators(health: any, impact: any[], rot: any[], churn: an
     `${chalk.white("Complexity:  ")} ${chalk.cyan(health.simplicity + "%")}`,
     `${chalk.white("Coverage:    ")} ${chalk.cyan(health.coverage + "%")}`,
     `${chalk.white("Decoupling:  ")} ${chalk.cyan(health.decoupling + "%")}`,
-    `${chalk.white("Blast Radius:")} ${chalk.yellow(avgImpact + " files")}`,
-    `${chalk.white("Code Rot:    ")} ${chalk.red(rot.length + " abandoned files")}`,
   ];
 
   // Churn trend summary

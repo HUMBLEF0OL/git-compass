@@ -3,19 +3,7 @@ import ora from "ora";
 import chalk from "chalk";
 import {
   createGitParser,
-  getCommits,
-  analyzeHotspots,
-  computeRiskScores,
-  analyzeChurn,
-  analyzeContributors,
-  analyzeContributorTimeline,
-  analyzeBurnout,
-  analyzeCoupling,
-  analyzeKnowledge,
-  analyzeImpact,
-  analyzeRot,
-  analyzeCompass,
-  analyzeHealth,
+  getCommitsSince,
   getAIProvider,
   generateSummary,
   type AnalysisResult,
@@ -43,6 +31,7 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from "fs/promises";
 import { ensureGitIgnore } from "../utils/gitignore.js";
+import { performFullAnalysis } from "../utils/orchestrator.js";
 
 dotenv.config();
 
@@ -87,7 +76,7 @@ export const analyzeCommand = new Command("analyze")
       // Check cache
       const cachePath = await getCachePath(repoRoot);
       const cache = await loadCache(cachePath);
-      const cachedResult = latestCommit ? getCachedResult(cache, repoRoot, latestCommit) : null;
+      const cachedResult = latestCommit ? (getCachedResult(cache, repoRoot, latestCommit) as any) : null;
 
       if (cachedResult) {
         if (!options.ai || (options.ai && cachedResult.aiSummary)) {
@@ -108,10 +97,9 @@ export const analyzeCommand = new Command("analyze")
 
       const commits = cachedResult
         ? [] // We won't re-fetch commits if we have a cached result and just need AI
-        : await getCommits(git, {
+        : await getCommitsSince(git, options.window || "30d", {
             branch: options.branch,
             maxCount: parseInt(options.maxCommits, 10),
-            since: options.window !== "all" ? options.window : undefined,
           });
 
       if (!cachedResult && commits.length === 0) {
@@ -121,46 +109,17 @@ export const analyzeCommand = new Command("analyze")
 
       spinner.text = `Performing deep analysis on ${commits.length} commits...`;
 
-      const result: AnalysisResult = cachedResult || {
-        meta: {
-          repoPath,
-          branch: options.branch,
-          window: options.window,
-          commitCount: commits.length,
-          generatedAt: new Date(),
-        },
-        hotspots: [],
-        riskScores: [],
-        churn: [],
-        contributors: [],
-        contributorTimeline: [],
-        burnout: { flags: [], afterHoursCommits: 0, weekendCommits: 0, contributors: [] },
-        coupling: [],
-        knowledge: [],
-        impact: [],
-        rot: [],
-        compass: { essentials: [], components: [] },
-        health: { stability: 0, velocity: 0, simplicity: 0, coverage: 0, decoupling: 0 },
-      };
+      let result: AnalysisResult;
 
-      if (!cachedResult) {
-        const hotspots = analyzeHotspots(commits, options.window as any);
-        const riskScores = computeRiskScores(hotspots);
-        const churn = analyzeChurn(commits, options.window as any);
-        const coupling = analyzeCoupling(commits);
-
-        result.hotspots = hotspots;
-        result.riskScores = riskScores;
-        result.churn = churn;
-        result.coupling = coupling;
-        result.contributors = analyzeContributors(commits);
-        result.contributorTimeline = analyzeContributorTimeline(commits);
-        result.burnout = analyzeBurnout(commits);
-        result.knowledge = analyzeKnowledge(commits);
-        result.impact = analyzeImpact(commits);
-        result.rot = analyzeRot(commits);
-        result.compass = analyzeCompass(commits);
-        result.health = analyzeHealth(commits, churn, coupling);
+      if (cachedResult) {
+        result = cachedResult;
+      } else {
+        result = performFullAnalysis(
+          commits,
+          repoRoot,
+          options.branch || "HEAD",
+          parseInt(options.window) || 30
+        );
       }
 
       if (options.ai) {
@@ -203,14 +162,14 @@ export const analyzeCommand = new Command("analyze")
         } else {
           try {
             const aiProvider = getAIProvider(providerType as any, apiKey);
-            result.aiSummary = await generateSummary(aiProvider, result);
+            (result as any).aiSummary = await generateSummary(aiProvider, result);
           } catch (aiErr) {
             spinner.warn(chalk.yellow("AI summary failed: " + (aiErr as Error).message));
           }
         }
       }
 
-      spinner.succeed(chalk.green(`Analysis complete for ${commits.length} commits.`));
+      spinner.succeed(chalk.green(`Analysis complete for ${result.meta.commitCount} commits.`));
 
       // Update cache
       if (latestCommit) {

@@ -2,22 +2,11 @@ import { Command } from "commander";
 import ora from "ora";
 import chalk from "chalk";
 import path from "path";
+import * as dotenv from "dotenv";
 import fs from "fs/promises";
 import {
   createGitParser,
-  getCommits,
-  analyzeHotspots,
-  computeRiskScores,
-  analyzeChurn,
-  analyzeContributors,
-  analyzeContributorTimeline,
-  analyzeBurnout,
-  analyzeCoupling,
-  analyzeKnowledge,
-  analyzeImpact,
-  analyzeRot,
-  analyzeCompass,
-  analyzeHealth,
+  getCommitsSince,
   getAIProvider,
   generateSummary,
   type AnalysisResult,
@@ -34,6 +23,7 @@ import {
 } from "../utils/cache.js";
 import { ensureGitIgnore } from "../utils/gitignore.js";
 import { printConsoleReport } from "../formatters/console.js";
+import { performFullAnalysis } from "../utils/orchestrator.js";
 
 
 export const analyzeAllCommand = new Command("analyze-all")
@@ -78,41 +68,21 @@ export const analyzeAllCommand = new Command("analyze-all")
 
           let result: AnalysisResult;
 
-          if (cachedResult && (!options.ai || cachedResult.aiSummary)) {
-            result = cachedResult;
+          if (cachedResult && (!options.ai || (cachedResult as any).aiSummary)) {
+            result = cachedResult as any;
             repoSpinner.text = `Loaded ${repoName} from cache.`;
           } else {
-            const commits = await getCommits(git, {
+            const commits = await getCommitsSince(git, options.window || "30d", {
               maxCount: parseInt(options.maxCommits, 10),
-              since: options.window !== "all" ? options.window : undefined,
+              branch: "HEAD",
             });
-            const hotspots = analyzeHotspots(commits, options.window as any);
-            const riskScores = computeRiskScores(hotspots);
-
-            const churn = analyzeChurn(commits, options.window as any);
-            const coupling = analyzeCoupling(commits);
-
-            result = {
-              meta: {
-                repoPath: repoRoot,
-                branch: "HEAD",
-                window: options.window,
-                commitCount: commits.length,
-                generatedAt: new Date(),
-              },
-              hotspots,
-              riskScores,
-              churn,
-              contributors: analyzeContributors(commits),
-              contributorTimeline: analyzeContributorTimeline(commits),
-              burnout: analyzeBurnout(commits),
-              coupling,
-              knowledge: analyzeKnowledge(commits),
-              impact: analyzeImpact(commits),
-              rot: analyzeRot(commits),
-              compass: analyzeCompass(commits),
-              health: analyzeHealth(commits, churn, coupling),
-            };
+            
+            result = performFullAnalysis(
+              commits,
+              repoRoot,
+              "HEAD",
+              parseInt(options.window) || 30
+            );
 
             if (options.ai) {
               const envProvider = process.env[ENV_VARS.AI_PROVIDER] as AIProviderType;
@@ -133,7 +103,7 @@ export const analyzeAllCommand = new Command("analyze-all")
               if (apiKey) {
                 try {
                   const aiProvider = getAIProvider(providerType, apiKey);
-                  result.aiSummary = await generateSummary(aiProvider, result);
+                  (result as any).aiSummary = await generateSummary(aiProvider, result);
                 } catch (e) {}
               }
             }
@@ -142,14 +112,14 @@ export const analyzeAllCommand = new Command("analyze-all")
             await saveCache(cachePath, updatedCache);
           }
 
-          const highRiskCount = result.riskScores.filter(
+          const highRiskCount = result.risk.fileRisks.filter(
             (r) => r.level === "high" || r.level === "critical",
           ).length;
 
           summaries.push({
             name: repoName,
             commits: result.meta.commitCount,
-            hotspots: result.hotspots.length,
+            hotspots: result.hotspots.hotspots.length,
             highRisk: highRiskCount,
           });
 
