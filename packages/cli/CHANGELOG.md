@@ -1,5 +1,12 @@
 # @grotto/cli
 
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies [3d0ff08]
+  - @git-compass/core@2.1.0
+
 ## 1.1.1
 
 ### Patch Changes
