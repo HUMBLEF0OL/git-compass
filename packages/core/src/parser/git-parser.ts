@@ -1,5 +1,15 @@
-import { simpleGit, SimpleGit, LogResult, DefaultLogFields } from "simple-git";
-import type { RawCommit, ParseOptions } from "../types.js";
+import { simpleGit, SimpleGit } from "simple-git";
+import type { BranchInfo, WindowDays } from "../types/analytics.js";
+import type { GitCommit } from "../types/signal.js";
+
+export interface ParseOptions {
+  branch?: string;
+  window?: WindowDays;
+  maxCount?: number;
+  since?: string;
+  until?: string;
+  excludePatterns?: string[];
+}
 
 /**
  * Creates and initializes a SimpleGit instance for a given repository path.
@@ -21,32 +31,7 @@ export async function isValidRepo(git: SimpleGit): Promise<boolean> {
 }
 
 /**
- * Retrieves commit history for a repository.
- */
-export async function getCommits(git: SimpleGit, options: ParseOptions = {}): Promise<RawCommit[]> {
-  const { branch = "HEAD", since, until, maxCount = 500 } = options;
-
-  const log = await git.log({
-    [branch]: null,
-    "--max-count": maxCount,
-    "--stat": "4096",
-    ...(since ? { "--since": since } : {}),
-    ...(until ? { "--until": until } : {}),
-  } as any);
-
-  return log.all.map((commit: any) => ({
-    hash: commit.hash,
-    author: commit.author_name,
-    email: commit.author_email,
-    date: new Date(commit.date),
-    message: commit.message,
-    body: commit.body,
-    diff: commit.diff ?? null,
-  }));
-}
-
-/**
- * Retrieves the diff for a specific commit.
+ * Retrieves the diff for a specific commit hash (filenames only).
  */
 export async function getFileDiff(git: SimpleGit, commitHash: string): Promise<string> {
   return git.show([commitHash, "--stat", "--name-only"]);
@@ -61,9 +46,91 @@ export async function getCurrentBranch(git: SimpleGit): Promise<string> {
 }
 
 /**
- * Retrieves a list of all local branches.
+ * Retrieves a list of all branches with details.
  */
-export async function getBranches(git: SimpleGit): Promise<string[]> {
-  const result = await git.branchLocal();
-  return result.all;
+export async function getBranches(git: SimpleGit): Promise<BranchInfo[]> {
+  const result = await git.raw([
+    'branch',
+    '-a',
+    '--sort=-committerdate',
+    '--format=%(refname) %(objectname) %(committerdate:iso8601) %(authorname) %(authoremail)'
+  ]);
+
+  return result
+    .split('\n')
+    .filter((line: string) => line.trim() !== '')
+    .map((line: string) => {
+      const parts = line.trim().split(' ');
+      const refname = parts[0] || '';
+      const hash = parts[1] || '';
+      const date = parts[2] || '';
+      const authorParts = parts.slice(3);
+
+      const isRemote = refname.startsWith('refs/remotes/');
+      let name = refname.replace(/^refs\/(heads|remotes)\//, '');
+      
+      const lastCommitAuthor = authorParts.join(' ');
+
+      return {
+        name,
+        isRemote,
+        lastCommitHash: hash,
+        lastCommitDate: date,
+        lastCommitAuthor,
+      };
+    })
+    .filter((branch: BranchInfo) => branch.name !== 'HEAD' && !branch.name.endsWith('/HEAD'));
+}
+
+/**
+ * Retrieves commits since a specific point in history.
+ */
+export async function getCommitsSince(
+  git: SimpleGit, 
+  since: string, 
+  options: { maxCount?: number; branch?: string } = {}
+): Promise<GitCommit[]> {
+  const { maxCount = 10000, branch = "HEAD" } = options;
+  const isPureNumber = /^\d+$/.test(since.toString());
+  // It's a SHA if it matches hex string and isn't purely numeric (or if it's purely numeric but exactly 40 chars)
+  const isSha = /^[0-9a-f]{4,40}$/i.test(since) && (!isPureNumber || since.length === 40);
+  
+  const args: string[] = [
+    `--max-count=${maxCount}`,
+    "--stat=4096",
+  ];
+
+  if (since && since !== 'all') {
+    if (isSha) {
+       args.push(since);
+       args.push("HEAD");
+    } else {
+      const days = parseInt(since, 10);
+      if (isPureNumber && !isNaN(days)) {
+        args.push(`--since=${days} days ago`);
+      } else {
+        args.push(`--since=${since}`);
+      }
+    }
+  }
+
+  if (!isSha && branch) {
+    args.push(branch);
+  }
+
+  const logResult = await git.log(args);
+  
+  return logResult.all.map((commit: any) => {
+    return {
+      hash: commit.hash,
+      parents: commit.parents || [],
+      author: {
+        name: commit.author_name || 'Unknown',
+        email: commit.author_email || 'unknown@example.com'
+      },
+      date: commit.date,
+      message: commit.message,
+      files: commit.diff ? commit.diff.files.map((f: any) => f.file).filter(Boolean) : []
+    } as GitCommit;
+  });
 }

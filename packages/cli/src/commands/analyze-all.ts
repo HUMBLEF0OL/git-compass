@@ -33,6 +33,8 @@ import {
   saveCache,
 } from "../utils/cache.js";
 import { ensureGitIgnore } from "../utils/gitignore.js";
+import { printConsoleReport } from "../formatters/console.js";
+
 
 export const analyzeAllCommand = new Command("analyze-all")
   .description("Scan a directory for Git repositories and analyze them all")
@@ -156,6 +158,10 @@ export const analyzeAllCommand = new Command("analyze-all")
               `${repoName}: ${result.meta.commitCount} commits, ${highRiskCount} high-risk files.`,
             ),
           );
+
+          if (options.detailLevel === "verbose") {
+            printConsoleReport(result, "normal", !!options.ai);
+          }
         } catch (err) {
           repoSpinner.fail(chalk.red(`Failed to analyze ${repoName}: ${(err as Error).message}`));
         }

@@ -1,39 +1,46 @@
-import type { RawCommit, CompassEntry, CompassResult, ComponentMaturity } from "../types.js";
-import { extractFilesFromDiff } from "../utils/index.js";
+import type { GitCommit } from "../types/signal.js";
+import type { CompassReport, CompassEntry, ComponentMaturity } from "../types/extended.js";
 
 /**
  * Maps onboarding file priority based on centrality and developer touchpoints.
- */
-/**
- * Maps onboarding file priority based on centrality and developer touchpoints.
  * Also identifies component maturity based on recent churn and activity.
+ * Pure function.
  */
-export function analyzeCompass(commits: RawCommit[], excludePatterns?: string[]): CompassResult {
-  const componentMap = new Map<string, { lastChanged: Date; churn: number }>();
+export function analyzeCompass(commits: GitCommit[]): CompassReport {
+  const componentMap = new Map<string, { lastChanged: string; churn: number }>();
   const fileTouchpoints = new Map<string, Set<string>>();
+  const fileChangeCounts = new Map<string, number>();
+  
   const now = new Date();
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
   const ninetyDaysAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
 
   // Group files into components (top-level directories)
   for (const commit of commits) {
-    const files = extractFilesFromDiff(commit.diff, excludePatterns);
-    for (const file of files) {
+    const commitDate = new Date(commit.date);
+    for (const file of commit.files) {
+      // Track file change counts
+      fileChangeCounts.set(file, (fileChangeCounts.get(file) ?? 0) + 1);
+
       const parts = file.split("/");
       // Skip hidden files/folders and root files for component mapping
       if (parts[0] && !parts[0].startsWith(".")) {
         const component = parts[0];
         const stats = componentMap.get(component) ?? { lastChanged: commit.date, churn: 0 };
 
-        if (commit.date > stats.lastChanged) stats.lastChanged = commit.date;
-        if (commit.date > thirtyDaysAgo) stats.churn++;
+        if (commitDate > new Date(stats.lastChanged)) {
+          stats.lastChanged = commit.date;
+        }
+        if (commitDate > thirtyDaysAgo) {
+          stats.churn++;
+        }
 
         componentMap.set(component, stats);
       }
 
       // Track touchpoints for essentials
       const authors = fileTouchpoints.get(file) ?? new Set<string>();
-      authors.add(commit.author);
+      authors.add(commit.author.email);
       fileTouchpoints.set(file, authors);
     }
   }
@@ -41,15 +48,15 @@ export function analyzeCompass(commits: RawCommit[], excludePatterns?: string[])
   // Map components to maturity levels
   const components: ComponentMaturity[] = Array.from(componentMap.entries()).map(
     ([name, stats]) => {
-      let maturity: "Stable" | "Evolving" | "Legacy" = "Stable";
+      let status: "stable" | "evolving" | "maturing" = "stable";
 
-      if (stats.lastChanged < ninetyDaysAgo) {
-        maturity = "Legacy";
+      if (new Date(stats.lastChanged) < ninetyDaysAgo) {
+        status = "maturing"; // Renamed from legacy
       } else if (stats.churn > 20) {
-        maturity = "Evolving";
+        status = "evolving";
       }
 
-      return { name, maturity };
+      return { name, status };
     },
   );
 
@@ -57,25 +64,30 @@ export function analyzeCompass(commits: RawCommit[], excludePatterns?: string[])
   const essentials: CompassEntry[] = Array.from(fileTouchpoints.entries())
     .map(([path, authors]) => ({
       path,
-      priority: 1,
+      priority: 1, // Default, can be refined based on depth
       reason: `Touched by ${authors.size} unique contributors`,
-      changeCount: commits.filter((c) =>
-        extractFilesFromDiff(c.diff, excludePatterns).includes(path),
-      ).length,
       type:
         path.includes("index") || path.includes("main") || path.includes("App")
           ? ("entry-point" as const)
           : ("core" as const),
+      changeCount: fileChangeCounts.get(path) ?? 0,
     }))
     .sort((a, b) => b.changeCount - a.changeCount)
-    .slice(0, 5);
+    .slice(0, 5)
+    .map((e, index) => ({
+      ...e,
+      priority: index + 1 // Assign priority based on rank
+    }));
 
-  const mainComponents = components.filter((c) => c.maturity === "Stable").map((c) => c.name);
+  // Re-map to remove internal fields
+  const finalEssentials: CompassEntry[] = essentials.map(({ path, priority, reason, type }) => ({
+    path, priority, reason, type
+  }));
 
-  const documentation =
-    mainComponents.length > 0
-      ? `The codebase is primarily built around the ${mainComponents.join(", ")} components. For onboarding, focus on the identified essential files which represent the most active and central parts of the architecture.`
-      : `This repository is currently in an evolving state. Focus on the hotspots and high-risk files to understand the current areas of active development and potential technical debt.`;
-
-  return { essentials, components, documentation };
+  return { 
+    essentials: finalEssentials, 
+    components, 
+    analyzedAt: new Date().toISOString() 
+  };
 }
+
