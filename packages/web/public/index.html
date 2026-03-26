@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,52 +8,278 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;600;700&display=swap"
+        rel="stylesheet">
     <!-- External Libraries -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-    <header class="glass-header">
-        <div class="header-content">
-            <div class="logo">
-                <i data-lucide="git-branch" class="logo-icon"></i>
-                <div class="repo-info-stack">
-                    <span class="app-title">Git Compass</span>
-                    <div class="repo-summary">
-                        <span class="summary-item"><strong>1.2k</strong> Commits</span>
-                        <span class="summary-item"><strong>45</strong> Authors</span>
-                    </div>
+    <header class="premium-header">
+        <div class="header-main">
+            <div class="repo-title-group">
+                <i data-lucide="database" class="repo-icon"></i>
+                <div class="repo-info">
+                    <h1>Repository</h1>
+                    <span id="repo-meta-sub">91 COMMITS · 3 AUTHORS · 1.0 VERSION</span>
                 </div>
             </div>
-            <div class="header-controls">
-                <div class="control-group">
-                    <select id="branch-select" class="boxy-select">
-                        <option value="main">main</option>
-                        <option value="develop">develop</option>
-                        <option value="feature/ui-update">feature/ui-update</option>
+            <div class="header-actions">
+                <div class="health-score-group">
+                    <span class="health-label">HEALTH SCORE</span>
+                    <span id="header-health-value" class="health-value">--</span>
+                </div>
+                <div class="branch-selector-wrapper">
+                    <select id="branch-select" class="premium-select">
+                        <!-- Populated by JS -->
                     </select>
                 </div>
-                <button class="icon-button" title="Settings">
+                <button id="settings-btn" class="icon-btn-outline">
                     <i data-lucide="settings"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="dashboard-container">
-        <div class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-header">Commit Distribution</div>
-                <canvas id="commitChart"></canvas>
+    <main class="dashboard-root">
+        <div class="top-stats-row">
+            <div class="stat-card">
+                <span class="stat-label">TOTAL COMMITS</span>
+                <span id="stat-commits" class="stat-value">--</span>
+                <span class="stat-sub">CURRENT BRANCH</span>
             </div>
-            <div class="chart-card">
-                <div class="chart-header">Author Activity</div>
-                <canvas id="authorChart"></canvas>
+            <div class="stat-card">
+                <span class="stat-label">ACTIVE AUTHORS</span>
+                <span id="stat-authors" class="stat-value">--</span>
+                <span class="stat-sub">CONTRIBUTORS</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">CHURN INDEX</span>
+                <span id="stat-churn" class="stat-value">--</span>
+                <span class="stat-sub">FILE IMPACT</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">RISK LEVEL</span>
+                <span id="stat-risk" class="stat-value">--</span>
+                <span id="stat-risk-label" class="stat-sub">CALCULATING</span>
+            </div>
+        </div>
+
+        <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+        <aside id="settings-sidebar" class="settings-sidebar">
+            <div class="sidebar-header">
+                <h3>Settings</h3>
+                <button id="close-sidebar" class="icon-button" title="Close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <section class="settings-section">
+                    <h4>Repository Settings</h4>
+                    <div class="input-group">
+                        <label class="field-label">Number of Commits</label>
+                        <input type="number" class="boxy-input" value="500">
+                    </div>
+                    <div class="input-group">
+                        <label class="field-label">Exclude Pattern</label>
+                        <textarea class="boxy-input" rows="3"
+                            placeholder="e.g. **/node_modules/**">**/node_modules/**,**/dist/**</textarea>
+                    </div>
+                </section>
+
+                <section class="settings-section">
+                    <h4>AI Configuration</h4>
+                    <label class="switch-label">
+                        <span>Enable AI Insights</span>
+                        <input type="checkbox" id="enable-ai" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <div id="ai-settings-group">
+                        <div class="input-group">
+                            <label class="field-label">LLM Provider</label>
+                            <select class="boxy-select full-width">
+                                <option value="openai">OpenAI (GPT-4o)</option>
+                                <option value="anthropic">Anthropic (Claude 3.5)</option>
+                                <option value="google">Google (Gemini 1.5 Pro)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="field-label">LLM API Key</label>
+                            <input type="password" class="boxy-input" placeholder="sk-...">
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="sidebar-footer">
+                <button id="save-settings" class="btn-primary full-width">
+                    <span>Save Changes</span>
+                </button>
+            </div>
+        </aside>
+
+        <div class="main-grid">
+            <!-- Row 1: Health & Stability -->
+            <div class="grid-col-4">
+                <div class="chart-card health-radar-card">
+                    <div class="chart-header">
+                        <i data-lucide="shield-check"></i>
+                        REPOSITORY HEALTH
+                    </div>
+                    <div class="radar-container-premium">
+                        <canvas id="healthRadar"></canvas>
+                    </div>
+                    <div class="radar-mini-stats" id="radar-mini-stats">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+            <div class="grid-col-8">
+                <div class="chart-card stability-card">
+                    <div class="chart-header">
+                        <i data-lucide="trending-up"></i>
+                        TEMPORAL STABILITY
+                    </div>
+                    <canvas id="stabilityLineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Row 2: Risk & Alerts -->
+            <div class="grid-col-4">
+                <div class="chart-card risk-card">
+                    <div class="chart-header">
+                        <i data-lucide="alert-octagon"></i>
+                        CRITICAL RISK AREAS
+                    </div>
+                    <div id="risk-areas-list" class="risk-areas-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+            <div class="grid-col-8">
+                <div class="chart-card timeline-card">
+                    <div class="chart-header">
+                        <i data-lucide="users-2"></i>
+                        CONTRIBUTOR TIMELINE
+                    </div>
+                    <canvas id="authTimelineChart"></canvas>
+                </div>
+            </div>
+
+            <div class="grid-col-12 mt-24">
+                <div class="section-title-premium">
+                    <i data-lucide="brain-circuit"></i>
+                    <h2>Behavioral Insights</h2>
+                </div>
+            </div>
+
+            <!-- Knowledge Silos (Ownership Drift) -->
+            <div class="grid-col-12">
+                <div class="chart-card p2-card">
+                    <div class="chart-header">
+                        <i data-lucide="users-round"></i>
+                        KNOWLEDGE SILOS & ORPHANS
+                    </div>
+                    <div id="orphaned-files-list" class="data-list-premium p2-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Architectural Coupling -->
+            <div class="grid-col-12">
+                <div class="chart-card p2-card">
+                    <div class="chart-header">
+                        <i data-lucide="share-2"></i>
+                        ARCHITECTURAL COUPLING
+                    </div>
+                    <div id="dependency-coupling-list" class="data-list-premium p2-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Quality & Bottlenecks -->
+            <div class="grid-col-12">
+                <div class="chart-card p2-card">
+                    <div class="chart-header">
+                        <i data-lucide="check-square"></i>
+                        REVIEW QUALITY & BOTTLENECKS
+                    </div>
+                    <div id="review-health-list" class="data-list-premium p2-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risk Profile & Hotspots -->
+            <div class="grid-col-12">
+                <div class="chart-card p2-card">
+                    <div class="chart-header">
+                        <i data-lucide="shield-alert"></i>
+                        REPOSITORY RISK PROFILE & CHURN
+                    </div>
+                    <div id="risk-profile-list" class="data-list-premium p2-list p2-grid-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Onboarding & Knowledge Flow -->
+            <div class="grid-col-12">
+                <div class="chart-card p2-card">
+                    <div class="chart-header">
+                        <i data-lucide="graduation-cap"></i>
+                        ONBOARDING & KNOWLEDGE FLOW
+                    </div>
+                    <div id="onboarding-learning-list" class="data-list-premium p2-list p2-grid-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-col-12">
+                <div class="chart-card alert-summary-card">
+                    <div class="chart-header">
+                        <i data-lucide="bell"></i>
+                        PROCESS ANOMALIES
+                    </div>
+                    <div id="anomaly-list-premium" class="anomaly-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Team Grid -->
+            <div class="grid-col-12">
+                <div class="chart-card table-card">
+                    <div class="chart-header">
+                        <i data-lucide="table"></i>
+                        CONTRIBUTOR ONBOARDING
+                    </div>
+                    <div class="table-container">
+                        <table class="premium-table" id="onboarding-table">
+                            <thead>
+                                <tr>
+                                    <th>AUTHOR</th>
+                                    <th>COMMITS</th>
+                                    <th>IMPACT</th>
+                                    <th>STABILITY</th>
+                                    <th>ONBOARDING</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
     <script src="app.js"></script>
 </body>
+
 </html>

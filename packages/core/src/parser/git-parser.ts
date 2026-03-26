@@ -68,10 +68,7 @@ export async function getBranches(git: SimpleGit): Promise<BranchInfo[]> {
 
       const isRemote = refname.startsWith('refs/remotes/');
       let name = refname.replace(/^refs\/(heads|remotes)\//, '');
-      if (isRemote) {
-        name = name.replace(/^origin\//, '');
-      }
-
+      
       const lastCommitAuthor = authorParts.join(' ');
 
       return {
