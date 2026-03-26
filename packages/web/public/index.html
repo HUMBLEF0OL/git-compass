@@ -36,7 +36,10 @@
                         <!-- Populated by JS -->
                     </select>
                 </div>
-                <button id="settings-btn" class="icon-btn-outline">
+                <button id="history-btn" class="premium-action-btn" title="Snapshot History">
+                    <i data-lucide="history"></i>
+                </button>
+                <button id="settings-btn" class="premium-action-btn" title="Settings">
                     <i data-lucide="settings"></i>
                 </button>
             </div>
@@ -67,6 +70,49 @@
             </div>
         </div>
 
+        <!-- Phase 3: AI Intelligence Command Center -->
+        <div id="ai-hero-section" class="grid-col-12 ai-hero hidden">
+            <div class="chart-card ai-card">
+                <div class="chart-header ai-header">
+                    <div class="ai-header-title">
+                        <i data-lucide="sparkles"></i>
+                        <span>AI REPOSITORY INTELLIGENCE</span>
+                    </div>
+                    <div class="ai-controls">
+                        <select id="ai-template-select" class="boxy-select-mini">
+                            <option value="executive">EXECUTIVE SUMMARY</option>
+                            <option value="developer">DEVELOPER DEEP-DIVE</option>
+                            <option value="newbie">ONBOARDING GUIDE</option>
+                        </select>
+                        <button id="refresh-ai" class="icon-button-ai" title="Re-generate Insights">
+                            <i data-lucide="refresh-cw"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="ai-content-layout">
+                    <div class="ai-summary-pane">
+                        <div id="ai-narrative" class="ai-narrative-content">
+                            <div class="ai-loading-placeholder">
+                                <span class="ai-pulse-dot"></span>
+                                <span>Synthesizing repository narrative...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-insight-pane">
+                        <div class="ai-pane-header">LATEST OBSERVATIONS</div>
+                        <div id="ai-insight-reel" class="ai-insight-reel">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+                <div class="ai-query-bar">
+                    <i data-lucide="message-square"></i>
+                    <input type="text" id="ai-query-input" placeholder="Ask Git Compass about this repository..." class="ai-input-flat">
+                    <button id="ai-query-btn" class="ai-btn-primary">ASK AI</button>
+                </div>
+            </div>
+        </div>
+
         <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
         <aside id="settings-sidebar" class="settings-sidebar">
             <div class="sidebar-header">
@@ -89,8 +135,18 @@
                     </div>
                 </section>
 
-                <section class="settings-section">
-                    <h4>AI Configuration</h4>
+                    <!-- Added Analysis Window Setting here -->
+                    <div class="settings-section">
+                        <h4>Analysis Parameters</h4>
+                        <div class="input-group">
+                            <label class="field-label">Analysis Window (Days)</label>
+                            <input type="number" id="window-input" class="boxy-input" value="30" min="1" max="365">
+                        </div>
+                    </div>
+                    
+                    <!-- AI Settings Control -->
+                    <div class="settings-section" style="margin-top: 24px;">
+                        <h4>AI Engine</h4>
                     <label class="switch-label">
                         <span>Enable AI Insights</span>
                         <input type="checkbox" id="enable-ai" checked>
@@ -119,6 +175,37 @@
             </div>
         </aside>
 
+        <aside id="history-sidebar" class="settings-sidebar">
+            <div class="sidebar-header">
+                <h3>Snapshot History</h3>
+                <button id="close-history" class="icon-button" title="Close">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <div class="ai-header" style="justify-content: flex-start; margin-bottom: 1rem; color: var(--text-secondary); font-size: 0.75rem;">
+                    <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                    <span style="font-weight: 600; letter-spacing: 0.5px;">TIME MACHINE</span>
+                </div>
+                <div style="padding: 0 1rem 1rem 1rem; border-bottom: 1px solid var(--border-color); margin-bottom: 1rem;">
+                    <button id="snap-capture-btn" class="btn-primary" style="width: 100%; font-size: 0.75rem; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i data-lucide="camera" style="width: 14px;"></i>
+                        CAPTURE CURRENT STATE
+                    </button>
+                    <div id="snap-success-msg" style="display: none; font-size: 0.65rem; color: #16a34a; text-align: center; margin-top: 6px; font-weight: 600;">
+                        <i data-lucide="check-circle" style="width: 10px; vertical-align: middle;"></i>
+                        Snapshot captured successfully!
+                    </div>
+                </div>
+                <div id="history-list" class="history-list">
+                    <!-- Populated by JS -->
+                    <div class="ai-loading-placeholder">
+                        <span class="ai-pulse-dot"></span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
         <div class="main-grid">
             <!-- Row 1: Health & Stability -->
             <div class="grid-col-4">
@@ -142,6 +229,9 @@
                         TEMPORAL STABILITY
                     </div>
                     <canvas id="stabilityLineChart"></canvas>
+                    <div id="stability-details" class="chart-details">
+                        <!-- Populated by JS -->
+                    </div>
                 </div>
             </div>
 
@@ -164,6 +254,117 @@
                         CONTRIBUTOR TIMELINE
                     </div>
                     <canvas id="authTimelineChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Row 4: Patterns & Integrity -->
+            <div class="grid-col-6">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <i data-lucide="filter"></i>
+                        SIGNAL & NOISE ANALYSIS
+                    </div>
+                    <div class="noise-consolidated-layout">
+                        <div class="signal-gauge-section">
+                            <div class="signal-gauge-container">
+                                <div class="signal-value" id="signal-integrity-value">0%</div>
+                                <div class="signal-label">FUNCTIONAL RATIO</div>
+                            </div>
+                            <div id="noise-mini-stats" class="radar-mini-stats">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <div class="noise-breakdown-section">
+                            <div class="field-label" style="margin-bottom: 12px; font-size: 0.65rem;">NOISE SOURCES</div>
+                            <div id="noise-sources-list" class="risk-areas-list">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-col-6">
+                <div class="chart-card alert-summary-card">
+                    <div class="chart-header">
+                        <i data-lucide="bell"></i>
+                        PROCESS ANOMALIES
+                    </div>
+                    <div id="anomaly-list-premium" class="anomaly-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 5: Hotspot Risk Matrix -->
+            <div class="grid-col-12">
+                <div class="chart-card hotspot-matrix-card">
+                    <div class="chart-header" style="justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i data-lucide="target"></i>
+                            HOTSPOT RISK MATRIX
+                        </div>
+                        <div class="hotspot-legend">
+                            <div class="legend-item">
+                                <span class="legend-swatch" style="background: rgba(99, 102, 241, 0.5); border-color: rgb(99, 102, 241);"></span>
+                                <span>LOW RISK</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-swatch" style="background: rgba(245, 158, 11, 0.7); border-color: rgb(245, 158, 11);"></span>
+                                <span>MEDIUM</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-swatch" style="background: rgba(239, 68, 68, 0.7); border-color: rgb(239, 68, 68);"></span>
+                                <span>CRITICAL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bubble-container">
+                        <canvas id="hotspotMatrixChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 6: Codebase Ownership Treemap -->
+            <div class="grid-col-12">
+                <div class="chart-card treemap-card">
+                    <div class="chart-header">
+                        <i data-lucide="layout-grid"></i>
+                        CODEBASE OWNERSHIP
+                    </div>
+                    <div id="ownership-treemap-container" class="treemap-container-premium">
+                        <!-- Custom SVG Treemap Populated by JS -->
+                        <div class="ai-loading-placeholder">
+                            <span class="ai-pulse-dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 6: Activity Heatmap -->
+            <div class="grid-col-12">
+                <div class="chart-card heatmap-card">
+                    <div class="chart-header">
+                        <i data-lucide="calendar"></i>
+                        YEARLY CONTRIBUTION HEATMAP
+                    </div>
+                    <div id="activity-heatmap" class="heatmap-container">
+                        <div class="ai-loading-placeholder">
+                            <span class="ai-pulse-dot"></span>
+                        </div>
+                    </div>
+                    <div class="heatmap-footer">
+                        <div class="heatmap-legend">
+                            <span>Less</span>
+                            <div class="legend-scale">
+                                <span class="level-0"></span>
+                                <span class="level-1"></span>
+                                <span class="level-2"></span>
+                                <span class="level-3"></span>
+                                <span class="level-4"></span>
+                            </div>
+                            <span>More</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -239,17 +440,6 @@
                 </div>
             </div>
 
-            <div class="grid-col-12">
-                <div class="chart-card alert-summary-card">
-                    <div class="chart-header">
-                        <i data-lucide="bell"></i>
-                        PROCESS ANOMALIES
-                    </div>
-                    <div id="anomaly-list-premium" class="anomaly-grid">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-            </div>
 
             <!-- Row 3: Team Grid -->
             <div class="grid-col-12">

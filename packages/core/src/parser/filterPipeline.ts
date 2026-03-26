@@ -11,16 +11,13 @@ function matchesPattern(path: string, pattern: string): boolean {
   const normalizedPath = path.toLowerCase().replace(/\\/g, '/');
   const normalizedPattern = pattern.toLowerCase().replace(/\\/g, '/');
 
-  // Convert glob to regex
-  // Escape special regex characters except *
-  let regexStr = normalizedPattern
-    .replace(/[.+^${}()|[\]\\]/g, '\\$&') // Escape all except *
-    .replace(/\*\*\//g, '(.*)?')           // **/ matches zero or more directories with trailing slash
-    .replace(/\*\*/g, '.*')               // ** matches any char
-    .replace(/\*/g, '[^/]*');             // * matches any char except /
+  const regexSource = normalizedPattern
+    .replace(/\./g, "\\.")
+    .replace(/\*\*/g, "(.*)")
+    .replace(/\*/g, "([^/]+)")
+    .replace(/\?/g, "(.)");
 
-  // Ensure it matches the whole string
-  const regex = new RegExp(`^${regexStr}$`);
+  const regex = new RegExp(`(^|/)${regexSource}(/|$)`);
   return regex.test(normalizedPath);
 }
 
