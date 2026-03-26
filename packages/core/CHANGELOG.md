@@ -1,5 +1,15 @@
 # @grotto/core
 
+## 2.1.0
+
+### Minor Changes
+
+- 3d0ff08: NPM Publication Readiness:
+  - Turn `@git-compass/web` into a global CLI tool out of the box.
+  - Create `bin/git-compass.js` wrapper with dynamic `REPO_PATH` resolution.
+  - Update `package.json` metadata (description, keywords, bin) for professional NPM distribution.
+  - Align `@git-compass/core` metadata for registry discoverability.
+
 ## 2.0.1
 
 ### Patch Changes
