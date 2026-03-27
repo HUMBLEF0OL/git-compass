@@ -1,5 +1,11 @@
 # @git-compass/web
 
+## 2.5.0
+
+### Minor Changes
+
+- c4ef387: Readme Update
+
 ## 2.4.0
 
 ### Minor Changes
