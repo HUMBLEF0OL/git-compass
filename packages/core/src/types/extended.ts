@@ -123,6 +123,9 @@ export interface ContributorDetail {
   readonly firstCommit: ISODateString;
   readonly lastCommit: ISODateString;
   readonly activeDays: number;
+  readonly insertions: number;
+  readonly deletions: number;
+  readonly stability: number; // 0–100 score
 }
 
 export interface ContributorReport {
