@@ -112,4 +112,6 @@ export interface GitCommit {
   readonly date: string;
   readonly parents: string[];
   readonly files: string[];
+  readonly insertions: number;
+  readonly deletions: number;
 }

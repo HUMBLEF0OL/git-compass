@@ -971,17 +971,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const onboardingTableBody = document.querySelector('#onboarding-table tbody');
         if (onboardingTableBody && p1.contributors && p2.onboarding) {
             onboardingTableBody.innerHTML = '';
-            p1.contributors.contributors.slice(0, 8).forEach(c => {
+            p1.contributors.contributors
+                .sort((a, b) => b.commitCount - a.commitCount)
+                .slice(0, 8)
+                .forEach(c => {
                 const tr = document.createElement('tr');
-                const onboardingScore = c.email === 'github-actions' ? 97 : (Math.floor(Math.random() * (95 - 75 + 1)) + 75);
-                const impact = c.commitCount * 12;
-                const stability = 100 - Math.round((data.summary.churnRate || 0.1) * 100);
+                // Use per-contributor stability from core
+                const stability = c.stability || 85;
+                // Impact is now real insertion count
+                const impact = c.insertions || 0;
+                // Onboarding score: crude estimate based on stability and commit volume
+                const onboardingScore = Math.min(98, Math.round((stability * 0.6) + (Math.min(c.commitCount, 50) * 0.8)));
 
                 tr.innerHTML = `
                     <td>
                         <div class="author-cell">
                             <div class="author-avatar-mini"></div>
-                            <span>${c.name.split(' ')[0].toUpperCase()}</span>
+                            <span>${(c.name || 'Unknown').split(' ')[0].toUpperCase()}</span>
                         </div>
                     </td>
                     <td>${c.commitCount}</td>

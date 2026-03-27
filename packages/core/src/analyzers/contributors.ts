@@ -14,6 +14,9 @@ export function analyzeContributors(commits: GitCommit[]): ContributorReport {
       email: string;
       commitCount: number;
       files: Set<string>;
+      insertions: number;
+      deletions: number;
+      totalFilesAcrossCommits: number;
       first: string;
       last: string;
       days: Set<string>;
@@ -26,12 +29,19 @@ export function analyzeContributors(commits: GitCommit[]): ContributorReport {
       email: commit.author.email,
       commitCount: 0,
       files: new Set<string>(),
+      insertions: 0,
+      deletions: 0,
+      totalFilesAcrossCommits: 0,
       first: commit.date,
       last: commit.date,
       days: new Set<string>(),
     };
 
     existing.commitCount++;
+    existing.insertions += commit.insertions || 0;
+    existing.deletions += commit.deletions || 0;
+    existing.totalFilesAcrossCommits += commit.files.length;
+
     if (new Date(commit.date) < new Date(existing.first)) existing.first = commit.date;
     if (new Date(commit.date) > new Date(existing.last)) existing.last = commit.date;
 
@@ -41,15 +51,24 @@ export function analyzeContributors(commits: GitCommit[]): ContributorReport {
     contributorMap.set(commit.author.email, existing);
   }
 
-  const contributors: ContributorDetail[] = Array.from(contributorMap.values()).map((data) => ({
-    name: data.name,
-    email: data.email,
-    commitCount: data.commitCount,
-    filesChanged: data.files.size,
-    firstCommit: data.first,
-    lastCommit: data.last,
-    activeDays: data.days.size,
-  }));
+  const contributors: ContributorDetail[] = Array.from(contributorMap.values()).map((data) => {
+    // Stability per author: based on commit atomicity
+    const avgFilesPerCommit = data.commitCount > 0 ? (data.totalFilesAcrossCommits / data.commitCount) : 0;
+    const stability = Math.max(20, Math.min(100, Math.round(100 - (avgFilesPerCommit * 5))));
+
+    return {
+      name: data.name,
+      email: data.email,
+      commitCount: data.commitCount,
+      filesChanged: data.files.size,
+      firstCommit: data.first,
+      lastCommit: data.last,
+      activeDays: data.days.size,
+      insertions: data.insertions,
+      deletions: data.deletions,
+      stability
+    };
+  });
 
   return {
     contributors,

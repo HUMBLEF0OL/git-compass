@@ -160,7 +160,7 @@ const server = http.createServer(async (req, res) => {
         const dependency = analyzeDependencyChurn(filteredCommits);
         
         // Review Debt
-        const review = analyzeReviewDebt(filteredCommits);
+        const review = analyzeReviewDebt(rawCommits);
 
         // Risk & Health
         const risk = analyzeRisk(hotspots.hotspots);

@@ -168,19 +168,25 @@ export function printConsoleReport(
     if (contributors.length > 0) {
       console.log(chalk.green.bold("\nTop Contributors"));
       const contribData = [
-        [chalk.bold("Author"), chalk.bold("Commits"), chalk.bold("Activity"), chalk.bold("Status")],
+        [
+          chalk.bold("Author"),
+          chalk.bold("Commits"),
+          chalk.bold("Impact"),
+          chalk.bold("Stability"),
+          chalk.bold("Status")
+        ],
       ];
 
       contributors.slice(0, limit).forEach((c) => {
         const burnoutInfo = burnout.contributors.find((b) => b.email === c.email);
-        const isBurnedOut =
-          burnoutInfo && (burnoutInfo.riskLevel === 'high');
+        const isBurnedOut = burnoutInfo && burnoutInfo.riskLevel === "high";
 
         contribData.push([
           chalk.white(c.name),
           chalk.green(c.commitCount.toString()),
-          chalk.cyan(`${c.activeDays} days`),
-          isBurnedOut ? chalk.bgRed.white.bold(" BURNOUT ") : chalk.bgGreen.black.bold(" STABLE "),
+          chalk.yellow(`+${c.insertions || 0}`),
+          chalk.magenta(`${c.stability || 0}%`),
+          isBurnedOut ? chalk.bgRed.white.bold(" BURNOUT ") : chalk.bgGreen.black.bold(" ACTIVE "),
         ]);
       });
       console.log(table(contribData, { border: getBorderCharacters("ramac") }));

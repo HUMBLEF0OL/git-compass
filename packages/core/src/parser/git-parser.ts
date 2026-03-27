@@ -105,11 +105,17 @@ export async function getCommitsSince(
        args.push(since);
        args.push("HEAD");
     } else {
-      const days = parseInt(since, 10);
-      if (isPureNumber && !isNaN(days)) {
+      const daysStr = since.toLowerCase();
+      if (daysStr.endsWith("d")) {
+        const days = daysStr.slice(0, -1);
         args.push(`--since=${days} days ago`);
       } else {
-        args.push(`--since=${since}`);
+        const days = parseInt(since, 10);
+        if (isPureNumber && !isNaN(days)) {
+          args.push(`--since=${days} days ago`);
+        } else {
+          args.push(`--since=${since}`);
+        }
       }
     }
   }
@@ -120,17 +126,37 @@ export async function getCommitsSince(
 
   const logResult = await git.log(args);
   
+  // Fetch parents separately to avoid breaking simple-git's diff parser
+  const parentArgs = args.filter(arg => !arg.startsWith('--stat'));
+  const parentsRaw = await git.raw(['log', ...parentArgs, '--format=%H %P']);
+  const parentMap = new Map<string, string[]>();
+  
+  parentsRaw.split('\n').forEach(line => {
+    const parts = line.trim().split(' ');
+    const hash = parts[0];
+    if (hash) {
+      parentMap.set(hash, parts.slice(1));
+    }
+  });
+  
   return logResult.all.map((commit: any) => {
+    const hash = commit.hash;
+    const parents = parentMap.get(hash) || [];
+    // Combine subject and body for full message analysis
+    const fullMessage = commit.body ? `${commit.message}\n\n${commit.body}` : commit.message;
+
     return {
-      hash: commit.hash,
-      parents: commit.parents || [],
+      hash,
+      parents,
       author: {
         name: commit.author_name || 'Unknown',
         email: commit.author_email || 'unknown@example.com'
       },
       date: commit.date,
-      message: commit.message,
-      files: commit.diff ? commit.diff.files.map((f: any) => f.file).filter(Boolean) : []
+      message: fullMessage,
+      files: commit.diff ? commit.diff.files.map((f: any) => f.file).filter(Boolean) : [],
+      insertions: commit.diff?.insertions || 0,
+      deletions: commit.diff?.deletions || 0
     } as GitCommit;
   });
 }
