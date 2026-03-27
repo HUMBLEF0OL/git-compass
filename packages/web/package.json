@@ -1,6 +1,6 @@
 {
   "name": "@git-compass/web",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "private": false,
   "type": "module",
   "description": "Interactive HTML dashboard and local API server for Git Compass.",

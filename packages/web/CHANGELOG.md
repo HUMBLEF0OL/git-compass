@@ -1,5 +1,16 @@
 # @git-compass/web
 
+## 2.6.0
+
+### Minor Changes
+
+- 7280b85: Metric fix for web
+
+### Patch Changes
+
+- Updated dependencies [7280b85]
+  - @git-compass/core@2.2.0
+
 ## 2.5.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @grotto/core
 
+## 2.2.0
+
+### Minor Changes
+
+- 7280b85: Metric fix for web
+
 ## 2.1.0
 
 ### Minor Changes
